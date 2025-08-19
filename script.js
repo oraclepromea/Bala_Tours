@@ -27,19 +27,130 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Header background change on scroll
+// Header scroll effect
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.header');
     if (window.scrollY > 100) {
         header.style.background = 'rgba(255, 255, 255, 0.98)';
-        header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.15)';
+        header.style.boxShadow = '0 2px 25px rgba(0, 0, 0, 0.15)';
     } else {
         header.style.background = 'rgba(255, 255, 255, 0.95)';
         header.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
     }
 });
 
-// Animate elements on scroll
+// Tab functionality for itineraries
+document.addEventListener('DOMContentLoaded', function() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove active class from all buttons and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+
+            // Add active class to clicked button
+            button.classList.add('active');
+
+            // Show corresponding content
+            const targetTab = button.getAttribute('data-tab');
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+});
+
+// Booking form handling
+document.getElementById('booking-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    // Get form data
+    const formData = new FormData(this);
+    const bookingData = {};
+    
+    formData.forEach((value, key) => {
+        bookingData[key] = value;
+    });
+    
+    // Basic validation
+    if (!bookingData.name || !bookingData.email || !bookingData.tour || !bookingData['group-size']) {
+        alert('Please fill in all required fields marked with *');
+        return;
+    }
+    
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(bookingData.email)) {
+        alert('Please enter a valid email address');
+        return;
+    }
+    
+    // Show loading state
+    const submitBtn = this.querySelector('.submit-btn');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Request...';
+    submitBtn.disabled = true;
+    
+    // Simulate form submission (replace with actual backend integration)
+    setTimeout(() => {
+        // Create mailto link for now (until backend is set up)
+        const subject = encodeURIComponent(`Tour Booking Request - ${bookingData.tour}`);
+        const body = encodeURIComponent(`
+Dear Bala Tours,
+
+I would like to request a quote and check availability for the following tour:
+
+Name: ${bookingData.name}
+Email: ${bookingData.email}
+Phone: ${bookingData.phone || 'Not provided'}
+Tour Package: ${bookingData.tour}
+Preferred Start Date: ${bookingData['preferred-date'] || 'Flexible'}
+Group Size: ${bookingData['group-size']} people
+Special Requests: ${bookingData['special-requests'] || 'None'}
+
+Please contact me with availability and final pricing.
+
+Best regards,
+${bookingData.name}
+        `);
+        
+        window.location.href = `mailto:balatours@yahoo.com?subject=${subject}&body=${body}`;
+        
+        // Reset form
+        this.reset();
+        
+        // Show success message
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message';
+        successDiv.style.cssText = `
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            text-align: center;
+            font-weight: 600;
+            animation: fadeInUp 0.5s ease;
+        `;
+        successDiv.innerHTML = '<i class="fas fa-check-circle"></i> Request sent! We\'ll respond within 24 hours.';
+        
+        this.appendChild(successDiv);
+        
+        // Remove success message after 5 seconds
+        setTimeout(() => {
+            successDiv.remove();
+        }, 5000);
+        
+        // Reset button
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 2000);
+});
+
+// Scroll animations
 const observerOptions = {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px'
@@ -54,361 +165,266 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, observerOptions);
 
-// Observe elements for animation
+// Apply scroll animations to elements
 document.addEventListener('DOMContentLoaded', () => {
-    const animateElements = document.querySelectorAll('.service-card, .destination-card, .feature, .ecolodge-card, .tour-card');
+    const animateElements = document.querySelectorAll(
+        '.feature, .service-card, .destination-card, .tour-card, .testimonial-card, .trust-card, .ecolodge-card'
+    );
     
-    animateElements.forEach(el => {
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(30px)';
-        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-        observer.observe(el);
+    animateElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(element);
     });
 });
 
-// Contact form handling
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form data
-        const name = this.querySelector('input[type="text"]').value;
-        const email = this.querySelector('input[type="email"]').value;
-        const tourInterest = this.querySelector('select').value;
-        const preferredDate = this.querySelector('input[type="date"]').value;
-        const numPeople = this.querySelector('input[type="number"]').value;
-        const message = this.querySelector('textarea').value;
-        
-        // Simple validation
-        if (!name || !email || !tourInterest) {
-            showNotification('Please fill in the required fields (Name, Email, Tour Interest)', 'error');
-            return;
-        }
-        
-        if (!isValidEmail(email)) {
-            showNotification('Please enter a valid email address', 'error');
-            return;
-        }
-        
-        if (numPeople && (numPeople < 2 || numPeople > 6)) {
-            showNotification('Group size must be between 2-6 people', 'error');
-            return;
-        }
-        
-        // Format the inquiry message
-        let inquiryDetails = `Tour Inquiry from ${name}\n\n`;
-        inquiryDetails += `Email: ${email}\n`;
-        inquiryDetails += `Tour Interest: ${tourInterest}\n`;
-        if (preferredDate) inquiryDetails += `Preferred Date: ${preferredDate}\n`;
-        if (numPeople) inquiryDetails += `Number of People: ${numPeople}\n`;
-        if (message) inquiryDetails += `\nAdditional Information:\n${message}`;
-        
-        // Simulate form submission with detailed success message
-        showNotification('¡Gracias! Your tour inquiry has been received. We will contact you within 24 hours to discuss your Amazon adventure in Bolivia!', 'success');
-        this.reset();
+// Gallery hover effects
+document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('mouseenter', function() {
+        this.querySelector('img').style.filter = 'brightness(0.7)';
     });
-}
-
-// Email validation function
-function isValidEmail(email) {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-}
-
-// Notification system
-function showNotification(message, type = 'info') {
-    // Remove existing notifications
-    const existingNotification = document.querySelector('.notification');
-    if (existingNotification) {
-        existingNotification.remove();
-    }
     
-    // Create notification element
-    const notification = document.createElement('div');
-    notification.className = `notification notification-${type}`;
-    notification.innerHTML = `
-        <div class="notification-content">
-            <span class="notification-message">${message}</span>
-            <button class="notification-close">&times;</button>
+    item.addEventListener('mouseleave', function() {
+        this.querySelector('img').style.filter = 'brightness(1)';
+    });
+});
+
+// Counter animation for stats (if you want to add them later)
+function animateCounter(element, target, duration = 2000) {
+    let start = 0;
+    const increment = target / (duration / 16);
+    
+    const timer = setInterval(() => {
+        start += increment;
+        element.textContent = Math.floor(start);
+        
+        if (start >= target) {
+            element.textContent = target;
+            clearInterval(timer);
+        }
+    }, 16);
+}
+
+// Add floating WhatsApp button functionality
+function addWhatsAppButton() {
+    const whatsappBtn = document.createElement('a');
+    whatsappBtn.href = 'https://wa.me/59171245281?text=Hello! I\'m interested in booking a tour with Bala Tours.';
+    whatsappBtn.target = '_blank';
+    whatsappBtn.className = 'whatsapp-float';
+    whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i>';
+    whatsappBtn.style.cssText = `
+        position: fixed;
+        width: 60px;
+        height: 60px;
+        bottom: 20px;
+        right: 20px;
+        background: #25d366;
+        color: white;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 30px;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        animation: pulse 2s infinite;
+    `;
+    
+    // Add hover effect
+    whatsappBtn.addEventListener('mouseenter', function() {
+        this.style.transform = 'scale(1.1)';
+        this.style.boxShadow = '2px 2px 15px rgba(0,0,0,0.3)';
+    });
+    
+    whatsappBtn.addEventListener('mouseleave', function() {
+        this.style.transform = 'scale(1)';
+        this.style.boxShadow = '2px 2px 10px rgba(0,0,0,0.2)';
+    });
+    
+    document.body.appendChild(whatsappBtn);
+    
+    // Add pulse animation CSS
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+    `;
+    document.head.appendChild(style);
+}
+
+// Initialize WhatsApp button
+document.addEventListener('DOMContentLoaded', addWhatsAppButton);
+
+// Add booking modal functionality
+function createBookingModal() {
+    const modal = document.createElement('div');
+    modal.className = 'booking-modal';
+    modal.style.cssText = `
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0,0,0,0.5);
+        backdrop-filter: blur(5px);
+    `;
+    
+    const modalContent = document.createElement('div');
+    modalContent.className = 'modal-content';
+    modalContent.style.cssText = `
+        background: white;
+        margin: 5% auto;
+        padding: 0;
+        border-radius: 15px;
+        width: 90%;
+        max-width: 600px;
+        max-height: 80vh;
+        overflow-y: auto;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        animation: modalSlideIn 0.3s ease;
+    `;
+    
+    modalContent.innerHTML = `
+        <div class="modal-header" style="background: linear-gradient(135deg, #2d7a2d 0%, #1a5a1a 100%); color: white; padding: 2rem; border-radius: 15px 15px 0 0;">
+            <h3 style="margin: 0; font-size: 1.5rem;">Quick Booking</h3>
+            <span class="close" style="position: absolute; right: 1.5rem; top: 1.5rem; font-size: 2rem; cursor: pointer; color: white; opacity: 0.8;">&times;</span>
+        </div>
+        <div class="modal-body" style="padding: 2rem;">
+            <p style="color: #666; margin-bottom: 2rem; text-align: center;">Fill out this form and we'll get back to you within 24 hours with availability and pricing.</p>
+            ${document.querySelector('.contact-form').innerHTML}
         </div>
     `;
     
-    // Add styles
-    notification.style.cssText = `
-        position: fixed;
-        top: 100px;
-        right: 20px;
-        background: ${type === 'success' ? '#4CAF50' : type === 'error' ? '#f44336' : '#2196F3'};
-        color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        z-index: 10000;
-        transform: translateX(100%);
-        transition: transform 0.3s ease;
-        max-width: 400px;
-        word-wrap: break-word;
-    `;
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
     
-    document.body.appendChild(notification);
-    
-    // Animate in
-    setTimeout(() => {
-        notification.style.transform = 'translateX(0)';
-    }, 100);
-    
-    // Close button functionality
-    const closeBtn = notification.querySelector('.notification-close');
+    // Close modal functionality
+    const closeBtn = modal.querySelector('.close');
     closeBtn.addEventListener('click', () => {
-        notification.style.transform = 'translateX(100%)';
-        setTimeout(() => notification.remove(), 300);
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
     });
     
-    // Auto remove after 5 seconds
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.style.transform = 'translateX(100%)';
-            setTimeout(() => notification.remove(), 300);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
-    }, 5000);
+    });
+    
+    return modal;
 }
 
-// Parallax effect for hero section
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const hero = document.querySelector('.hero');
-    if (hero) {
-        const rate = scrolled * -0.5;
-        hero.style.transform = `translateY(${rate}px)`;
+// Add modal CSS animation
+const modalStyle = document.createElement('style');
+modalStyle.textContent = `
+    @keyframes modalSlideIn {
+        from {
+            transform: translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
     }
-});
-
-// Service card hover effects
-document.querySelectorAll('.service-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// Destination card hover effects
-document.querySelectorAll('.destination-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        const img = this.querySelector('.destination-image img');
-        if (img) {
-            img.style.transform = 'scale(1.1)';
-        }
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        const img = this.querySelector('.destination-image img');
-        if (img) {
-            img.style.transform = 'scale(1)';
-        }
-    });
-});
-
-// Loading animation
-window.addEventListener('load', () => {
-    document.body.classList.add('loaded');
-    
-    // Add loading styles if they don't exist
-    if (!document.querySelector('#loading-styles')) {
-        const style = document.createElement('style');
-        style.id = 'loading-styles';
-        style.textContent = `
-            body:not(.loaded) {
-                overflow: hidden;
-            }
-            body:not(.loaded)::before {
-                content: '';
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                z-index: 9999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-            body:not(.loaded)::after {
-                content: 'Welcome to Amazonia Bolivia...';
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                color: white;
-                font-size: 1.5rem;
-                font-weight: 600;
-                z-index: 10000;
-                animation: pulse 2s infinite;
-            }
-            @keyframes pulse {
-                0%, 100% { opacity: 1; }
-                50% { opacity: 0.5; }
-            }
-        `;
-        document.head.appendChild(style);
-    }
-});
-
-// Add click-to-call functionality for phone numbers
-document.querySelectorAll('.contact-item').forEach(item => {
-    const text = item.textContent;
-    if (text.includes('+1') || text.includes('(')) {
-        item.style.cursor = 'pointer';
-        item.addEventListener('click', () => {
-            const phoneNumber = text.replace(/\D/g, '');
-            if (phoneNumber) {
-                window.location.href = `tel:+${phoneNumber}`;
-            }
-        });
-    }
-});
-
-// Add email functionality
-document.querySelectorAll('.contact-item').forEach(item => {
-    const text = item.textContent;
-    if (text.includes('@')) {
-        item.style.cursor = 'pointer';
-        item.addEventListener('click', () => {
-            const email = text.trim();
-            window.location.href = `mailto:${email}`;
-        });
-    }
-});
-
-// Enhanced phone and email functionality for Bolivia contact info
-document.addEventListener('DOMContentLoaded', () => {
-    // Add click-to-call functionality for Bolivian phone numbers
-    document.querySelectorAll('.contact-item').forEach(item => {
-        const text = item.textContent;
-        if (text.includes('+591')) {
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => {
-                const phoneNumber = text.match(/\+591[\s\d-]+/)[0].replace(/\s|-/g, '');
-                window.location.href = `tel:${phoneNumber}`;
-            });
-            item.title = 'Click to call';
-        }
-        
-        if (text.includes('@')) {
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => {
-                const email = text.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)[0];
-                window.location.href = `mailto:${email}?subject=Amazon Tour Inquiry - Bala Tours`;
-            });
-            item.title = 'Click to send email';
-        }
-        
-        if (text.includes('www.')) {
-            item.style.cursor = 'pointer';
-            item.addEventListener('click', () => {
-                const url = text.match(/www\.[a-zA-Z0-9.-]+/)[0];
-                window.open(`https://${url}`, '_blank');
-            });
-            item.title = 'Click to visit website';
-        }
-    });
-});
-
-// Lazy loading for images
-const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            const img = entry.target;
-            img.src = img.dataset.src || img.src;
-            img.classList.remove('lazy');
-            observer.unobserve(img);
-        }
-    });
-});
-
-document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
-});
-
-// Back to top button
-const backToTopButton = document.createElement('button');
-backToTopButton.innerHTML = '<i class="fas fa-chevron-up"></i>';
-backToTopButton.className = 'back-to-top';
-backToTopButton.style.cssText = `
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: #2c5aa0;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    z-index: 1000;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 12px rgba(44, 90, 160, 0.3);
 `;
+document.head.appendChild(modalStyle);
 
-document.body.appendChild(backToTopButton);
+// Form input enhancements
+document.addEventListener('DOMContentLoaded', () => {
+    // Set minimum date to today for date inputs
+    const dateInputs = document.querySelectorAll('input[type="date"]');
+    const today = new Date().toISOString().split('T')[0];
+    dateInputs.forEach(input => {
+        input.setAttribute('min', today);
+    });
+    
+    // Add focus effects to form inputs
+    const inputs = document.querySelectorAll('input, select, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.style.transform = 'translateY(-2px)';
+        });
+        
+        input.addEventListener('blur', function() {
+            this.parentElement.style.transform = 'translateY(0)';
+        });
+    });
+});
 
-window.addEventListener('scroll', () => {
-    if (window.pageYOffset > 300) {
-        backToTopButton.style.display = 'flex';
-    } else {
-        backToTopButton.style.display = 'none';
+// Add price calculator
+function calculateTourPrice(tour, groupSize, duration) {
+    const basePrices = {
+        'madidi-1day': 120,
+        'madidi-2day': 200,
+        'madidi-3day': 280,
+        'pampas-2day': 180,
+        'pampas-3day': 260,
+        'pampas-4day': 340,
+        'combined-5day': 440,
+        'combined-6day': 520,
+        'specialized': 320
+    };
+    
+    let basePrice = basePrices[tour] || 0;
+    let total = basePrice * parseInt(groupSize);
+    
+    // Group discounts
+    if (groupSize >= 4) {
+        total = total * 0.9; // 10% discount for 4+ people
+    } else if (groupSize >= 6) {
+        total = total * 0.85; // 15% discount for 6+ people
+    }
+    
+    return total;
+}
+
+// Live price update on form change
+document.addEventListener('change', function(e) {
+    if (e.target.name === 'tour' || e.target.name === 'group-size') {
+        const form = e.target.closest('form');
+        const tourSelect = form.querySelector('select[name="tour"]');
+        const groupSelect = form.querySelector('select[name="group-size"]');
+        
+        if (tourSelect.value && groupSelect.value) {
+            const price = calculateTourPrice(tourSelect.value, groupSelect.value);
+            
+            // Show estimated price
+            let priceDisplay = form.querySelector('.price-estimate');
+            if (!priceDisplay) {
+                priceDisplay = document.createElement('div');
+                priceDisplay.className = 'price-estimate';
+                priceDisplay.style.cssText = `
+                    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+                    color: white;
+                    padding: 1rem;
+                    border-radius: 10px;
+                    text-align: center;
+                    margin: 1rem 0;
+                    font-weight: 600;
+                `;
+                form.insertBefore(priceDisplay, form.querySelector('.submit-btn'));
+            }
+            
+            priceDisplay.innerHTML = `
+                <i class="fas fa-calculator"></i>
+                Estimated Total: $${price.toFixed(0)} USD
+                <small style="display: block; opacity: 0.9; font-size: 0.9rem; margin-top: 0.5rem;">
+                    Final price confirmed upon booking
+                </small>
+            `;
+        }
     }
 });
 
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-backToTopButton.addEventListener('mouseenter', () => {
-    backToTopButton.style.transform = 'translateY(-3px)';
-    backToTopButton.style.background = '#ff6b6b';
-});
-
-backToTopButton.addEventListener('mouseleave', () => {
-    backToTopButton.style.transform = 'translateY(0)';
-    backToTopButton.style.background = '#2c5aa0';
-});
-
-// Tour card interactions
-document.querySelectorAll('.tour-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-10px) scale(1.02)';
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        this.style.transform = 'translateY(0) scale(1)';
-    });
-});
-
-// Ecolodge card hover effects
-document.querySelectorAll('.ecolodge-card').forEach(card => {
-    card.addEventListener('mouseenter', function() {
-        const img = this.querySelector('.ecolodge-image img');
-        if (img) {
-            img.style.transform = 'scale(1.1)';
-        }
-    });
-    
-    card.addEventListener('mouseleave', function() {
-        const img = this.querySelector('.ecolodge-image img');
-        if (img) {
-            img.style.transform = 'scale(1)';
-        }
-    });
-});
+console.log('Bala Tours website loaded successfully! 🌿');
