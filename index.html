@@ -3,102 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bala Tours - Amazon Bolivia Ecolodges & Tours</title>
-    <meta name="description" content="Experience authentic Amazon adventures in Bolivia with Bala Tours. 21 years of sustainable tourism in Madidi National Park and Pampas del Yacuma.">
+    <title>Bala Tours - Authentic Amazon Adventures in Bolivia</title>
+    <meta name="description" content="Discover the Amazon with Bala Tours. Expert-guided wildlife adventures in the Pampas and Madidi National Park. Sustainable tourism, authentic experiences.">
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
-        <nav class="navbar">
-            <div class="nav-container">
-                <div class="nav-logo">
-                    <img src="Resources/Logo Bala ultimo 141024 OK.png" alt="Bala Tours Logo" class="logo">
-                    <span class="logo-text">Bala Tours</span>
-                </div>
-                <ul class="nav-menu">
-                    <li class="nav-item"><a href="#home" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
-                    <li class="nav-item"><a href="#ecolodges" class="nav-link">Ecolodges</a></li>
-                    <li class="nav-item"><a href="#tours" class="nav-link">Tours</a></li>
-                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
-                </ul>
-                <div class="hamburger">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
+        <nav class="nav-container">
+            <div class="nav-logo">
+                <img src="Resources/Logo Bala ultimo 141024 OK.png" alt="Bala Tours Logo" class="logo">
+                <span class="logo-text">Bala Tours</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link" data-translate="nav-home">Home</a></li>
+                <li><a href="#about" class="nav-link" data-translate="nav-about">About</a></li>
+                <li><a href="#tours" class="nav-link" data-translate="nav-tours">Tours</a></li>
+                <li><a href="#ecolodges" class="nav-link" data-translate="nav-ecolodges">Ecolodges</a></li>
+                <li><a href="#wildlife" class="nav-link" data-translate="nav-wildlife">Wildlife</a></li>
+                <li><a href="#contact" class="nav-link" data-translate="nav-contact">Contact</a></li>
+                <li><a href="https://buy.stripe.com/14k4ja9hJ6th8kEcMV" class="nav-link" target="_blank" rel="noopener noreferrer">Payment</a></li>
+            </ul>
+
+            <!-- Language Toggle Buttons -->
+            <div class="nav-language">
+                <button class="nav-lang-btn active" data-lang="en" title="English">
+                    🇺🇸 EN
+                </button>
+                <button class="nav-lang-btn" data-lang="es" title="Español">
+                    🇪🇸 ES
+                </button>
+            </div>
+
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
             </div>
         </nav>
     </header>
 
     <!-- Hero Section -->
-    <section id="home" class="hero" style="background-image: url('Images/hero image of monkey.jpg');">
+    <section id="home" class="hero">
         <div class="hero-content">
-            <h1 class="hero-title">Amazonia Bolivia</h1>
-            <p class="hero-subtitle">Experience authentic Amazon adventures in Madidi National Park and Pampas del Yacuma</p>
+            <h1 class="hero-title" data-translate="hero-title">Discover the Amazon with Bala Tours</h1>
+            <p class="hero-subtitle" data-translate="hero-subtitle">Authentic jungle experiences in the heart of Bolivia</p>
             
-            <!-- Spacer div to push content down -->
             <div class="hero-spacer"></div>
             
-            <p class="hero-tagline">21 years of certified sustainable tourism</p>
+            <p class="hero-tagline" data-translate="hero-tagline">Expert local guides • Sustainable tourism • Unforgettable wildlife encounters</p>
+            
             <div class="hero-buttons">
-                <a href="#tours" class="btn btn-primary">Explore Tours</a>
-                <a href="#contact" class="btn btn-secondary">Book Now</a>
+                <a href="#tours" class="btn btn-primary" data-translate="hero-btn-tours">Explore Tours</a>
+                <a href="#contact" class="btn btn-secondary" data-translate="hero-btn-contact">Contact Us</a>
             </div>
         </div>
-        <div class="hero-overlay"></div>
     </section>
 
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">About Bala Tours</h2>
-                <p class="section-subtitle">Certified company in sustainable tourism responsible practices</p>
+                <h2 class="section-title" data-translate="about-title">About Bala Tours</h2>
+                <p class="section-subtitle" data-translate="about-subtitle">Your trusted partner for authentic Amazon experiences</p>
             </div>
+
             <div class="about-content">
                 <div class="about-text">
-                    <p>Bala Tours was founded 21 years ago with the goal of providing excellent, environmental and social responsible tourism services in the Bolivian Amazon.</p>
-                    <p>We operate with a team of local well-trained and experienced guides born in the region. In order to guarantee the quality of our services, we work with small groups. You will not only see the natural beauties of this region, but also learn about the secrets of nature and about our history and traditions.</p>
-                    <p>Bala Tours has been certified by the Municipal Government of Rurrenabaque for fulfilling sustainable tourism guidelines. These guidelines include environmental, social and responsible management standards.</p>
+                    <h3 data-translate="about-intro-title">Welcome to the Heart of the Amazon</h3>
+                    <p data-translate="about-intro-text">Bala Tours has been leading extraordinary jungle expeditions in the Bolivian Amazon for over a decade. We are a family-run business committed to providing authentic, sustainable, and safe wildlife experiences that connect you with the incredible biodiversity of the Pampas and Madidi National Park.</p>
+                    <p data-translate="about-mission-text">Our mission is to share the wonders of the Amazon while supporting local communities and conservation efforts. Every tour is carefully designed to maximize wildlife encounters while minimizing environmental impact.</p>
                 </div>
-                
-                <!-- Bala Tours Team Image -->
+
                 <div class="about-image">
-                    <img src="Images/WhatsApp Image 2025-08-19 at 08.21.53 (2).jpeg" alt="Bala Tours Team - Professional Amazon Guides" class="team-image">
+                    <img src="Images/staff photo.jpg" alt="Bala Tours Team" class="team-image">
                     <div class="image-caption">
-                        <p><i class="fas fa-users"></i> Our professional team of local guides with over 21 years of Amazon expertise</p>
+                        <p data-translate="about-image-caption"><i class="fas fa-users"></i> Our experienced team of local guides and nature experts</p>
                     </div>
                 </div>
-                
+
                 <div class="about-features">
                     <div class="feature">
-                        <i class="fas fa-users"></i>
-                        <h4>Small Groups</h4>
-                        <p>Maximum 6 people for personalized experiences</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-leaf"></i>
-                        <h4>Environmental Sensitivity</h4>
-                        <p>Certified sustainable tourism practices</p>
+                        <i class="fas fa-user-tie"></i>
+                        <h4 data-translate="feature-expert-title">Expert Local Guides</h4>
+                        <p data-translate="feature-expert-text">Our experienced guides are born and raised in the Amazon, with deep knowledge of wildlife behavior and jungle survival.</p>
                     </div>
                     <div class="feature">
                         <i class="fas fa-shield-alt"></i>
-                        <h4>Safety & Punctuality</h4>
-                        <p>Professional service with experienced local guides</p>
+                        <h4 data-translate="feature-safety-title">Safety First</h4>
+                        <p data-translate="feature-safety-text">All tours include safety equipment, first aid kits, and our guides are certified in wilderness first aid.</p>
                     </div>
                     <div class="feature">
-                        <i class="fas fa-award"></i>
-                        <h4>Excellent Food</h4>
-                        <p>Quality meals and comfortable lodging facilities</p>
+                        <i class="fas fa-leaf"></i>
+                        <h4 data-translate="feature-sustainable-title">Sustainable Tourism</h4>
+                        <p data-translate="feature-sustainable-text">We work closely with local communities to ensure our tours benefit both visitors and the environment.</p>
                     </div>
                 </div>
+
                 <div class="certifications">
-                    <p><i class="fas fa-certificate"></i> Member of CANOTUR (National Tourism Chamber)</p>
-                    <p><i class="fas fa-certificate"></i> Certified by Municipality of Rurrenabaque</p>
+                    <p data-translate="cert-licensed"><i class="fas fa-certificate"></i> Licensed Tour Operator</p>
+                    <p data-translate="cert-safety"><i class="fas fa-first-aid"></i> Safety Certified Guides</p>
+                    <p data-translate="cert-community"><i class="fas fa-handshake"></i> Community Partnership Program</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amazing Wildlife You'll Encounter Section -->
+    <section id="wildlife" class="wildlife-gallery-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title" data-translate="wildlife-title">Amazing Wildlife</h2>
+                <p class="section-subtitle" data-translate="wildlife-subtitle">Discover the incredible biodiversity of the Amazon</p>
+            </div>
+            <div class="wildlife-large-gallery">
+                <div class="wildlife-large-item">
+                    <img src="Images/Pink river dolphin.JPG" alt="Pink River Dolphins">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-dolphins-title">Pink River Dolphins</h3>
+                        <p data-translate="wildlife-dolphins-desc">Swim with these amazing creatures in the pristine waters of Pampas del Yacuma. These intelligent mammals are unique to the Amazon basin and offer an unforgettable swimming experience.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/Macaw Good view.JPG" alt="Colorful Macaws">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-macaws-title">Colorful Macaws</h3>
+                        <p data-translate="wildlife-macaws-desc">Observe the rare and endemic Blue-throated Macaw, found only in Bolivia. This endangered species is a highlight for birdwatchers and conservation enthusiasts.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/capibara.jpg" alt="Capybaras">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-capybaras-title">Friendly Capybaras</h3>
+                        <p data-translate="wildlife-capybaras-desc">Meet the world's largest rodents in their natural habitat. These gentle giants are often seen lounging by the riverbanks and swimming in the waters.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/crocodile.jpg" alt="Caimans">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-caimans-title">Spectacular Caimans</h3>
+                        <p data-translate="wildlife-caimans-desc">Spot these impressive reptiles during night excursions. Our guides will safely show you caimans in their natural environment along the riverbanks.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/howler monkey.jpg" alt="Howler Monkeys">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-howler-title">Howler Monkeys</h3>
+                        <p data-translate="wildlife-howler-desc">Listen to the distinctive calls of howler monkeys echoing through the jungle canopy. These primates are among the loudest animals in the world.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/sloth.jpg" alt="Sloths">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-sloths-title">Three-Toed Sloths</h3>
+                        <p data-translate="wildlife-sloths-desc">Discover these slow-moving marvels hanging in the rainforest canopy. Sloths are masters of camouflage and energy conservation.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/baby monkey with mum.jpg" alt="Baby Monkeys">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-baby-monkeys-title">Baby Monkeys with Families</h3>
+                        <p data-translate="wildlife-baby-monkeys-desc">Witness heartwarming moments of monkey families in their natural habitat. Baby monkeys learning from their mothers is one of the most touching wildlife experiences.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/kingfisher.jpg" alt="Kingfisher Birds">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-kingfisher-title">Vibrant Kingfishers</h3>
+                        <p data-translate="wildlife-kingfisher-desc">Watch these colorful birds dive for fish along the riverbanks. The Amazon is home to multiple species of these beautiful fishing birds.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/butterfly.jpg" alt="Amazon Butterflies">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-butterflies-title">Exotic Butterflies</h3>
+                        <p data-translate="wildlife-butterflies-desc">Marvel at the incredible diversity of butterflies in the Amazon. From tiny jewel-like species to large morpho butterflies with brilliant blue wings.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/hawk.jpg" alt="Birds of Prey">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-hawks-title">Majestic Birds of Prey</h3>
+                        <p data-translate="wildlife-hawks-desc">Spot impressive hawks and other raptors soaring above the Amazon canopy. These skilled hunters are essential to the ecosystem's balance.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/Piranaha close up .jpg" alt="Piranhas">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-piranhas-title">Legendary Piranhas</h3>
+                        <p data-translate="wildlife-piranhas-desc">Try your hand at piranha fishing in the Amazon waters. Despite their reputation, these fish are fascinating creatures and surprisingly tasty when cooked!</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/frog.jpg" alt="Amazon Frogs">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-frogs-title">Colorful Tree Frogs</h3>
+                        <p data-translate="wildlife-frogs-desc">Discover the amazing variety of frogs in the Amazon rainforest. From tiny poison dart frogs to larger tree frogs, each species is uniquely adapted to jungle life.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/turtles.jpg" alt="River Turtles">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-turtles-title">Ancient River Turtles</h3>
+                        <p data-translate="wildlife-turtles-desc">Encounter these prehistoric creatures sunning themselves on logs and riverbanks. Some turtle species in the Amazon can live for over 100 years.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/tarantula.jpg" alt="Tarantulas">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-tarantulas-title">Amazonian Tarantulas</h3>
+                        <p data-translate="wildlife-tarantulas-desc">For the brave-hearted, observe these impressive spiders in their natural habitat. Tarantulas play an important role in controlling insect populations.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/capccino monkey.jpg" alt="Capuchin Monkeys">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-capuchin-title">Intelligent Capuchin Monkeys</h3>
+                        <p data-translate="wildlife-capuchin-desc">Watch these clever primates use tools and solve problems in the wild. Capuchin monkeys are among the most intelligent animals in the Amazon.</p>
+                    </div>
+                </div>
+                <div class="wildlife-large-item">
+                    <img src="Images/Exotic Birds.jpg" alt="Exotic Birds">
+                    <div class="wildlife-large-overlay">
+                        <h3 data-translate="wildlife-exotic-birds-title">Spectacular Exotic Birds</h3>
+                        <p data-translate="wildlife-exotic-birds-desc">The Amazon is home to over 1,300 bird species. From tiny hummingbirds to magnificent toucans, the diversity is absolutely breathtaking.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -108,39 +240,39 @@
     <section id="ecolodges" class="ecolodges">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Ecolodges</h2>
-                <p class="section-subtitle">Sustainable accommodations in protected areas</p>
+                <h2 class="section-title" data-translate="ecolodges-title">Our Ecolodges</h2>
+                <p class="section-subtitle" data-translate="ecolodges-subtitle">Comfortable accommodation in harmony with nature</p>
             </div>
             <div class="ecolodges-grid">
                 <div class="ecolodge-card">
                     <div class="ecolodge-image">
-                        <img src="Images/Ecolodge.png" alt="Tacuaral Ecolodge">
+                        <img src="Images/Ecolodge.png" alt="Pampas Eco Lodge">
                     </div>
                     <div class="ecolodge-content">
-                        <h3>Tacuaral Ecolodge</h3>
-                        <p class="location"><i class="fas fa-map-marker-alt"></i> Inside Madidi National Park</p>
-                        <p>Located on the shores of the Tuichi River, 3 hours by boat from Rurrenabaque. Experience the heart of one of the world's most biodiverse protected areas.</p>
+                        <h3 data-translate="ecolodge-pampas-title">Pampas Eco Lodge</h3>
+                        <p class="location" data-translate="ecolodge-pampas-location"><i class="fas fa-map-marker-alt"></i> Santa Rosa, Pampas</p>
+                        <p data-translate="ecolodge-pampas-description">Rustic wooden lodge on stilts overlooking the Yacuma River, designed to blend harmoniously with the wetland environment.</p>
                         <ul class="ecolodge-features">
-                            <li><i class="fas fa-solar-panel"></i> Solar panel illumination</li>
-                            <li><i class="fas fa-radio"></i> Radio communication</li>
-                            <li><i class="fas fa-bed"></i> Private cabins with bathroom</li>
-                            <li><i class="fas fa-shield-virus"></i> Mosquito net protection</li>
+                            <li data-translate="feature-beds"><i class="fas fa-bed"></i> Comfortable beds with mosquito nets</li>
+                            <li data-translate="feature-bathroom"><i class="fas fa-restroom"></i> Shared bathroom facilities</li>
+                            <li data-translate="feature-meals"><i class="fas fa-utensils"></i> Delicious local cuisine</li>
+                            <li data-translate="feature-terrace"><i class="fas fa-tree"></i> River view terrace</li>
                         </ul>
                     </div>
                 </div>
                 <div class="ecolodge-card">
                     <div class="ecolodge-image">
-                        <img src="Images/Eco lodge 2.jpeg" alt="Caracoles Ecolodge">
+                        <img src="Images/Eco lodge 2.jpeg" alt="Madidi Rainforest Lodge">
                     </div>
                     <div class="ecolodge-content">
-                        <h3>Caracoles Ecolodge</h3>
-                        <p class="location"><i class="fas fa-map-marker-alt"></i> Inside Pampas del Yacuma Protected Area</p>
-                        <p>Situated beside the Yacuma River, surrounded by savannas and forests. Perfect for wildlife observation including pink dolphins and the endemic Blue-throated Macaw.</p>
+                        <h3 data-translate="ecolodge-madidi-title">Madidi Rainforest Lodge</h3>
+                        <p class="location" data-translate="ecolodge-madidi-location"><i class="fas fa-map-marker-alt"></i> Madidi National Park</p>
+                        <p data-translate="ecolodge-madidi-description">Eco-friendly lodge deep in the rainforest, built with sustainable materials and powered by solar energy.</p>
                         <ul class="ecolodge-features">
-                            <li><i class="fas fa-utensils"></i> Professional kitchen</li>
-                            <li><i class="fas fa-couch"></i> Hammock and social areas</li>
-                            <li><i class="fas fa-leaf"></i> Ecological fumigation</li>
-                            <li><i class="fas fa-home"></i> Double and family cabins</li>
+                            <li data-translate="feature-solar"><i class="fas fa-solar-panel"></i> Solar power</li>
+                            <li data-translate="feature-sustainable"><i class="fas fa-leaf"></i> Sustainable construction</li>
+                            <li data-translate="feature-wildlife"><i class="fas fa-binoculars"></i> Wildlife viewing deck</li>
+                            <li data-translate="feature-guides"><i class="fas fa-user-tie"></i> On-site naturalist guides</li>
                         </ul>
                     </div>
                 </div>
@@ -152,8 +284,8 @@
     <section id="tours" class="tours">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Our Tours</h2>
-                <p class="section-subtitle">Authentic Amazon experiences</p>
+                <h2 class="section-title" data-translate="tours-title">Our Tours</h2>
+                <p class="section-subtitle" data-translate="tours-subtitle">Choose your perfect Amazon adventure</p>
             </div>
             <div class="tours-grid">
                 <div class="destination-card">
@@ -162,38 +294,44 @@
                         <div class="tour-badge">3-Day Tour</div>
                     </div>
                     <div class="destination-content">
-                        <h3>Madidi National Park</h3>
-                        <p class="tour-description">Explore one of the world's most biodiverse rainforests with expert indigenous guides. Discover rare wildlife, medicinal plants, and pristine jungle landscapes in this UNESCO Biosphere Reserve.</p>
+                        <h3 data-translate="madidi-title">Madidi Jungle Expedition</h3>
+                        <div class="tour-badge-inline" data-translate="madidi-badge">Adventure</div>
+                        <p class="tour-description" data-translate="madidi-description">Explore one of the world's most biodiverse national parks with pristine rainforest, exotic wildlife, and indigenous communities.</p>
                         
                         <div class="tour-highlights">
-                            <h4><i class="fas fa-star"></i> Tour Highlights</h4>
+                            <h4><i class="fas fa-star"></i> <span data-translate="tour-highlights">Tour Highlights</span></h4>
                             <ul>
-                                <li><i class="fas fa-leaf"></i> Medicinal plant workshops with local guides</li>
-                                <li><i class="fas fa-binoculars"></i> Bird watching (400+ species)</li>
-                                <li><i class="fas fa-moon"></i> Night jungle walks and sounds</li>
-                                <li><i class="fas fa-users"></i> Indigenous community visits</li>
-                                <li><i class="fas fa-camera"></i> Macaw clay-lick observation</li>
+                                <li data-translate="madidi-highlight1"><i class="fas fa-leaf"></i> Pristine rainforest exploration</li>
+                                <li data-translate="madidi-highlight2"><i class="fas fa-binoculars"></i> Exotic bird and mammal spotting</li>
+                                <li data-translate="madidi-highlight3"><i class="fas fa-users"></i> Indigenous community visits</li>
+                                <li data-translate="madidi-highlight4"><i class="fas fa-tree"></i> Canopy walks and river trails</li>
+                                <li data-translate="madidi-highlight5"><i class="fas fa-spa"></i> Medicinal plant workshops</li>
+                                <li data-translate="madidi-highlight6"><i class="fas fa-moon"></i> Night jungle sounds tour</li>
                             </ul>
                         </div>
                         
                         <div class="tour-details">
                             <div class="detail-item">
                                 <i class="fas fa-clock"></i>
-                                <span><strong>Duration:</strong> 1-3 days available</span>
+                                <span><strong data-translate="tour-duration">Duration:</strong> <span data-translate="madidi-duration">4 Days / 3 Nights</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-signal"></i>
+                                <span><strong data-translate="tour-difficulty">Difficulty:</strong> <span data-translate="madidi-difficulty">Moderate to Challenging</span></span>
                             </div>
                             <div class="detail-item">
                                 <i class="fas fa-users"></i>
-                                <span><strong>Group Size:</strong> 2-6 people</span>
+                                <span><strong data-translate="tour-group-size">Group Size:</strong> <span data-translate="madidi-group">Up to 6 people</span></span>
                             </div>
                             <div class="detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span><strong>Location:</strong> Madidi National Park</span>
+                                <i class="fas fa-check"></i>
+                                <span><strong data-translate="tour-includes">Includes:</strong> <span data-translate="madidi-includes">Transportation, eco-lodge, all meals, guide, activities</span></span>
                             </div>
                         </div>
                         
-                        <div class="destination-price">From $120/day</div>
-                        <a href="https://wa.me/59171245281?text=Hi%20Bala%20Tours!%20I'm%20interested%20in%20booking%20a%20Madidi%20National%20Park%20jungle%20tour.%20Could%20you%20please%20send%20me%20more%20information%20about%20availability%20and%20detailed%20itinerary?" class="btn btn-whatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Book Madidi Tour
+                        <div class="destination-price" data-translate="madidi-price">From $280 USD per person</div>
+                        <a href="https://wa.me/59171245281?text=Hi%20Bala%20Tours!%20I'm%20interested%20in%20booking%20a%20Madidi%20National%20Park%20jungle%20tour.%20Could%20you%20please%20send%20me%20more%20information%20about%20availability%20and%20detailed%20itinerary?" class="btn btn-whatsapp" target="_blank" data-tour="Madidi Jungle Expedition">
+                            <i class="fab fa-whatsapp"></i> <span data-translate="tour-whatsapp">Book via WhatsApp</span>
                         </a>
                     </div>
                 </div>
@@ -201,83 +339,93 @@
                 <div class="destination-card">
                     <div class="destination-image">
                         <img src="Images/Boat Tour.JPG" alt="Pampas Wildlife Tours">
-                        <div class="tour-badge">3-Day Tour</div>
+                        <div class="tour-badge" data-translate="pampas-badge">Most Popular</div>
                     </div>
                     <div class="destination-content">
-                        <h3>Pampas Wildlife Tours</h3>
-                        <p class="tour-description">Navigate the wetlands and observe incredible wildlife including pink dolphins, caimans, capybaras, and hundreds of bird species. Experience the unique ecosystem of Bolivia's tropical savanna.</p>
+                        <h3 data-translate="pampas-title">Pampas Wildlife Adventure</h3>
+                        <p class="tour-description" data-translate="pampas-description">Experience the incredible biodiversity of the Pampas wetlands, home to pink dolphins, caimans, capybaras, and hundreds of bird species.</p>
                         
                         <div class="tour-highlights">
-                            <h4><i class="fas fa-star"></i> Tour Highlights</h4>
+                            <h4><i class="fas fa-star"></i> <span data-translate="tour-highlights">Tour Highlights</span></h4>
                             <ul>
-                                <li><i class="fas fa-dolphin"></i> Swimming with pink river dolphins</li>
-                                <li><i class="fas fa-fish"></i> Piranha fishing experience</li>
-                                <li><i class="fas fa-eye"></i> Caiman spotting at night</li>
-                                <li><i class="fas fa-feather"></i> Blue-throated Macaw observation</li>
-                                <li><i class="fas fa-paw"></i> Capybara and anaconda encounters</li>
+                                <li data-translate="pampas-highlight1"><i class="fas fa-dolphin"></i> Pink river dolphin encounters</li>
+                                <li data-translate="pampas-highlight2"><i class="fas fa-eye"></i> Caiman spotting at night</li>
+                                <li data-translate="pampas-highlight3"><i class="fas fa-fish"></i> Piranha fishing adventure</li>
+                                <li data-translate="pampas-highlight4"><i class="fas fa-paw"></i> Capybara and monkey sightings</li>
+                                <li data-translate="pampas-highlight5"><i class="fas fa-feather"></i> Spectacular bird watching</li>
+                                <li data-translate="pampas-highlight6"><i class="fas fa-sun"></i> Sunset boat tours</li>
                             </ul>
                         </div>
                         
                         <div class="tour-details">
                             <div class="detail-item">
                                 <i class="fas fa-clock"></i>
-                                <span><strong>Duration:</strong> 2-4 days available</span>
+                                <span><strong data-translate="tour-duration">Duration:</strong> <span data-translate="pampas-duration">3 Days / 2 Nights</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-signal"></i>
+                                <span><strong data-translate="tour-difficulty">Difficulty:</strong> <span data-translate="pampas-difficulty">Easy to Moderate</span></span>
                             </div>
                             <div class="detail-item">
                                 <i class="fas fa-users"></i>
-                                <span><strong>Group Size:</strong> 2-6 people</span>
+                                <span><strong data-translate="tour-group-size">Group Size:</strong> <span data-translate="pampas-group">Up to 8 people</span></span>
                             </div>
                             <div class="detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span><strong>Location:</strong> Pampas del Yacuma</span>
+                                <i class="fas fa-check"></i>
+                                <span><strong data-translate="tour-includes">Includes:</strong> <span data-translate="pampas-includes">Transportation, accommodation, all meals, guide, activities</span></span>
                             </div>
                         </div>
                         
-                        <div class="destination-price">From $180/day</div>
-                        <a href="https://wa.me/59171245281?text=Hello%20Bala%20Tours!%20I%20would%20like%20to%20book%20a%20Pampas%20Wildlife%20Tour%20with%20pink%20dolphins.%20Please%20share%20available%20dates%20and%20complete%20tour%20details." class="btn btn-whatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Book Pampas Tour
+                        <div class="destination-price" data-translate="pampas-price">From $180 USD per person</div>
+                        <a href="https://wa.me/59171245281?text=Hello%20Bala%20Tours!%20I%20would%20like%20to%20book%20a%20Pampas%20Wildlife%20Tour%20with%20pink%20dolphins.%20Please%20share%20available%20dates%20and%20complete%20tour%20details." class="btn btn-whatsapp" target="_blank" data-tour="Pampas Wildlife Adventure">
+                            <i class="fab fa-whatsapp"></i> <span data-translate="tour-whatsapp">Book via WhatsApp</span>
                         </a>
                     </div>
                 </div>
 
                 <div class="destination-card">
                     <div class="destination-image">
-                        <img src="Images/baby monkey with mum.jpg" alt="Jungle Adventures">
-                        <div class="tour-badge">2-Day Tour</div>
+                        <img src="Images/baby monkey with mum.jpg" alt="Combined Amazon Experience">
+                        <div class="tour-badge" data-translate="combined-badge">Best Value</div>
                     </div>
                     <div class="destination-content">
-                        <h3>Jungle Adventures</h3>
-                        <p class="tour-description">Experience the Amazon canopy with guided walks, wildlife spotting, and authentic cultural exchanges with local communities. Perfect combination of adventure and cultural immersion.</p>
+                        <h3 data-translate="combined-title">Complete Amazon Experience</h3>
+                        <p class="tour-description" data-translate="combined-description">The ultimate Amazon adventure combining the wildlife-rich Pampas with the pristine rainforest of Madidi National Park.</p>
                         
                         <div class="tour-highlights">
-                            <h4><i class="fas fa-star"></i> Tour Highlights</h4>
+                            <h4><i class="fas fa-star"></i> <span data-translate="tour-highlights">Tour Highlights</span></h4>
                             <ul>
-                                <li><i class="fas fa-tree"></i> Canopy walks and rope bridges</li>
-                                <li><i class="fas fa-search"></i> Wildlife tracking expeditions</li>
-                                <li><i class="fas fa-home"></i> Traditional village experiences</li>
-                                <li><i class="fas fa-spa"></i> Natural medicine demonstrations</li>
-                                <li><i class="fas fa-campfire"></i> Jungle survival skills workshop</li>
+                                <li data-translate="combined-highlight1"><i class="fas fa-globe"></i> Best of both ecosystems</li>
+                                <li data-translate="combined-highlight2"><i class="fas fa-diversity"></i> Maximum wildlife diversity</li>
+                                <li data-translate="combined-highlight3"><i class="fas fa-water"></i> Pampas wetlands exploration</li>
+                                <li data-translate="combined-highlight4"><i class="fas fa-hiking"></i> Madidi rainforest trekking</li>
+                                <li data-translate="combined-highlight5"><i class="fas fa-handshake"></i> Cultural community interactions</li>
+                                <li data-translate="combined-highlight6"><i class="fas fa-camera"></i> Professional photography opportunities</li>
                             </ul>
                         </div>
                         
                         <div class="tour-details">
                             <div class="detail-item">
                                 <i class="fas fa-clock"></i>
-                                <span><strong>Duration:</strong> 2-5 days available</span>
+                                <span><strong data-translate="tour-duration">Duration:</strong> <span data-translate="combined-duration">6 Days / 5 Nights</span></span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-signal"></i>
+                                <span><strong data-translate="tour-difficulty">Difficulty:</strong> <span data-translate="combined-difficulty">Moderate</span></span>
                             </div>
                             <div class="detail-item">
                                 <i class="fas fa-users"></i>
-                                <span><strong>Group Size:</strong> 2-6 people</span>
+                                <span><strong data-translate="tour-group-size">Group Size:</strong> <span data-translate="combined-group">Up to 8 people</span></span>
                             </div>
                             <div class="detail-item">
-                                <i class="fas fa-map-marker-alt"></i>
-                                <span><strong>Location:</strong> Amazon Rainforest</span>
+                                <i class="fas fa-check"></i>
+                                <span><strong data-translate="tour-includes">Includes:</strong> <span data-translate="combined-includes">All transportation, accommodations, meals, guides, activities</span></span>
                             </div>
                         </div>
                         
-                        <div class="destination-price">From $160/day</div>
-                        <a href="https://wa.me/59171245281?text=Hi%20there!%20I'm%20interested%20in%20your%20Jungle%20Adventure%20tours%20with%20canopy%20walks%20and%20cultural%20experiences.%20Can%20you%20provide%20more%20details%20about%20the%20itinerary?" class="btn btn-whatsapp" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Book Jungle Tour
+                        <div class="destination-price" data-translate="combined-price">From $420 USD per person</div>
+                        <a href="https://wa.me/59171245281?text=Hi%20there!%20I'm%20interested%20in%20your%20Combined%20Amazon%20Tours%20package%20that%20includes%20both%20Madidi%20and%20Pampas%20experiences.%20Could%20you%20provide%20detailed%20itinerary%20and%20pricing%20information?" class="btn btn-whatsapp" target="_blank" data-tour="Complete Amazon Experience">
+                            <i class="fab fa-whatsapp"></i> <span data-translate="tour-whatsapp">Book via WhatsApp</span>
                         </a>
                     </div>
                 </div>
@@ -289,14 +437,14 @@
     <section class="pricing">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Tour Pricing & Inclusions</h2>
-                <p class="section-subtitle">Transparent pricing with everything you need to know</p>
+                <h2 class="section-title" data-translate="pricing-title">Tour Pricing & Inclusions</h2>
+                <p class="section-subtitle" data-translate="pricing-subtitle">Transparent pricing with everything you need to know</p>
             </div>
             
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3>Madidi Jungle Tours</h3>
+                        <h3 data-translate="pricing-madidi-title">Madidi Jungle Tours</h3>
                         <div class="pricing-options">
                             <div class="price-option">
                                 <span class="duration">1 Day</span>
@@ -313,26 +461,26 @@
                         </div>
                     </div>
                     <div class="inclusions">
-                        <h4><i class="fas fa-check-circle"></i> What's Included</h4>
+                        <h4><i class="fas fa-check-circle"></i> <span data-translate="pricing-whats-included">What's Included</span></h4>
                         <ul class="included-list">
-                            <li>Transportation by boat to/from Tacuaral Ecolodge</li>
-                            <li>Professional local guide (English/Spanish)</li>
-                            <li>All meals during the tour</li>
-                            <li>Accommodation at Tacuaral Ecolodge</li>
-                            <li>Guided jungle walks and wildlife observation</li>
-                            <li>Visit to Caquiahuara macaw clay-lick</li>
-                            <li>Night jungle experiences</li>
-                            <li>Medicinal plant demonstrations</li>
+                            <li data-translate="pricing-madidi-transport">Transportation by boat to/from Tacuaral Ecolodge</li>
+                            <li data-translate="pricing-guide">Professional local guide (English/Spanish)</li>
+                            <li data-translate="pricing-meals">All meals during the tour</li>
+                            <li data-translate="pricing-madidi-accommodation">Accommodation at Tacuaral Ecolodge</li>
+                            <li data-translate="pricing-madidi-walks">Guided jungle walks and wildlife observation</li>
+                            <li data-translate="pricing-madidi-macaw">Visit to Caquiahuara macaw clay-lick</li>
+                            <li data-translate="pricing-madidi-night">Night jungle experiences</li>
+                            <li data-translate="pricing-madidi-plants">Medicinal plant demonstrations</li>
                         </ul>
                     </div>
                     <a href="https://wa.me/59171245281?text=Hi%20Bala%20Tours!%20I'm%20interested%20in%20booking%20a%20Madidi%20National%20Park%20jungle%20tour.%20Could%20you%20please%20send%20me%20detailed%20pricing%20and%20availability%20for%20the%20dates%20I'm%20considering?" class="btn btn-whatsapp pricing-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Book Madidi Tour
+                        <i class="fab fa-whatsapp"></i> <span data-translate="pricing-book-madidi">Book Madidi Tour</span>
                     </a>
                 </div>
                 
                 <div class="pricing-card">
                     <div class="pricing-header">
-                        <h3>Pampas Wildlife Tours</h3>
+                        <h3 data-translate="pricing-pampas-title">Pampas Wildlife Tours</h3>
                         <div class="pricing-options">
                             <div class="price-option">
                                 <span class="duration">2 Days</span>
@@ -349,28 +497,28 @@
                         </div>
                     </div>
                     <div class="inclusions">
-                        <h4><i class="fas fa-check-circle"></i> What's Included</h4>
+                        <h4><i class="fas fa-check-circle"></i> <span data-translate="pricing-whats-included">What's Included</span></h4>
                         <ul class="included-list">
-                            <li>4WD transportation to/from Caracoles Ecolodge</li>
-                            <li>Professional local guide (English/Spanish)</li>
-                            <li>All meals during the tour</li>
-                            <li>Accommodation at Caracoles Ecolodge</li>
-                            <li>Boat excursions on Yacuma River</li>
-                            <li>Swimming with pink dolphins</li>
-                            <li>Piranha fishing experience</li>
-                            <li>Anaconda and caiman searching</li>
-                            <li>Birdwatching (Blue-throated Macaw)</li>
+                            <li data-translate="pricing-pampas-transport">4WD transportation to/from Caracoles Ecolodge</li>
+                            <li data-translate="pricing-guide">Professional local guide (English/Spanish)</li>
+                            <li data-translate="pricing-meals">All meals during the tour</li>
+                            <li data-translate="pricing-pampas-accommodation">Accommodation at Caracoles Ecolodge</li>
+                            <li data-translate="pricing-pampas-boat">Boat excursions on Yacuma River</li>
+                            <li data-translate="pricing-pampas-dolphins">Swimming with pink dolphins</li>
+                            <li data-translate="pricing-pampas-fishing">Piranha fishing experience</li>
+                            <li data-translate="pricing-pampas-anaconda">Anaconda and caiman searching</li>
+                            <li data-translate="pricing-pampas-birds">Birdwatching (Blue-throated Macaw)</li>
                         </ul>
                     </div>
                     <a href="https://wa.me/59171245281?text=Hello%20Bala%20Tours!%20I%20would%20like%20to%20book%20a%20Pampas%20Wildlife%20Tour%20with%20pink%20dolphins%20and%20wildlife%20viewing.%20Please%20share%20available%20dates%20and%20complete%20pricing%20details." class="btn btn-whatsapp pricing-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Book Pampas Tour
+                        <i class="fab fa-whatsapp"></i> <span data-translate="pricing-book-pampas">Book Pampas Tour</span>
                     </a>
                 </div>
                 
                 <div class="pricing-card featured">
-                    <div class="featured-badge">Most Popular</div>
+                    <div class="featured-badge" data-translate="pricing-most-popular">Most Popular</div>
                     <div class="pricing-header">
-                        <h3>Combined Tours</h3>
+                        <h3 data-translate="pricing-combined-title">Combined Tours</h3>
                         <div class="pricing-options">
                             <div class="price-option">
                                 <span class="duration">5 Days</span>
@@ -383,49 +531,49 @@
                         </div>
                     </div>
                     <div class="inclusions">
-                        <h4><i class="fas fa-check-circle"></i> What's Included</h4>
+                        <h4><i class="fas fa-check-circle"></i> <span data-translate="pricing-whats-included">What's Included</span></h4>
                         <ul class="included-list">
-                            <li>All transportation (boat & 4WD)</li>
-                            <li>Professional guides for both ecosystems</li>
-                            <li>All meals throughout the tour</li>
-                            <li>Accommodation at both ecolodges</li>
-                            <li>Complete jungle and pampas experiences</li>
-                            <li>Swimming with pink dolphins</li>
-                            <li>Macaw clay-lick observation</li>
-                            <li>Cultural community visits</li>
-                            <li>Night wildlife experiences</li>
+                            <li data-translate="pricing-combined-transport">All transportation (boat & 4WD)</li>
+                            <li data-translate="pricing-combined-guides">Professional guides for both ecosystems</li>
+                            <li data-translate="pricing-combined-meals">All meals throughout the tour</li>
+                            <li data-translate="pricing-combined-accommodation">Accommodation at both ecolodges</li>
+                            <li data-translate="pricing-combined-experiences">Complete jungle and pampas experiences</li>
+                            <li data-translate="pricing-pampas-dolphins">Swimming with pink dolphins</li>
+                            <li data-translate="pricing-combined-macaw">Macaw clay-lick observation</li>
+                            <li data-translate="pricing-combined-community">Cultural community visits</li>
+                            <li data-translate="pricing-combined-night">Night wildlife experiences</li>
                         </ul>
                     </div>
                     <a href="https://wa.me/59171245281?text=Hi%20there!%20I'm%20interested%20in%20your%20Combined%20Amazon%20Tours%20package%20that%20includes%20both%20Madidi%20and%20Pampas%20experiences.%20Could%20you%20provide%20detailed%20itinerary%20and%20pricing%20information?" class="btn btn-whatsapp pricing-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Book Combined Tour
+                        <i class="fab fa-whatsapp"></i> <span data-translate="pricing-book-combined">Book Combined Tour</span>
                     </a>
                 </div>
             </div>
             
             <div class="pricing-notes">
                 <div class="not-included">
-                    <h4><i class="fas fa-times-circle"></i> Not Included</h4>
+                    <h4><i class="fas fa-times-circle"></i> <span data-translate="pricing-not-included">Not Included</span></h4>
                     <ul>
-                        <li>Transportation to/from Rurrenabaque</li>
-                        <li>Park entrance fees (approx. $15 USD)</li>
-                        <li>Personal equipment (binoculars, camera)</li>
-                        <li>Travel insurance</li>
-                        <li>Alcoholic beverages</li>
-                        <li>Tips for guides (appreciated but not required)</li>
-                        <li>Personal expenses and souvenirs</li>
+                        <li data-translate="pricing-not-transport">Transportation to/from Rurrenabaque</li>
+                        <li data-translate="pricing-not-fees">Park entrance fees (approx. $15 USD)</li>
+                        <li data-translate="pricing-not-equipment">Personal equipment (binoculars, camera)</li>
+                        <li data-translate="pricing-not-insurance">Travel insurance</li>
+                        <li data-translate="pricing-not-alcohol">Alcoholic beverages</li>
+                        <li data-translate="pricing-not-tips">Tips for guides (appreciated but not required)</li>
+                        <li data-translate="pricing-not-personal">Personal expenses and souvenirs</li>
                     </ul>
                 </div>
                 
                 <div class="booking-terms">
-                    <h4><i class="fas fa-info-circle"></i> Booking Terms</h4>
+                    <h4><i class="fas fa-info-circle"></i> <span data-translate="pricing-booking-terms">Booking Terms</span></h4>
                     <ul>
-                        <li><strong>Deposit:</strong> 30% required to confirm reservation</li>
-                        <li><strong>Payment:</strong> Cash (USD or Bolivianos) preferred</li>
-                        <li><strong>Cancellation:</strong> 48 hours notice for refund</li>
-                        <li><strong>Group Size:</strong> Minimum 2, Maximum 6 people</li>
-                        <li><strong>Age Limit:</strong> Suitable for ages 8-70</li>
-                        <li><strong>Season:</strong> Tours available year-round</li>
-                        <li><strong>Weather:</strong> Tours operate rain or shine</li>
+                        <li data-translate="pricing-deposit"><strong>Deposit:</strong> 30% required to confirm reservation</li>
+                        <li data-translate="pricing-payment"><strong>Payment:</strong> Cash (USD or Bolivianos) preferred</li>
+                        <li data-translate="pricing-cancellation"><strong>Cancellation:</strong> 48 hours notice for refund</li>
+                        <li data-translate="pricing-group-size"><strong>Group Size:</strong> Minimum 2, Maximum 6 people</li>
+                        <li data-translate="pricing-age-limit"><strong>Age Limit:</strong> Suitable for ages 8-70</li>
+                        <li data-translate="pricing-season"><strong>Season:</strong> Tours available year-round</li>
+                        <li data-translate="pricing-weather"><strong>Weather:</strong> Tours operate rain or shine</li>
                     </ul>
                 </div>
             </div>
@@ -436,8 +584,8 @@
     <section class="what-to-bring">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">What to Bring</h2>
-                <p class="section-subtitle">Essential items for your Amazon adventure</p>
+                <h2 class="section-title" data-translate="bring-title">What to Bring</h2>
+                <p class="section-subtitle" data-translate="bring-subtitle">Essential items for your Amazon adventure</p>
             </div>
             
             <div class="bring-categories">
@@ -445,14 +593,14 @@
                     <div class="category-icon">
                         <i class="fas fa-tshirt"></i>
                     </div>
-                    <h3>Clothing & Protection</h3>
-                    <p>Essential gear for comfort and safety in the Amazon environment.</p>
+                    <h3 data-translate="bring-clothing-title">Clothing & Protection</h3>
+                    <p data-translate="bring-clothing-desc">Essential gear for comfort and safety in the Amazon environment.</p>
                     <ul>
-                        <li>Long-sleeved shirts and pants (quick-dry)</li>
-                        <li>Light rain jacket or poncho</li>
-                        <li>Hat with brim and walking shoes</li>
-                        <li>Waterproof sandals and swimwear</li>
-                        <li>Insect repellent and sunscreen</li>
+                        <li data-translate="bring-clothing-1">Long-sleeved shirts and pants (quick-dry)</li>
+                        <li data-translate="bring-clothing-2">Light rain jacket or poncho</li>
+                        <li data-translate="bring-clothing-3">Hat with brim and walking shoes</li>
+                        <li data-translate="bring-clothing-4">Waterproof sandals and swimwear</li>
+                        <li data-translate="bring-clothing-5">Insect repellent and sunscreen</li>
                     </ul>
                 </div>
                 
@@ -460,14 +608,14 @@
                     <div class="category-icon">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3>Health & Safety</h3>
-                    <p>Important health items to ensure your comfort during the tour.</p>
+                    <h3 data-translate="bring-health-title">Health & Safety</h3>
+                    <p data-translate="bring-health-desc">Important health items to ensure your comfort during the tour.</p>
                     <ul>
-                        <li>Personal first aid kit and medications</li>
-                        <li>Sunglasses and biodegradable toiletries</li>
-                        <li>Hand sanitizer for hygiene</li>
-                        <li>Prescription medications you need</li>
-                        <li>Motion sickness medication if needed</li>
+                        <li data-translate="bring-health-1">Personal first aid kit and medications</li>
+                        <li data-translate="bring-health-2">Sunglasses and biodegradable toiletries</li>
+                        <li data-translate="bring-health-3">Hand sanitizer for hygiene</li>
+                        <li data-translate="bring-health-4">Prescription medications you need</li>
+                        <li data-translate="bring-health-5">Motion sickness medication if needed</li>
                     </ul>
                 </div>
                 
@@ -475,144 +623,20 @@
                     <div class="category-icon">
                         <i class="fas fa-camera"></i>
                     </div>
-                    <h3>Equipment & Accessories</h3>
-                    <p>Recommended equipment to enhance your Amazon experience.</p>
+                    <h3 data-translate="bring-equipment-title">Equipment & Accessories</h3>
+                    <p data-translate="bring-equipment-desc">Recommended equipment to enhance your Amazon experience.</p>
                     <ul>
-                        <li>Camera with extra batteries and memory</li>
-                        <li>Binoculars for wildlife observation</li>
-                        <li>Flashlight or headlamp with batteries</li>
-                        <li>Power bank and waterproof bags</li>
-                        <li>Small backpack and quick-dry towel</li>
+                        <li data-translate="bring-equipment-1">Camera with extra batteries and memory</li>
+                        <li data-translate="bring-equipment-2">Binoculars for wildlife observation</li>
+                        <li data-translate="bring-equipment-3">Flashlight or headlamp with batteries</li>
+                        <li data-translate="bring-equipment-4">Power bank and waterproof bags</li>
+                        <li data-translate="bring-equipment-5">Small backpack and quick-dry towel</li>
                     </ul>
                 </div>
             </div>
             
             <div class="bring-note">
-                <p><i class="fas fa-lightbulb"></i> <strong>Pro Tip:</strong> Pack light! Laundry service is available at both ecolodges.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Amazing Wildlife You'll Encounter Section -->
-    <section class="wildlife-gallery-section">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title">Amazing Wildlife You'll Encounter</h2>
-                <p class="section-subtitle">Experience the incredible biodiversity of the Bolivian Amazon</p>
-            </div>
-            <div class="wildlife-large-gallery">
-                <div class="wildlife-large-item">
-                    <img src="Images/Pink river dolphin.JPG" alt="Pink River Dolphins">
-                    <div class="wildlife-large-overlay">
-                        <h3>Pink River Dolphins</h3>
-                        <p>Swim with these amazing creatures in the pristine waters of Pampas del Yacuma. These intelligent mammals are unique to the Amazon basin and offer an unforgettable swimming experience.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/Macaw Good view.JPG" alt="Colorful Macaws">
-                    <div class="wildlife-large-overlay">
-                        <h3>Colorful Macaws</h3>
-                        <p>Observe the rare and endemic Blue-throated Macaw, found only in Bolivia. This endangered species is a highlight for birdwatchers and conservation enthusiasts.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/capibara.jpg" alt="Capybaras">
-                    <div class="wildlife-large-overlay">
-                        <h3>Friendly Capybaras</h3>
-                        <p>Meet the world's largest rodents in their natural habitat. These gentle giants are often seen lounging by the riverbanks and swimming in the waters.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/crocodile.jpg" alt="Caimans">
-                    <div class="wildlife-large-overlay">
-                        <h3>Spectacular Caimans</h3>
-                        <p>Spot these impressive reptiles during night excursions. Our guides will safely show you caimans in their natural environment along the riverbanks.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/howler monkey.jpg" alt="Howler Monkeys">
-                    <div class="wildlife-large-overlay">
-                        <h3>Howler Monkeys</h3>
-                        <p>Listen to the distinctive calls of howler monkeys echoing through the jungle canopy. These primates are among the loudest animals in the world.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/sloth.jpg" alt="Sloths">
-                    <div class="wildlife-large-overlay">
-                        <h3>Three-Toed Sloths</h3>
-                        <p>Discover these slow-moving marvels hanging in the rainforest canopy. Sloths are masters of camouflage and energy conservation.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/baby monkey with mum.jpg" alt="Baby Monkeys">
-                    <div class="wildlife-large-overlay">
-                        <h3>Baby Monkeys with Families</h3>
-                        <p>Witness heartwarming moments of monkey families in their natural habitat. Baby monkeys learning from their mothers is one of the most touching wildlife experiences.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/kingfisher.jpg" alt="Kingfisher Birds">
-                    <div class="wildlife-large-overlay">
-                        <h3>Vibrant Kingfishers</h3>
-                        <p>Watch these colorful birds dive for fish along the riverbanks. The Amazon is home to multiple species of these beautiful fishing birds.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/butterfly.jpg" alt="Amazon Butterflies">
-                    <div class="wildlife-large-overlay">
-                        <h3>Exotic Butterflies</h3>
-                        <p>Marvel at the incredible diversity of butterflies in the Amazon. From tiny jewel-like species to large morpho butterflies with brilliant blue wings.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/hawk.jpg" alt="Birds of Prey">
-                    <div class="wildlife-large-overlay">
-                        <h3>Majestic Birds of Prey</h3>
-                        <p>Spot impressive hawks and other raptors soaring above the Amazon canopy. These skilled hunters are essential to the ecosystem's balance.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/Piranaha close up .jpg" alt="Piranhas">
-                    <div class="wildlife-large-overlay">
-                        <h3>Legendary Piranhas</h3>
-                        <p>Try your hand at piranha fishing in the Amazon waters. Despite their reputation, these fish are fascinating creatures and surprisingly tasty when cooked!</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/frog.jpg" alt="Amazon Frogs">
-                    <div class="wildlife-large-overlay">
-                        <h3>Colorful Tree Frogs</h3>
-                        <p>Discover the amazing variety of frogs in the Amazon rainforest. From tiny poison dart frogs to larger tree frogs, each species is uniquely adapted to jungle life.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/turtles.jpg" alt="River Turtles">
-                    <div class="wildlife-large-overlay">
-                        <h3>Ancient River Turtles</h3>
-                        <p>Encounter these prehistoric creatures sunning themselves on logs and riverbanks. Some turtle species in the Amazon can live for over 100 years.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/tarantula.jpg" alt="Tarantulas">
-                    <div class="wildlife-large-overlay">
-                        <h3>Amazonian Tarantulas</h3>
-                        <p>For the brave-hearted, observe these impressive spiders in their natural habitat. Tarantulas play an important role in controlling insect populations.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/capccino monkey.jpg" alt="Capuchin Monkeys">
-                    <div class="wildlife-large-overlay">
-                        <h3>Intelligent Capuchin Monkeys</h3>
-                        <p>Watch these clever primates use tools and solve problems in the wild. Capuchin monkeys are among the most intelligent animals in the Amazon.</p>
-                    </div>
-                </div>
-                <div class="wildlife-large-item">
-                    <img src="Images/Exotic Birds.jpg" alt="Exotic Birds">
-                    <div class="wildlife-large-overlay">
-                        <h3>Spectacular Exotic Birds</h3>
-                        <p>The Amazon is home to over 1,300 bird species. From tiny hummingbirds to magnificent toucans, the diversity is absolutely breathtaking.</p>
-                    </div>
-                </div>
+                <p><i class="fas fa-lightbulb"></i> <strong data-translate="bring-pro-tip">Pro Tip:</strong> <span data-translate="bring-tip-text">Pack light! Laundry service is available at both ecolodges.</span></p>
             </div>
         </div>
     </section>
@@ -621,8 +645,8 @@
     <section class="testimonials">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">What Our Guests Say</h2>
-                <p class="section-subtitle">Real experiences from our Amazon adventures</p>
+                <h2 class="section-title" data-translate="testimonials-title">What Our Guests Say</h2>
+                <p class="section-subtitle" data-translate="testimonials-subtitle">Real experiences from our satisfied travelers</p>
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
@@ -696,48 +720,61 @@
     <section class="trust-safety">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Safety & Certifications</h2>
-                <p class="section-subtitle">Your safety and satisfaction are our top priorities</p>
+                <h2 class="section-title" data-translate="trust-title">Trust & Safety</h2>
+                <p class="section-subtitle" data-translate="trust-subtitle">Your safety and satisfaction are our top priorities</p>
             </div>
-            
+
             <div class="trust-grid">
                 <div class="trust-card">
                     <div class="trust-icon">
-                        <i class="fas fa-shield-alt"></i>
+                        <i class="fas fa-certificate"></i>
                     </div>
-                    <h3>Licensed & Insured</h3>
-                    <p>Fully licensed tour operator with comprehensive insurance coverage and professional liability protection for all activities and emergency situations.</p>
+                    <h3 data-translate="trust-certified-title">Certified & Licensed</h3>
+                    <p data-translate="trust-certified-text">Officially licensed tour operator with all required permits and certifications.</p>
                     <ul class="trust-list">
-                        <li>Tourism License #RUR-2003-001</li>
-                        <li>Professional liability insurance</li>
-                        <li>Emergency evacuation coverage</li>
+                        <li data-translate="trust-certified-item1">Government licensed tour operator</li>
+                        <li data-translate="trust-certified-item2">Insurance coverage for all activities</li>
+                        <li data-translate="trust-certified-item3">Certified wilderness first aid guides</li>
+                        <li data-translate="trust-certified-item4">Emergency communication equipment</li>
                     </ul>
                 </div>
-                
+
                 <div class="trust-card">
                     <div class="trust-icon">
-                        <i class="fas fa-first-aid"></i>
+                        <i class="fas fa-users"></i>
                     </div>
-                    <h3>Safety & Expert Guides</h3>
-                    <p>Comprehensive safety protocols with trained first aid personnel and experienced local indigenous guides with deep knowledge of the region.</p>
+                    <h3 data-translate="trust-local-title">Local Expertise</h3>
+                    <p data-translate="trust-local-text">Born and raised in the Amazon, our guides have unparalleled knowledge of the region.</p>
                     <ul class="trust-list">
-                        <li>First aid certified guides (15+ years experience)</li>
-                        <li>Emergency communication equipment</li>
-                        <li>Multilingual certified naturalist training</li>
+                        <li data-translate="trust-local-item1">Native guides with 10+ years experience</li>
+                        <li data-translate="trust-local-item2">Deep knowledge of wildlife behavior</li>
+                        <li data-translate="trust-local-item3">Expert jungle navigation skills</li>
+                        <li data-translate="trust-local-item4">Fluent in multiple languages</li>
                     </ul>
                 </div>
-                
+
                 <div class="trust-card">
                     <div class="trust-icon">
-                        <i class="fas fa-award"></i>
+                        <i class="fas fa-life-ring"></i>
                     </div>
-                    <h3>Industry Recognition</h3>
-                    <p>Award-winning sustainable tourism practices with industry recognition and 100% satisfaction guarantee for all our Amazon experiences.</p>
+                    <h3 data-translate="trust-safety-title">Safety Equipment</h3>
+                    <p data-translate="trust-safety-text">Professional safety equipment and protocols ensure your security throughout the adventure.</p>
                     <ul class="trust-list">
-                        <li>TripAdvisor Certificate of Excellence</li>
-                        <li>Sustainable Tourism Gold Award 2024</li>
-                        <li>100% Satisfaction Guarantee</li>
+                        <li data-translate="trust-safety-item1">Life jackets for all water activities</li>
+                        <li data-translate="trust-safety-item2">First aid kits on every tour</li>
+                        <li data-translate="trust-safety-item3">Satellite communication devices</li>
+                        <li data-translate="trust-safety-item4">Weather monitoring equipment</li>
                     </ul>
+                </div>
+            </div>
+
+            <div class="guarantee-section">
+                <div class="guarantee-badge">
+                    <i class="fas fa-award"></i>
+                    <div class="guarantee-text">
+                        <h3 data-translate="guarantee-title">100% Satisfaction Guarantee</h3>
+                        <p data-translate="guarantee-text">We stand behind every tour. If you're not completely satisfied, we'll make it right.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -747,23 +784,23 @@
     <section id="contact" class="contact">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title">Contact & Reservations</h2>
-                <p class="section-subtitle">Ready to start your Amazon adventure? Get in touch with us</p>
+                <h2 class="section-title" data-translate="contact-title">Contact Us</h2>
+                <p class="section-subtitle" data-translate="contact-subtitle">Ready to start your Amazon adventure?</p>
             </div>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
                         <div>
-                            <h3>Our Location</h3>
-                            <p>HF5C+C2 Rurrenabaque<br>Beni Department, Bolivia</p>
+                            <h3 data-translate="contact-location">Our Location</h3>
+                            <p data-translate="contact-location-detail">Located in the heart of Rurrenabaque, Bolivia</p>
                         </div>
                     </div>
                     
                     <div class="contact-item">
                         <i class="fas fa-phone"></i>
                         <div>
-                            <h3>Phone & WhatsApp</h3>
+                            <h3 data-translate="contact-phone">Phone / WhatsApp</h3>
                             <p>+591 3 892 2527<br>+591 712 45281</p>
                         </div>
                     </div>
@@ -771,7 +808,7 @@
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
                         <div>
-                            <h3>Email</h3>
+                            <h3 data-translate="contact-email">Email</h3>
                             <p>info@balatours.com<br>reservas@balatours.com</p>
                         </div>
                     </div>
@@ -779,8 +816,8 @@
                     <div class="contact-item">
                         <i class="fas fa-clock"></i>
                         <div>
-                            <h3>Office Hours</h3>
-                            <p>Daily: 7:00 AM - 10:00 PM<br>Emergency: 24/7 availability</p>
+                            <h3 data-translate="contact-hours">Office Hours</h3>
+                            <p data-translate="contact-hours-detail">Monday to Sunday: 8:00 AM - 8:00 PM</p>
                         </div>
                     </div>
 
@@ -841,21 +878,20 @@
                     </div>
                     
                     <div class="whatsapp-booking">
-                        <h3><i class="fab fa-whatsapp"></i>Quick WhatsApp Booking</h3>
-                        <p>Get instant responses and personalized tour recommendations</p>
+                        <h3><i class="fab fa-whatsapp"></i><span data-translate="contact-booking">Quick Booking</span></h3>
+                        <p data-translate="contact-booking-text">Send us a message on WhatsApp for instant booking and tour information.</p>
                         <a href="https://wa.me/59138922527?text=Hello! I'm interested in booking a tour with Bala Tours. Could you please provide more information?" 
                            class="btn btn-whatsapp btn-large" target="_blank">
-                            <i class="fab fa-whatsapp"></i> Start Chat
+                            <i class="fab fa-whatsapp"></i> <span data-translate="contact-whatsapp-btn">Message us on WhatsApp</span>
                         </a>
                         
                         <div class="booking-steps">
-                            <h4>Easy Booking Process:</h4>
+                            <h4 data-translate="contact-booking-steps">How to Book</h4>
                             <ol>
-                                <li>Contact us via WhatsApp or email</li>
-                                <li>Choose your tour dates and duration</li>
-                                <li>Receive detailed itinerary and pricing</li>
-                                <li>Pay 30% deposit to confirm booking</li>
-                                <li>Receive confirmation and preparation guide</li>
+                                <li data-translate="contact-step1">Send us a WhatsApp message</li>
+                                <li data-translate="contact-step2">Tell us your preferred dates and tour</li>
+                                <li data-translate="contact-step3">Receive confirmation and payment details</li>
+                                <li data-translate="contact-step4">Enjoy your Amazon adventure!</li>
                             </ol>
                         </div>
                     </div>
@@ -871,7 +907,7 @@
                 <div class="footer-logo">
                     <img src="Resources/Logo Bala ultimo 141024 OK.png" alt="Bala Tours Logo" class="footer-logo-img">
                     <h3>Bala Tours</h3>
-                    <p>21 years of sustainable Amazon tourism</p>
+                    <p data-translate="footer-about-text">Leading authentic Amazon experiences in Bolivia since 2010. Sustainable tourism, expert guides, unforgettable adventures.</p>
                     
                     <!-- Footer Social Media -->
                     <div class="footer-social">
@@ -887,26 +923,29 @@
                     </div>
                 </div>
                 <div class="footer-links">
-                    <h4>Quick Links</h4>
+                    <h4 data-translate="footer-links">Quick Links</h4>
                     <ul>
-                        <li><a href="#about">About Us</a></li>
-                        <li><a href="#tours">Our Tours</a></li>
-                        <li><a href="#ecolodges">Ecolodges</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                        <li><a href="#about" data-translate="nav-about">About</a></li>
+                        <li><a href="#tours" data-translate="nav-tours">Tours</a></li>
+                        <li><a href="#ecolodges" data-translate="nav-ecolodges">Ecolodges</a></li>
+                        <li><a href="#contact" data-translate="nav-contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-contact">
-                    <h4>Contact Info</h4>
+                    <h4 data-translate="footer-contact-info">Contact Information</h4>
                     <p><i class="fas fa-phone"></i> +591 3 892 2527</p>
                     <p><i class="fas fa-envelope"></i> info@balatours.com</p>
                     <p><i class="fas fa-map-marker-alt"></i> Rurrenabaque, Bolivia</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Bala Tours. All rights reserved. | Sustainable Tourism Certified</p>
-                <p class="footer-credit">Designed with love ❤️ by <a href="https://nomadicwebstudio.netlify.app" target="_blank">Nomadic Web Studios</a></p>
+                <p data-translate="footer-copyright">&copy; 2025 Bala Tours. All rights reserved.</p>
+                <p class="footer-credit" data-translate="footer-credit">Website designed by RoRo HQ</p>
             </div>
         </div>
     </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 </html>

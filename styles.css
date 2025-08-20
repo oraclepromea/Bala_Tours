@@ -36,6 +36,8 @@ body {
 
 /* Logo styling */
 .nav-logo {
+    position: absolute;
+    left: 2rem;
     display: flex;
     align-items: center;
     gap: 10px;
@@ -54,17 +56,20 @@ body {
 
 .nav-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 1rem 2rem;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
 }
 
 .nav-menu {
     display: flex;
     list-style: none;
     gap: 2rem;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-link {
@@ -94,12 +99,54 @@ body {
     width: 100%;
 }
 
+/* Language Toggle Navigation Buttons */
+.nav-language {
+    position: absolute;
+    right: 80px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.nav-lang-btn {
+    background: transparent;
+    border: 2px solid #2d7a2d;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #2d7a2d;
+    min-width: 60px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.nav-lang-btn:hover {
+    background: #2d7a2d;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(45, 122, 45, 0.3);
+}
+
+.nav-lang-btn.active {
+    background: #2d7a2d;
+    color: white;
+    box-shadow: 0 3px 10px rgba(45, 122, 45, 0.3);
+}
+
 .hamburger {
     display: none;
     flex-direction: column;
     cursor: pointer;
     padding: 10px;
     z-index: 1001;
+    position: absolute;
+    right: 2rem;
 }
 
 .bar {
@@ -114,7 +161,7 @@ body {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Images/Hero image.png') center/cover no-repeat;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Images/hero image of monkey.jpg') center/cover no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -625,6 +672,7 @@ body {
 .destination-image {
     height: 250px;
     overflow: hidden;
+    position: relative;
 }
 
 .destination-image img {
@@ -723,7 +771,7 @@ body {
 }
 
 .ecolodge-content p {
-    color: #444; /* Darker text for better readability */
+    color: #444;
     line-height: 1.6;
     margin-bottom: 1.5rem;
 }
@@ -916,40 +964,6 @@ body {
     gap: 2rem;
 }
 
-.destination-card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(45, 122, 45, 0.1);
-    transition: all 0.3s ease;
-    border: 1px solid #e8f5e8;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-}
-
-.destination-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(45, 122, 45, 0.15);
-}
-
-.destination-image {
-    height: 250px;
-    overflow: hidden;
-    position: relative;
-}
-
-.destination-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.destination-card:hover .destination-image img {
-    transform: scale(1.1);
-}
-
 .tour-badge {
     position: absolute;
     top: 15px;
@@ -963,19 +977,15 @@ body {
     box-shadow: 0 3px 10px rgba(230, 126, 34, 0.3);
 }
 
-.destination-content {
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    gap: 1.5rem;
-}
-
-.destination-content h3 {
-    font-size: 1.5rem;
-    color: #2d7a2d;
-    margin: 0;
+.tour-badge-inline {
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
     font-weight: 600;
+    display: inline-block;
+    margin-bottom: 1rem;
 }
 
 .tour-description {
@@ -1062,20 +1072,8 @@ body {
     color: #2d7a2d;
 }
 
-.destination-price {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #e67e22;
-    text-align: center;
-    margin: 0;
-    padding: 1rem;
-    background: rgba(230, 126, 34, 0.05);
-    border-radius: 10px;
-    border: 1px solid rgba(230, 126, 34, 0.1);
-}
-
 /* Enhanced WhatsApp button styling for tours */
-.destination-card .btn-whatsapp {
+.btn-whatsapp {
     background: linear-gradient(45deg, #25d366, #128c7e);
     color: white;
     border: 2px solid #25d366;
@@ -1094,7 +1092,7 @@ body {
     box-shadow: 0 4px 15px rgba(37, 211, 102, 0.2);
 }
 
-.destination-card .btn-whatsapp:hover {
+.btn-whatsapp:hover {
     background: linear-gradient(45deg, #128c7e, #25d366);
     border-color: #128c7e;
     transform: translateY(-2px);
@@ -1103,55 +1101,8 @@ body {
     text-decoration: none;
 }
 
-.destination-card .btn-whatsapp i {
+.btn-whatsapp i {
     font-size: 1.2rem;
-}
-
-/* Mobile responsive adjustments for enhanced tours */
-@media (max-width: 768px) {
-    .tours-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .destination-image {
-        height: 200px;
-    }
-    
-    .destination-content {
-        padding: 1.5rem;
-        gap: 1.25rem;
-    }
-    
-    .tour-details {
-        padding: 1.25rem;
-    }
-    
-    .destination-card .btn-whatsapp {
-        padding: 18px 25px;
-        font-size: 1.1rem;
-    }
-    
-    .tour-badge {
-        top: 10px;
-        right: 10px;
-        padding: 0.4rem 0.8rem;
-        font-size: 0.85rem;
-    }
-}
-
-@media (max-width: 480px) {
-    .destination-content {
-        padding: 1.25rem;
-    }
-    
-    .tour-highlights li {
-        font-size: 0.9rem;
-    }
-    
-    .detail-item {
-        font-size: 0.9rem;
-    }
 }
 
 /* Testimonials Section */
@@ -1191,7 +1142,7 @@ body {
 }
 
 .testimonial-content p {
-    color: #444; /* Darker text for better readability */
+    color: #444;
     line-height: 1.6;
     margin-bottom: 1.5rem;
     font-style: italic;
@@ -1480,102 +1431,6 @@ body {
     font-weight: 500;
 }
 
-/* Footer Social Media Styles */
-.footer-social {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-}
-
-.footer-social-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 45px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    color: white;
-    text-decoration: none;
-    font-size: 1.2rem;
-    transition: all 0.3s ease;
-    border: 2px solid rgba(255, 255, 255, 0.2);
-}
-
-.footer-social-link:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    text-decoration: none;
-    color: white;
-}
-
-.footer-social-link:first-child:hover {
-    background: #1877f2;
-    border-color: #1877f2;
-}
-
-.footer-social-link:nth-child(2):hover {
-    background: #00cc66;
-    border-color: #00cc66;
-}
-
-.footer-social-link:last-child:hover {
-    background: #25d366;
-    border-color: #25d366;
-}
-
-/* Responsive adjustments for social media */
-@media (max-width: 768px) {
-    .social-links {
-        gap: 12px;
-    }
-    
-    .social-link {
-        padding: 12px 15px;
-        flex-direction: row;
-        justify-content: flex-start;
-    }
-    
-    .social-link i {
-        font-size: 1.2rem;
-        width: 20px;
-    }
-    
-    .social-link span {
-        font-size: 0.9rem;
-    }
-    
-    .footer-social {
-        gap: 12px;
-    }
-    
-    .footer-social-link {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .contact-content {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-    
-    .contact-item {
-        padding: 20px;
-    }
-    
-    .map-container,
-    .whatsapp-booking {
-        padding: 20px;
-    }
-    
-    .map-wrapper iframe {
-        height: 250px;
-    }
-}
-
 /* Footer Styles */
 .footer {
     background: linear-gradient(135deg, #1a4d1a 0%, #2d7a2d 100%);
@@ -1680,6 +1535,50 @@ body {
     text-decoration: underline;
 }
 
+/* Footer Social Media Styles */
+.footer-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.footer-social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    color: white;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.footer-social-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-decoration: none;
+    color: white;
+}
+
+.footer-social-link:first-child:hover {
+    background: #1877f2;
+    border-color: #1877f2;
+}
+
+.footer-social-link:nth-child(2):hover {
+    background: #00cc66;
+    border-color: #00cc66;
+}
+
+.footer-social-link:last-child:hover {
+    background: #25d366;
+    border-color: #25d366;
+}
+
 /* Booking Steps Styles */
 .booking-steps {
     margin-top: 1.5rem;
@@ -1706,452 +1605,6 @@ body {
 .booking-steps li {
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
-}
-
-/* Improve contrast for better readability */
-.section-title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #1a4d1a; /* Darker green for better contrast */
-    margin-bottom: 1rem;
-}
-
-.about .section-title,
-.trust-safety .section-title,
-.ecolodges .section-title,
-.tours .section-title {
-    color: #1a4d1a; /* Ensure dark green for all section titles */
-}
-
-.wildlife-gallery-section .section-title,
-.wildlife-gallery-section .section-subtitle {
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-.contact .section-title,
-.contact .section-subtitle {
-    color: white;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-}
-
-/* Enhanced contrast for text */
-.about-text p,
-.feature p,
-.trust-card p,
-.ecolodge-content p,
-.testimonial-content p {
-    color: #444; /* Darker text for better readability */
-}
-
-.section-subtitle {
-    color: #555; /* Darker subtitle for better contrast */
-}
-
-/* Enhanced button contrast */
-.btn-whatsapp {
-    background: linear-gradient(45deg, #25d366, #128c7e);
-    color: white;
-    border: 2px solid #25d366;
-    font-weight: 600;
-    padding: 12px 24px;
-    border-radius: 50px;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    transition: all 0.3s ease;
-    font-size: 0.95rem;
-}
-
-.btn-whatsapp:hover {
-    background: #128c7e;
-    border-color: #128c7e;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(37, 211, 102, 0.3);
-    color: white;
-    text-decoration: none;
-}
-
-.btn-whatsapp i {
-    font-size: 1.1rem;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
-    
-    .footer-contact p {
-        justify-content: center;
-    }
-    
-    .booking-steps {
-        text-align: center;
-    }
-    
-    .booking-steps ol {
-        text-align: left;
-        display: inline-block;
-    }
-}
-
-/* Hamburger menu - Mobile Navigation */
-.hamburger {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1001;
-}
-
-.bar {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
-    margin: 3px 0;
-    transition: 0.3s;
-    border-radius: 3px;
-}
-
-/* Mobile navigation styles */
-@media (max-width: 768px) {
-    .nav-menu {
-        position: fixed;
-        left: -100%;
-        top: 80px;
-        flex-direction: column;
-        background: rgba(255, 255, 255, 0.98);
-        width: 100%;
-        text-align: center;
-        transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(10px);
-        padding: 2rem 0;
-        gap: 0;
-        z-index: 1000;
-    }
-
-    .nav-menu.active {
-        left: 0;
-    }
-
-    .nav-item {
-        margin: 1rem 0;
-    }
-
-    .nav-link {
-        padding: 1rem;
-        display: block;
-        font-size: 1.1rem;
-        border-radius: 8px;
-        margin: 0 2rem;
-        transition: all 0.3s ease;
-    }
-
-    .nav-link:hover {
-        background: rgba(45, 122, 45, 0.1);
-        color: #2d7a2d;
-    }
-
-    .hamburger {
-        display: flex;
-    }
-
-    .hamburger.active .bar:nth-child(2) {
-        opacity: 0;
-    }
-
-    .hamburger.active .bar:nth-child(1) {
-        transform: translateY(8px) rotate(45deg);
-    }
-
-    .hamburger.active .bar:nth-child(3) {
-        transform: translateY(-8px) rotate(-45deg);
-    }
-
-    /* Adjust hero content for mobile */
-    .hero-title {
-        font-size: 2.5rem;
-    }
-
-    .hero-subtitle {
-        font-size: 1rem;
-    }
-
-    .hero-content {
-        padding-top: 20vh;
-        padding-bottom: 8vh;
-    }
-
-    /* Mobile responsive adjustments */
-    .section-title {
-        font-size: 2rem;
-    }
-
-    .about-features {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .trust-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .ecolodges-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .tours-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .pricing-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .bring-categories {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .testimonials-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-}
-
-/* Tablet responsive styles */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .nav-menu {
-        gap: 1.5rem;
-    }
-
-    .hero-title {
-        font-size: 3rem;
-    }
-
-    .about-features {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .trust-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .tours-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .pricing-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .bring-categories {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Fix mobile overlay issues */
-body.menu-open {
-    overflow: hidden;
-}
-
-/* Enhanced mobile touch targets */
-@media (max-width: 768px) {
-    .btn {
-        padding: 15px 35px;
-        font-size: 1.1rem;
-        min-height: 48px;
-        min-width: 48px;
-    }
-
-    .social-link {
-        padding: 18px 20px;
-        min-height: 48px;
-    }
-
-    .footer-social-link {
-        width: 48px;
-        height: 48px;
-        font-size: 1.3rem;
-    }
-}
-
-/* Animations */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Detailed Itineraries Section */
-.itineraries {
-    padding: 6rem 0;
-    background: white;
-}
-
-.itinerary-tabs {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.tab-buttons {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 3rem;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.tab-btn {
-    padding: 12px 24px;
-    background: transparent;
-    border: 2px solid #2d7a2d;
-    border-radius: 25px;
-    color: #2d7a2d;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    font-size: 1rem;
-}
-
-.tab-btn:hover,
-.tab-btn.active {
-    background: #2d7a2d;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(45, 122, 45, 0.3);
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-    animation: fadeInUp 0.5s ease;
-}
-
-.itinerary-card {
-    background: #f8fdf8;
-    border-radius: 15px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border: 1px solid #e8f5e8;
-    box-shadow: 0 5px 15px rgba(45, 122, 45, 0.1);
-}
-
-.day-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #2d7a2d;
-}
-
-.day-header h3 {
-    color: #2d7a2d;
-    font-size: 1.5rem;
-    margin: 0;
-}
-
-.time-badge {
-    background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
-}
-
-.day-activities {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.activity {
-    display: flex;
-    gap: 2rem;
-    align-items: flex-start;
-}
-
-.time {
-    background: #2d7a2d;
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    font-weight: 600;
-    min-width: 80px;
-    text-align: center;
-    flex-shrink: 0;
-}
-
-.description {
-    flex: 1;
-}
-
-.description h4 {
-    color: #1a4d1a;
-    margin-bottom: 0.5rem;
-    font-size: 1.1rem;
-}
-
-.description p {
-    color: #666;
-    line-height: 1.6;
-    margin: 0;
-}
-
-.itinerary-overview {
-    text-align: center;
-    padding: 3rem 2rem;
-}
-
-.itinerary-overview h3 {
-    color: #2d7a2d;
-    font-size: 2rem;
-    margin-bottom: 1rem;
-}
-
-.itinerary-overview p {
-    color: #666;
-    font-size: 1.1rem;
-    margin-bottom: 2rem;
-    line-height: 1.6;
-}
-
-.overview-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.overview-item {
-    background: white;
-    padding: 1.5rem;
-    border-radius: 10px;
-    border: 1px solid #e8f5e8;
-    box-shadow: 0 3px 10px rgba(45, 122, 45, 0.1);
-}
-
-.overview-item strong {
-    color: #2d7a2d;
 }
 
 /* Pricing Section */
@@ -2513,51 +1966,367 @@ body.menu-open {
     margin-right: 0.5rem;
 }
 
-/* Mobile Responsive for new sections */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .tab-buttons {
-        flex-direction: column;
-        gap: 0.5rem;
+    .header {
+        padding: 0.5rem 1rem;
     }
     
-    .tab-btn {
-        width: 100%;
-        padding: 15px 20px;
+    .nav-logo {
+        left: 1rem;
     }
     
-    .day-header {
-        flex-direction: column;
-        gap: 1rem;
-        text-align: center;
+    .hamburger {
+        right: 1rem;
     }
     
-    .activity {
-        flex-direction: column;
-        gap: 1rem;
+    /* Adjust hero content for mobile */
+    .hero-title {
+        font-size: 2.5rem;
     }
-    
-    .time {
-        align-self: flex-start;
-        min-width: auto;
+
+    .hero-subtitle {
+        font-size: 1rem;
     }
-    
+
+    .hero-content {
+        padding-top: 20vh;
+        padding-bottom: 8vh;
+    }
+
+    /* Mobile responsive adjustments */
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .about-features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .ecolodges-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .tours-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
     .pricing-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
     }
-    
+
     .pricing-card.featured {
         transform: none;
         margin-top: 2rem;
     }
-    
+
     .pricing-notes {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
-    
+
     .bring-categories {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+    
+    .contact-item {
+        padding: 20px;
+    }
+    
+    .map-container,
+    .whatsapp-booking {
+        padding: 20px;
+    }
+    
+    .map-wrapper iframe {
+        height: 250px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 2rem;
+    }
+    
+    .footer-contact p {
+        justify-content: center;
+    }
+    
+    .booking-steps {
+        text-align: center;
+    }
+    
+    .booking-steps ol {
+        text-align: left;
+        display: inline-block;
+    }
+
+    /* Social media responsive */
+    .social-links {
+        gap: 12px;
+    }
+    
+    .social-link {
+        padding: 12px 15px;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    
+    .social-link i {
+        font-size: 1.2rem;
+        width: 20px;
+    }
+    
+    .social-link span {
+        font-size: 0.9rem;
+    }
+    
+    .footer-social {
+        gap: 12px;
+    }
+    
+    .footer-social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    /* Mobile responsive for tours */
+    .destination-image {
+        height: 200px;
+    }
+    
+    .destination-content {
+        padding: 1.5rem;
+        gap: 1.25rem;
+    }
+    
+    .tour-details {
+        padding: 1.25rem;
+    }
+    
+    .btn-whatsapp {
+        padding: 18px 25px;
+        font-size: 1.1rem;
+    }
+    
+    .tour-badge {
+        top: 10px;
+        right: 10px;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+}
+
+/* Tablet responsive styles */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .nav-menu {
+        gap: 1.5rem;
+    }
+
+    .hero-title {
+        font-size: 3rem;
+    }
+
+    .about-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tours-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .bring-categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Fix mobile overlay issues */
+body.menu-open {
+    overflow: hidden;
+}
+
+/* Enhanced mobile touch targets */
+@media (max-width: 768px) {
+    .btn {
+        padding: 15px 35px;
+        font-size: 1.1rem;
+        min-height: 48px;
+        min-width: 48px;
+    }
+
+    .social-link {
+        padding: 18px 20px;
+        min-height: 48px;
+    }
+
+    .footer-social-link {
+        width: 48px;
+        height: 48px;
+        font-size: 1.3rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Improved contrast for better readability */
+.about .section-title,
+.trust-safety .section-title,
+.ecolodges .section-title,
+.tours .section-title {
+    color: #1a4d1a;
+}
+
+.wildlife-gallery-section .section-title,
+.wildlife-gallery-section .section-subtitle {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.contact .section-title,
+.contact .section-subtitle {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* Enhanced contrast for text */
+.about-text p,
+.feature p,
+.trust-card p,
+.ecolodge-content p,
+.testimonial-content p {
+    color: #444;
+}
+
+.section-subtitle {
+    color: #555;
+}
+
+@media (max-width: 480px) {
+    .destination-content {
+        padding: 1.25rem;
+    }
+    
+    .tour-highlights li {
+        font-size: 0.9rem;
+    }
+    
+    .detail-item {
+        font-size: 0.9rem;
+    }
+}
+
+/* Mobile navigation styles */
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 80px;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.98);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.15);
+        backdrop-filter: blur(10px);
+        padding: 2rem 0;
+        gap: 0;
+        z-index: 1000;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-item {
+        margin: 1rem 0;
+    }
+
+    .nav-link {
+        padding: 1rem;
+        display: block;
+        font-size: 1.1rem;
+        border-radius: 8px;
+        margin: 0 2rem;
+        transition: all 0.3s ease;
+    }
+
+    .nav-link:hover {
+        background: rgba(45, 122, 45, 0.1);
+        color: #2d7a2d;
+    }
+
+    /* Mobile Language Toggle */
+    .nav-language {
+        position: relative;
+        right: auto;
+        top: 10px;
+        order: -1;
+        justify-content: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(45, 122, 45, 0.2);
+    }
+
+    .nav-lang-btn {
+        font-size: 12px;
+        padding: 6px 10px;
+        min-width: 50px;
+        height: 36px;
+        gap: 3px;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
     }
 }
