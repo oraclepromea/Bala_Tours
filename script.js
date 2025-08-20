@@ -225,25 +225,28 @@ function addWhatsAppButton() {
     whatsappBtn.target = '_blank';
     whatsappBtn.className = 'whatsapp-float';
     whatsappBtn.innerHTML = '<i class="fab fa-whatsapp"></i>';
+    
+    // Enhanced styling with fallback
     whatsappBtn.style.cssText = `
-        position: fixed;
-        width: 60px;
-        height: 60px;
-        bottom: 20px;
-        right: 20px;
-        background: #25d366;
-        color: white;
-        border-radius: 50%;
-        text-align: center;
-        font-size: 30px;
-        box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-        z-index: 1000;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        animation: pulse 2s infinite;
+        position: fixed !important;
+        width: 60px !important;
+        height: 60px !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        background: #25d366 !important;
+        color: white !important;
+        border-radius: 50% !important;
+        text-align: center !important;
+        font-size: 30px !important;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.2) !important;
+        z-index: 1000 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-decoration: none !important;
+        transition: all 0.3s ease !important;
+        animation: pulse 2s infinite !important;
+        font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', sans-serif !important;
     `;
     
     // Add hover effect
@@ -257,6 +260,20 @@ function addWhatsAppButton() {
         this.style.boxShadow = '2px 2px 10px rgba(0,0,0,0.2)';
     });
     
+    // Fallback icon check
+    setTimeout(() => {
+        const iconEl = whatsappBtn.querySelector('i');
+        const computedStyle = window.getComputedStyle(iconEl, ':before');
+        const content = computedStyle.getPropertyValue('content');
+        
+        if (content === 'none' || content === '' || content === '"\\f232"') {
+            // Font Awesome not working, use text fallback
+            whatsappBtn.innerHTML = '<span style="font-weight: bold; font-size: 24px;">W</span>';
+            whatsappBtn.style.background = '#25d366';
+            whatsappBtn.title = 'Contact us on WhatsApp';
+        }
+    }, 1000);
+    
     document.body.appendChild(whatsappBtn);
     
     // Add pulse animation CSS
@@ -264,11 +281,93 @@ function addWhatsAppButton() {
     style.textContent = `
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
+        }
+        
+        /* Enhanced icon fallbacks */
+        .fab.fa-whatsapp:before {
+            content: "\\f232" !important;
+            font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', sans-serif !important;
+        }
+        
+        .fab.fa-facebook-f:before {
+            content: "\\f39e" !important;
+            font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', sans-serif !important;
+        }
+        
+        /* Fallback for social media icons if Font Awesome completely fails */
+        .footer-social-link, .social-link {
+            position: relative;
+        }
+        
+        .footer-social-link:before, .social-link:before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: -1;
+        }
+        
+        .facebook .fab.fa-facebook-f {
+            font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', sans-serif !important;
+        }
+        
+        .whatsapp .fab.fa-whatsapp {
+            font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', sans-serif !important;
         }
     `;
     document.head.appendChild(style);
+}
+
+// Enhanced icon loading check
+function checkAndFixIcons() {
+    setTimeout(() => {
+        // Check all social media icons
+        const socialIcons = document.querySelectorAll('.fab, .fas');
+        socialIcons.forEach(icon => {
+            const computedStyle = window.getComputedStyle(icon, ':before');
+            const content = computedStyle.getPropertyValue('content');
+            const fontFamily = computedStyle.getPropertyValue('font-family');
+            
+            // If icon is not loading properly
+            if (content === 'none' || content === '' || !fontFamily.includes('Font Awesome')) {
+                const parentLink = icon.closest('a');
+                if (parentLink) {
+                    // Add text fallback based on the link
+                    if (parentLink.href.includes('facebook')) {
+                        icon.style.display = 'none';
+                        const fallback = document.createElement('span');
+                        fallback.textContent = 'f';
+                        fallback.style.cssText = 'background: #1877f2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;';
+                        icon.parentNode.insertBefore(fallback, icon);
+                    } else if (parentLink.href.includes('whatsapp') || parentLink.href.includes('wa.me')) {
+                        icon.style.display = 'none';
+                        const fallback = document.createElement('span');
+                        fallback.textContent = 'W';
+                        fallback.style.cssText = 'background: #25d366; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;';
+                        icon.parentNode.insertBefore(fallback, icon);
+                    } else if (parentLink.href.includes('tripadvisor')) {
+                        icon.style.display = 'none';
+                        const fallback = document.createElement('span');
+                        fallback.textContent = 'T';
+                        fallback.style.cssText = 'background: #00cc66; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold;';
+                        icon.parentNode.insertBefore(fallback, icon);
+                    }
+                }
+            }
+        });
+    }, 2000);
 }
 
 // Initialize WhatsApp button
@@ -518,53 +617,48 @@ class LanguageManager {
                 'contact-step4': 'Enjoy your Amazon adventure!',
                 'language-toggle-title': 'Choose Language',
 
-                // Missing tour translations
-                'madidi-title': 'Madidi Jungle Expedition',
-                'madidi-badge': 'Adventure',
-                'madidi-description': 'Explore one of the world\'s most biodiverse national parks with pristine rainforest, exotic wildlife, and indigenous communities.',
-                'madidi-duration': '4 Days / 3 Nights',
-                'madidi-difficulty': 'Moderate to Challenging',
-                'madidi-group': 'Up to 6 people',
-                'madidi-includes': 'Transportation, eco-lodge, all meals, guide, activities',
-                'madidi-price': 'From $280 USD per person',
-                'madidi-highlight1': 'Pristine rainforest exploration',
-                'madidi-highlight2': 'Exotic bird and mammal spotting',
-                'madidi-highlight3': 'Indigenous community visits',
-                'madidi-highlight4': 'Canopy walks and river trails',
-                'madidi-highlight5': 'Medicinal plant workshops',
-                'madidi-highlight6': 'Night jungle sounds tour',
+                // Wildlife Gallery Section - English
+                'wildlife-title': 'Amazing Wildlife',
+                'wildlife-subtitle': 'Discover the incredible biodiversity of the Amazon',
+                'wildlife-dolphins-title': 'Pink River Dolphins',
+                'wildlife-dolphins-desc': 'Swim with these amazing creatures in the pristine waters of Pampas del Yacuma. These intelligent mammals are unique to the Amazon basin.',
+                'wildlife-macaws-title': 'Colorful Macaws',
+                'wildlife-macaws-desc': 'Observe the rare and endemic Blue-throated Macaw, found only in Bolivia. This endangered species is a highlight for birdwatchers.',
+                'wildlife-capybaras-title': 'Friendly Capybaras',
+                'wildlife-capybaras-desc': 'Meet the world\'s largest rodents in their natural habitat. These gentle giants are often seen lounging by the riverbanks.',
+                'wildlife-caimans-title': 'Spectacular Caimans',
+                'wildlife-caimans-desc': 'Spot these impressive reptiles during night excursions. Our guides will safely show you caimans in their natural environment.',
+                'wildlife-howler-title': 'Howler Monkeys',
+                'wildlife-howler-desc': 'Listen to the distinctive calls of howler monkeys echoing through the jungle canopy. These primates are among the loudest animals in the world.',
+                'wildlife-sloths-title': 'Three-Toed Sloths',
+                'wildlife-sloths-desc': 'Discover these slow-moving marvels hanging in the rainforest canopy. Sloths are masters of camouflage and energy conservation.',
+                'wildlife-baby-monkeys-title': 'Baby Monkeys with Families',
+                'wildlife-baby-monkeys-desc': 'Witness heartwarming moments of monkey families in their natural habitat. Baby monkeys learning from their mothers.',
+                'wildlife-kingfisher-title': 'Vibrant Kingfishers',
+                'wildlife-kingfisher-desc': 'Watch these colorful birds dive for fish along the riverbanks. The Amazon is home to multiple species of these beautiful fishing birds.',
+                'wildlife-butterflies-title': 'Exotic Butterflies',
+                'wildlife-butterflies-desc': 'Marvel at the incredible diversity of butterflies in the Amazon. From tiny jewel-like species to large morpho butterflies.',
+                'wildlife-hawks-title': 'Majestic Birds of Prey',
+                'wildlife-hawks-desc': 'Spot impressive hawks and other raptors soaring above the Amazon canopy. These skilled hunters are essential to the ecosystem.',
+                'wildlife-piranhas-title': 'Legendary Piranhas',
+                'wildlife-piranhas-desc': 'Try your hand at piranha fishing in the Amazon waters. Despite their reputation, these fish are fascinating creatures.',
+                'wildlife-frogs-title': 'Colorful Tree Frogs',
+                'wildlife-frogs-desc': 'Discover the amazing variety of frogs in the Amazon rainforest. From tiny poison dart frogs to larger tree frogs.',
+                'wildlife-turtles-title': 'Ancient River Turtles',
+                'wildlife-turtles-desc': 'Encounter these prehistoric creatures sunning themselves on logs and riverbanks. Some turtle species can live for over 100 years.',
+                'wildlife-tarantulas-title': 'Amazonian Tarantulas',
+                'wildlife-tarantulas-desc': 'For the brave-hearted, observe these impressive spiders in their natural habitat. Tarantulas play an important role in controlling insects.',
+                'wildlife-capuchin-title': 'Intelligent Capuchin Monkeys',
+                'wildlife-capuchin-desc': 'Watch these clever primates use tools and solve problems in the wild. Capuchin monkeys are among the most intelligent animals.',
+                'wildlife-exotic-birds-title': 'Spectacular Exotic Birds',
+                'wildlife-exotic-birds-desc': 'The Amazon is home to over 1,300 bird species. From tiny hummingbirds to magnificent toucans, the diversity is breathtaking.',
 
-                'pampas-title': 'Pampas Wildlife Adventure',
-                'pampas-badge': 'Most Popular',
-                'pampas-description': 'Experience the incredible biodiversity of the Pampas wetlands, home to pink dolphins, caimans, capybaras, and hundreds of bird species.',
-                'pampas-duration': '3 Days / 2 Nights',
-                'pampas-difficulty': 'Easy to Moderate',
-                'pampas-group': 'Up to 8 people',
-                'pampas-includes': 'Transportation, accommodation, all meals, guide, activities',
-                'pampas-price': 'From $180 USD per person',
-                'pampas-highlight1': 'Pink river dolphin encounters',
-                'pampas-highlight2': 'Caiman spotting at night',
-                'pampas-highlight3': 'Piranha fishing adventure',
-                'pampas-highlight4': 'Capybara and monkey sightings',
-                'pampas-highlight5': 'Spectacular bird watching',
-                'pampas-highlight6': 'Sunset boat tours',
+                // Certifications
+                'cert-licensed': 'Licensed Tour Operator',
+                'cert-safety': 'Safety Certified Guides',
+                'cert-community': 'Community Partnership Program',
 
-                'combined-title': 'Complete Amazon Experience',
-                'combined-badge': 'Best Value',
-                'combined-description': 'The ultimate Amazon adventure combining the wildlife-rich Pampas with the pristine rainforest of Madidi National Park.',
-                'combined-duration': '6 Days / 5 Nights',
-                'combined-difficulty': 'Moderate',
-                'combined-group': 'Up to 8 people',
-                'combined-includes': 'All transportation, accommodations, meals, guides, activities',
-                'combined-price': 'From $420 USD per person',
-                'combined-highlight1': 'Best of both ecosystems',
-                'combined-highlight2': 'Maximum wildlife diversity',
-                'combined-highlight3': 'Pampas wetlands exploration',
-                'combined-highlight4': 'Madidi rainforest trekking',
-                'combined-highlight5': 'Cultural community interactions',
-                'combined-highlight6': 'Professional photography opportunities',
-
-                // Missing ecolodge translations
+                // Ecolodges Section
                 'ecolodges-title': 'Our Ecolodges',
                 'ecolodges-subtitle': 'Comfortable accommodation in harmony with nature',
                 'ecolodge-pampas-title': 'Pampas Eco Lodge',
@@ -573,8 +667,6 @@ class LanguageManager {
                 'ecolodge-madidi-title': 'Madidi Rainforest Lodge',
                 'ecolodge-madidi-location': 'Madidi National Park',
                 'ecolodge-madidi-description': 'Eco-friendly lodge deep in the rainforest, built with sustainable materials and powered by solar energy.',
-
-                // Missing feature translations
                 'feature-beds': 'Comfortable beds with mosquito nets',
                 'feature-bathroom': 'Shared bathroom facilities',
                 'feature-meals': 'Delicious local cuisine',
@@ -584,34 +676,53 @@ class LanguageManager {
                 'feature-wildlife': 'Wildlife viewing deck',
                 'feature-guides': 'On-site naturalist guides',
 
-                // Missing certifications
-                'cert-licensed': 'Licensed Tour Operator',
-                'cert-safety': 'Safety Certified Guides',
-                'cert-community': 'Community Partnership Program',
+                // Tour Details
+                'madidi-title': 'Madidi Jungle Expedition',
+                'madidi-badge': 'Adventure',
+                'madidi-description': 'Explore one of the world\'s most biodiverse national parks with pristine rainforest, exotic wildlife, and indigenous communities.',
+                'madidi-highlight1': 'Pristine rainforest exploration',
+                'madidi-highlight2': 'Exotic bird and mammal spotting',
+                'madidi-highlight3': 'Indigenous community visits',
+                'madidi-highlight4': 'Canopy walks and river trails',
+                'madidi-highlight5': 'Medicinal plant workshops',
+                'madidi-highlight6': 'Night jungle sounds tour',
+                'madidi-duration': '4 Days / 3 Nights',
+                'madidi-difficulty': 'Moderate to Challenging',
+                'madidi-group': 'Up to 6 people',
+                'madidi-includes': 'Transportation, eco-lodge, all meals, guide, activities',
+                'madidi-price': 'From $280 USD per person',
 
-                // Missing wildlife section
-                'wildlife-title': 'Amazing Wildlife',
-                'wildlife-subtitle': 'Discover the incredible biodiversity of the Amazon',
+                'pampas-badge': 'Most Popular',
+                'pampas-title': 'Pampas Wildlife Adventure',
+                'pampas-description': 'Experience the incredible biodiversity of the Pampas wetlands, home to pink dolphins, caimans, capybaras, and hundreds of bird species.',
+                'pampas-highlight1': 'Pink river dolphin encounters',
+                'pampas-highlight2': 'Caiman spotting at night',
+                'pampas-highlight3': 'Piranha fishing adventure',
+                'pampas-highlight4': 'Capybara and monkey sightings',
+                'pampas-highlight5': 'Spectacular bird watching',
+                'pampas-highlight6': 'Sunset boat tours',
+                'pampas-duration': '3 Days / 2 Nights',
+                'pampas-difficulty': 'Easy to Moderate',
+                'pampas-group': 'Up to 8 people',
+                'pampas-includes': 'Transportation, accommodation, all meals, guide, activities',
+                'pampas-price': 'From $180 USD per person',
 
-                // Missing testimonials section
-                'testimonials-title': 'What Our Guests Say',
-                'testimonials-subtitle': 'Real experiences from our satisfied travelers',
+                'combined-badge': 'Best Value',
+                'combined-title': 'Complete Amazon Experience',
+                'combined-description': 'The ultimate Amazon adventure combining the wildlife-rich Pampas with the pristine rainforest of Madidi National Park.',
+                'combined-highlight1': 'Best of both ecosystems',
+                'combined-highlight2': 'Maximum wildlife diversity',
+                'combined-highlight3': 'Pampas wetlands exploration',
+                'combined-highlight4': 'Madidi rainforest trekking',
+                'combined-highlight5': 'Cultural community interactions',
+                'combined-highlight6': 'Professional photography opportunities',
+                'combined-duration': '6 Days / 5 Nights',
+                'combined-difficulty': 'Moderate',
+                'combined-group': 'Up to 8 people',
+                'combined-includes': 'All transportation, accommodations, meals, guides, activities',
+                'combined-price': 'From $420 USD per person',
 
-                // Missing trust section items
-                'trust-certified-item1': 'Government licensed tour operator',
-                'trust-certified-item2': 'Insurance coverage for all activities',
-                'trust-certified-item3': 'Certified wilderness first aid guides',
-                'trust-certified-item4': 'Emergency communication equipment',
-                'trust-local-item1': 'Native guides with 10+ years experience',
-                'trust-local-item2': 'Deep knowledge of wildlife behavior',
-                'trust-local-item3': 'Expert jungle navigation skills',
-                'trust-local-item4': 'Fluent in multiple languages',
-                'trust-safety-item1': 'Life jackets for all water activities',
-                'trust-safety-item2': 'First aid kits on every tour',
-                'trust-safety-item3': 'Satellite communication devices',
-                'trust-safety-item4': 'Weather monitoring equipment',
-
-                // Missing pricing section
+                // Pricing Section
                 'pricing-title': 'Tour Pricing & Inclusions',
                 'pricing-subtitle': 'Transparent pricing with everything you need to know',
                 'pricing-madidi-title': 'Madidi Jungle Tours',
@@ -619,19 +730,15 @@ class LanguageManager {
                 'pricing-combined-title': 'Combined Tours',
                 'pricing-most-popular': 'Most Popular',
                 'pricing-whats-included': 'What\'s Included',
-                'pricing-book-madidi': 'Book Madidi Tour',
-                'pricing-book-pampas': 'Book Pampas Tour',
-                'pricing-book-combined': 'Book Combined Tour',
-
-                // Pricing inclusions
+                'pricing-madidi-transport': 'Transportation by boat to/from Tacuaral Ecolodge',
                 'pricing-guide': 'Professional local guide (English/Spanish)',
                 'pricing-meals': 'All meals during the tour',
-                'pricing-madidi-transport': 'Transportation by boat to/from Tacuaral Ecolodge',
                 'pricing-madidi-accommodation': 'Accommodation at Tacuaral Ecolodge',
                 'pricing-madidi-walks': 'Guided jungle walks and wildlife observation',
                 'pricing-madidi-macaw': 'Visit to Caquiahuara macaw clay-lick',
                 'pricing-madidi-night': 'Night jungle experiences',
                 'pricing-madidi-plants': 'Medicinal plant demonstrations',
+                'pricing-book-madidi': 'Book Madidi Tour',
                 'pricing-pampas-transport': '4WD transportation to/from Caracoles Ecolodge',
                 'pricing-pampas-accommodation': 'Accommodation at Caracoles Ecolodge',
                 'pricing-pampas-boat': 'Boat excursions on Yacuma River',
@@ -639,6 +746,7 @@ class LanguageManager {
                 'pricing-pampas-fishing': 'Piranha fishing experience',
                 'pricing-pampas-anaconda': 'Anaconda and caiman searching',
                 'pricing-pampas-birds': 'Birdwatching (Blue-throated Macaw)',
+                'pricing-book-pampas': 'Book Pampas Tour',
                 'pricing-combined-transport': 'All transportation (boat & 4WD)',
                 'pricing-combined-guides': 'Professional guides for both ecosystems',
                 'pricing-combined-meals': 'All meals throughout the tour',
@@ -647,8 +755,7 @@ class LanguageManager {
                 'pricing-combined-macaw': 'Macaw clay-lick observation',
                 'pricing-combined-community': 'Cultural community visits',
                 'pricing-combined-night': 'Night wildlife experiences',
-
-                // Not included & booking terms
+                'pricing-book-combined': 'Book Combined Tour',
                 'pricing-not-included': 'Not Included',
                 'pricing-not-transport': 'Transportation to/from Rurrenabaque',
                 'pricing-not-fees': 'Park entrance fees (approx. $15 USD)',
@@ -666,7 +773,7 @@ class LanguageManager {
                 'pricing-season': '<strong>Season:</strong> Tours available year-round',
                 'pricing-weather': '<strong>Weather:</strong> Tours operate rain or shine',
 
-                // What to bring section
+                // What to Bring Section
                 'bring-title': 'What to Bring',
                 'bring-subtitle': 'Essential items for your Amazon adventure',
                 'bring-clothing-title': 'Clothing & Protection',
@@ -693,8 +800,25 @@ class LanguageManager {
                 'bring-pro-tip': 'Pro Tip:',
                 'bring-tip-text': 'Pack light! Laundry service is available at both ecolodges.',
 
+                // Testimonials Section
+                'testimonials-title': 'What Our Guests Say',
+                'testimonials-subtitle': 'Real experiences from our satisfied travelers',
+
+                // Trust Section Items
+                'trust-certified-item1': 'Government licensed tour operator',
+                'trust-certified-item2': 'Insurance coverage for all activities',
+                'trust-certified-item3': 'Certified wilderness first aid guides',
+                'trust-certified-item4': 'Emergency communication equipment',
+                'trust-local-item1': 'Native guides with 10+ years experience',
+                'trust-local-item2': 'Deep knowledge of wildlife behavior',
+                'trust-local-item3': 'Expert jungle navigation skills',
+                'trust-local-item4': 'Fluent in multiple languages',
+                'trust-safety-item1': 'Life jackets for all water activities',
+                'trust-safety-item2': 'First aid kits on every tour',
+                'trust-safety-item3': 'Satellite communication devices',
+                'trust-safety-item4': 'Weather monitoring equipment',
+
                 // Footer
-                'footer-about': 'About Bala Tours',
                 'footer-about-text': 'Leading authentic Amazon experiences in Bolivia since 2010. Sustainable tourism, expert guides, unforgettable adventures.',
                 'footer-links': 'Quick Links',
                 'footer-contact-info': 'Contact Information',
@@ -733,56 +857,15 @@ class LanguageManager {
                 'feature-sustainable-title': 'Turismo Sostenible',
                 'feature-sustainable-text': 'Trabajamos estrechamente con las comunidades locales para asegurar que nuestros tours beneficien tanto a los visitantes como al medio ambiente.',
 
-                // Certifications
-                'cert-licensed': 'Operador Turístico Licenciado',
-                'cert-safety': 'Guías Certificados en Seguridad',
-                'cert-community': 'Programa de Asociación Comunitaria',
-
-                // Wildlife Section
-                'wildlife-title': 'Vida Silvestre Increíble',
-                'wildlife-subtitle': 'Descubre la increíble biodiversidad de la Amazonía',
-
-                // Ecolodges Section
-                'ecolodges-title': 'Nuestros Ecolodges',
-                'ecolodges-subtitle': 'Alojamiento cómodo en armonía con la naturaleza',
-                'ecolodge-pampas-title': 'Ecolodge Pampas',
-                'ecolodge-pampas-location': 'Santa Rosa, Pampas',
-                'ecolodge-pampas-description': 'Lodge rústico de madera sobre pilotes con vista al río Yacuma, diseñado para integrarse armoniosamente con el ambiente de humedales.',
-                'ecolodge-madidi-title': 'Lodge Selva Madidi',
-                'ecolodge-madidi-location': 'Parque Nacional Madidi',
-                'ecolodge-madidi-description': 'Lodge ecológico en lo profundo de la selva tropical, construido con materiales sostenibles y alimentado por energía solar.',
-
-                // Ecolodge Features
-                'feature-beds': 'Camas cómodas con mosquiteros',
-                'feature-bathroom': 'Instalaciones de baño compartidas',
-                'feature-meals': 'Deliciosa cocina local',
-                'feature-terrace': 'Terraza con vista al río',
-                'feature-solar': 'Energía solar',
-                'feature-sustainable': 'Construcción sostenible',
-                'feature-wildlife': 'Mirador de vida silvestre',
-                'feature-guides': 'Guías naturalistas en sitio',
-
                 // Trust & Safety Section
                 'trust-title': 'Confianza y Seguridad',
                 'trust-subtitle': 'Tu seguridad y satisfacción son nuestras principales prioridades',
                 'trust-certified-title': 'Certificado y Licenciado',
                 'trust-certified-text': 'Operador turístico oficialmente licenciado con todos los permisos y certificaciones requeridas.',
-                'trust-certified-item1': 'Operador turístico licenciado por el gobierno',
-                'trust-certified-item2': 'Cobertura de seguro para todas las actividades',
-                'trust-certified-item3': 'Guías certificados en primeros auxilios silvestre',
-                'trust-certified-item4': 'Equipo de comunicación de emergencia',
                 'trust-local-title': 'Experiencia Local',
                 'trust-local-text': 'Nacidos y criados en la Amazonía, nuestros guías tienen un conocimiento incomparable de la región.',
-                'trust-local-item1': 'Guías nativos con más de 10 años de experiencia',
-                'trust-local-item2': 'Profundo conocimiento del comportamiento de la vida silvestre',
-                'trust-local-item3': 'Habilidades expertas de navegación en la selva',
-                'trust-local-item4': 'Fluidos en múltiples idiomas',
                 'trust-safety-title': 'Equipo de Seguridad',
                 'trust-safety-text': 'Equipo profesional de seguridad y protocolos aseguran tu seguridad durante toda la aventura.',
-                'trust-safety-item1': 'Chalecos salvavidas para todas las actividades acuáticas',
-                'trust-safety-item2': 'Botiquines de primeros auxilios en cada tour',
-                'trust-safety-item3': 'Dispositivos de comunicación satelital',
-                'trust-safety-item4': 'Equipo de monitoreo meteorológico',
                 'guarantee-title': 'Garantía de Satisfacción 100%',
                 'guarantee-text': 'Respaldamos cada tour. Si no estás completamente satisfecho, lo arreglaremos.',
 
@@ -796,122 +879,165 @@ class LanguageManager {
                 'tour-includes': 'Incluye',
                 'tour-whatsapp': 'Reservar por WhatsApp',
 
-                // Madidi Tour
-                'madidi-title': 'Expedición Selva Madidi',
+                // Contact Section
+                'contact-title': 'Contáctanos',
+                'contact-subtitle': '¿Listo para comenzar tu aventura amazónica?',
+                'contact-phone': 'Teléfono / WhatsApp',
+                'contact-email': 'Correo Electrónico',
+                'contact-address': 'Dirección',
+                'contact-hours': 'Horario de Oficina',
+                'contact-hours-detail': 'Lunes a Domingo: 8:00 AM - 8:00 PM',
+                'contact-location': 'Nuestra Ubicación',
+                'contact-location-detail': 'Ubicados en el corazón de Rurrenabaque, Bolivia',
+                'contact-whatsapp-btn': 'Envíanos mensaje por WhatsApp',
+                'contact-booking': 'Reserva Rápida',
+                'contact-booking-text': 'Envíanos un mensaje por WhatsApp para reservas instantáneas e información de tours.',
+                'contact-booking-steps': 'Cómo Reservar',
+                'contact-step1': 'Envíanos un mensaje de WhatsApp',
+                'contact-step2': 'Dinos tus fechas preferidas y tour',
+                'contact-step3': 'Recibe confirmación y detalles de pago',
+                'contact-step4': '¡Disfruta tu aventura amazónica!',
+                'language-toggle-title': 'Elige Idioma',
+
+                // Wildlife Gallery Section - Spanish
+                'wildlife-title': 'Vida Silvestre Increíble',
+                'wildlife-subtitle': 'Descubre la increíble biodiversidad de la Amazonía',
+                'wildlife-dolphins-title': 'Delfines Rosados del Río',
+                'wildlife-dolphins-desc': 'Nada con estas increíbles criaturas en las aguas prístinas de los Pampas del Yacuma. Estos mamíferos inteligentes son únicos de la cuenca amazónica.',
+                'wildlife-macaws-title': 'Guacamayos Coloridos',
+                'wildlife-macaws-desc': 'Observa el raro y endémico Guacamayo Barbazul, encontrado solo en Bolivia. Esta especie en peligro es destacada para observadores de aves.',
+                'wildlife-capybaras-title': 'Capibaras Amigables',
+                'wildlife-capybaras-desc': 'Conoce a los roedores más grandes del mundo en su hábitat natural. Estos gigantes gentiles descansan en las orillas del río.',
+                'wildlife-caimans-title': 'Caimanes Espectaculares',
+                'wildlife-caimans-desc': 'Observa estos impresionantes reptiles durante excursiones nocturnas. Nuestros guías te mostrarán caimanes de forma segura.',
+                'wildlife-howler-title': 'Monos Aulladores',
+                'wildlife-howler-desc': 'Escucha los llamados distintivos de los monos aulladores. Estos primates están entre los animales más ruidosos del mundo.',
+                'wildlife-sloths-title': 'Perezosos de Tres Dedos',
+                'wildlife-sloths-desc': 'Descubre estas maravillas de movimiento lento en el dosel del bosque. Los perezosos son maestros del camuflaje.',
+                'wildlife-baby-monkeys-title': 'Bebés Monos con Familias',
+                'wildlife-baby-monkeys-desc': 'Presencia momentos conmovedores de familias de monos en su hábitat natural. Bebés monos aprendiendo de sus madres.',
+                'wildlife-kingfisher-title': 'Martín Pescadores Vibrantes',
+                'wildlife-kingfisher-desc': 'Observa estas aves coloridas zambullirse por peces. La Amazonía es hogar de múltiples especies de estas hermosas aves.',
+                'wildlife-butterflies-title': 'Mariposas Exóticas',
+                'wildlife-butterflies-desc': 'Maravíllate con la increíble diversidad de mariposas. Desde especies pequeñas como joyas hasta grandes mariposas morpho.',
+                'wildlife-hawks-title': 'Aves de Presa Majestuosas',
+                'wildlife-hawks-desc': 'Observa halcones impresionantes volando sobre el dosel amazónico. Estos cazadores son esenciales para el equilibrio del ecosistema.',
+                'wildlife-piranhas-title': 'Pirañas Legendarias',
+                'wildlife-piranhas-desc': 'Prueba tu suerte pescando pirañas en las aguas amazónicas. A pesar de su reputación, estos peces son fascinantes.',
+                'wildlife-frogs-title': 'Ranas de Árbol Coloridas',
+                'wildlife-frogs-desc': 'Descubre la increíble variedad de ranas en el bosque amazónico. Desde pequeñas ranas venenosas hasta ranas grandes.',
+                'wildlife-turtles-title': 'Tortugas de Río Ancestrales',
+                'wildlife-turtles-desc': 'Encuentra estas criaturas prehistóricas tomando sol en troncos. Algunas especies pueden vivir más de 100 años.',
+                'wildlife-tarantulas-title': 'Tarántulas Amazónicas',
+                'wildlife-tarantulas-desc': 'Para los valientes, observa estas impresionantes arañas en su hábitat natural. Las tarántulas controlan insectos.',
+                'wildlife-capuchin-title': 'Monos Capuchinos Inteligentes',
+                'wildlife-capuchin-desc': 'Observa estos primates inteligentes usar herramientas. Los monos capuchinos están entre los animales más inteligentes.',
+                'wildlife-exotic-birds-title': 'Aves Exóticas Espectaculares',
+                'wildlife-exotic-birds-desc': 'La Amazonía es hogar de más de 1,300 especies de aves. Desde colibríes hasta tucanes, la diversidad es impresionante.',
+
+                // Certifications - Spanish
+                'cert-licensed': 'Operador Turístico Licenciado',
+                'cert-safety': 'Guías Certificados en Seguridad',
+                'cert-community': 'Programa de Asociación Comunitaria',
+
+                // Ecolodges Section - Spanish
+                'ecolodges-title': 'Nuestros Ecolodges',
+                'ecolodges-subtitle': 'Alojamiento cómodo en armonía con la naturaleza',
+                'ecolodge-pampas-title': 'Ecolodge de los Pampas',
+                'ecolodge-pampas-location': 'Santa Rosa, Pampas',
+                'ecolodge-pampas-description': 'Alojamiento rústico de madera sobre pilotes con vista al río Yacuma, diseñado para mezclarse armoniosamente con el ambiente de humedales.',
+                'ecolodge-madidi-title': 'Ecolodge del Bosque Madidi',
+                'ecolodge-madidi-location': 'Parque Nacional Madidi',
+                'ecolodge-madidi-description': 'Alojamiento ecológico en lo profundo del bosque, construido con materiales sostenibles y alimentado por energía solar.',
+                'feature-beds': 'Camas cómodas con mosquiteros',
+                'feature-bathroom': 'Instalaciones de baño compartidas',
+                'feature-meals': 'Deliciosa cocina local',
+                'feature-terrace': 'Terraza con vista al río',
+                'feature-solar': 'Energía solar',
+                'feature-sustainable': 'Construcción sostenible',
+                'feature-wildlife': 'Mirador de vida silvestre',
+                'feature-guides': 'Guías naturalistas en el sitio',
+
+                // Tour Details - Spanish
+                'madidi-title': 'Expedición a la Selva Madidi',
                 'madidi-badge': 'Aventura',
-                'madidi-description': 'Explora uno de los parques nacionales más biodiversos del mundo con selva tropical prístina, vida silvestre exótica y comunidades indígenas.',
+                'madidi-description': 'Explora uno de los parques nacionales más biodiversos del mundo con selva prístina, vida silvestre exótica y comunidades indígenas.',
+                'madidi-highlight1': 'Exploración de selva prístina',
+                'madidi-highlight2': 'Avistamiento de aves y mamíferos exóticos',
+                'madidi-highlight3': 'Visitas a comunidades indígenas',
+                'madidi-highlight4': 'Caminatas por el dosel y senderos del río',
+                'madidi-highlight5': 'Talleres de plantas medicinales',
+                'madidi-highlight6': 'Tour nocturno de sonidos de la selva',
                 'madidi-duration': '4 Días / 3 Noches',
                 'madidi-difficulty': 'Moderado a Desafiante',
                 'madidi-group': 'Hasta 6 personas',
                 'madidi-includes': 'Transporte, ecolodge, todas las comidas, guía, actividades',
                 'madidi-price': 'Desde $280 USD por persona',
-                'madidi-highlight1': 'Exploración de selva tropical prístina',
-                'madidi-highlight2': 'Avistamiento de aves y mamíferos exóticos',
-                'madidi-highlight3': 'Visitas a comunidades indígenas',
-                'madidi-highlight4': 'Caminatas por el dosel y senderos fluviales',
-                'madidi-highlight5': 'Talleres de plantas medicinales',
-                'madidi-highlight6': 'Tour nocturno de sonidos de la selva',
 
-                // Pampas Tour
-                'pampas-title': 'Aventura Vida Silvestre Pampas',
                 'pampas-badge': 'Más Popular',
+                'pampas-title': 'Aventura de Vida Silvestre en los Pampas',
                 'pampas-description': 'Experimenta la increíble biodiversidad de los humedales de los Pampas, hogar de delfines rosados, caimanes, capibaras y cientos de especies de aves.',
-                'pampas-duration': '3 Días / 2 Noches',
-                'pampas-difficulty': 'Fácil a Moderado',
-                'pampas-group': 'Hasta 8 personas',
-                'pampas-includes': 'Transporte, alojamiento, todas las comidas, guía, actividades',
-                'pampas-price': 'Desde $180 USD por persona',
                 'pampas-highlight1': 'Encuentros con delfines rosados del río',
                 'pampas-highlight2': 'Avistamiento de caimanes por la noche',
                 'pampas-highlight3': 'Aventura de pesca de pirañas',
                 'pampas-highlight4': 'Avistamientos de capibaras y monos',
                 'pampas-highlight5': 'Observación espectacular de aves',
                 'pampas-highlight6': 'Tours en bote al atardecer',
+                'pampas-duration': '3 Días / 2 Noches',
+                'pampas-difficulty': 'Fácil a Moderado',
+                'pampas-group': 'Hasta 8 personas',
+                'pampas-includes': 'Transporte, alojamiento, todas las comidas, guía, actividades',
+                'pampas-price': 'Desde $180 USD por persona',
 
-                // Combined Tour
-                'combined-title': 'Experiencia Amazónica Completa',
                 'combined-badge': 'Mejor Valor',
-                'combined-description': 'La máxima aventura amazónica que combina los Pampas ricos en vida silvestre con la selva tropical prístina del Parque Nacional Madidi.',
+                'combined-title': 'Experiencia Completa del Amazonas',
+                'combined-description': 'La aventura amazónica definitiva que combina los Pampas ricos en vida silvestre con la selva prístina del Parque Nacional Madidi.',
+                'combined-highlight1': 'Lo mejor de ambos ecosistemas',
+                'combined-highlight2': 'Máxima diversidad de vida silvestre',
+                'combined-highlight3': 'Exploración de humedales de los Pampas',
+                'combined-highlight4': 'Trekking en la selva de Madidi',
+                'combined-highlight5': 'Interacciones culturales comunitarias',
+                'combined-highlight6': 'Oportunidades de fotografía profesional',
                 'combined-duration': '6 Días / 5 Noches',
                 'combined-difficulty': 'Moderado',
                 'combined-group': 'Hasta 8 personas',
                 'combined-includes': 'Todo el transporte, alojamientos, comidas, guías, actividades',
                 'combined-price': 'Desde $420 USD por persona',
-                'combined-highlight1': 'Lo mejor de ambos ecosistemas',
-                'combined-highlight2': 'Máxima diversidad de vida silvestre',
-                'combined-highlight3': 'Exploración de humedales de los Pampas',
-                'combined-highlight4': 'Trekking en la selva tropical Madidi',
-                'combined-highlight5': 'Interacciones culturales comunitarias',
-                'combined-highlight6': 'Oportunidades de fotografía profesional',
 
-                // Testimonials Section
-                'testimonials-title': 'Lo Que Dicen Nuestros Huéspedes',
-                'testimonials-subtitle': 'Experiencias reales de nuestros viajeros satisfechos',
-
-                // Contact Section
-                'contact-title': 'Contáctanos',
-                'contact-subtitle': '¿Listo para comenzar tu aventura amazónica?',
-                'contact-phone': 'Teléfono / WhatsApp',
-                'contact-email': 'Correo Electrónico',
-                'contact-hours': 'Horario de Oficina',
-                'contact-hours-detail': 'Lunes a Domingo: 8:00 AM - 8:00 PM',
-                'contact-location': 'Nuestra Ubicación',
-                'contact-location-detail': 'Ubicados en el corazón de Rurrenabaque, Bolivia',
-                'contact-booking': 'Reserva Rápida',
-                'contact-booking-text': 'Envíanos un mensaje por WhatsApp para reservas instantáneas e información de tours.',
-                'contact-whatsapp-btn': 'Envíanos mensaje por WhatsApp',
-                'contact-booking-steps': 'Cómo Reservar',
-                'contact-step1': 'Envíanos un mensaje de WhatsApp',
-                'contact-step2': 'Dinos tus fechas preferidas y tour',
-                'contact-step3': 'Recibe confirmación y detalles de pago',
-                'contact-step4': '¡Disfruta tu aventura amazónica!',
-
-                // Footer
-                'footer-about': 'Acerca de Bala Tours',
-                'footer-about-text': 'Liderando experiencias auténticas en la Amazonía de Bolivia desde 2010. Turismo sostenible, guías expertos, aventuras inolvidables.',
-                'footer-links': 'Enlaces Rápidos',
-                'footer-contact-info': 'Información de Contacto',
-                'footer-copyright': '© 2025 Bala Tours. Todos los derechos reservados.',
-                'footer-credit': 'Sitio web diseñado por RoRo HQ',
-
-                // Pricing Section
-                'pricing-title': 'Precios de Tours e Inclusiones',
+                // Pricing Section - Spanish
+                'pricing-title': 'Precios e Inclusiones de Tours',
                 'pricing-subtitle': 'Precios transparentes con todo lo que necesitas saber',
-                'pricing-madidi-title': 'Tours Selva Madidi',
-                'pricing-pampas-title': 'Tours Vida Silvestre Pampas',
+                'pricing-madidi-title': 'Tours de Selva Madidi',
+                'pricing-pampas-title': 'Tours de Vida Silvestre Pampas',
                 'pricing-combined-title': 'Tours Combinados',
                 'pricing-most-popular': 'Más Popular',
                 'pricing-whats-included': 'Qué Está Incluido',
-                'pricing-book-madidi': 'Reservar Tour Madidi',
-                'pricing-book-pampas': 'Reservar Tour Pampas',
-                'pricing-book-combined': 'Reservar Tour Combinado',
-
-                // Pricing Inclusions
-                'pricing-guide': 'Guía local profesional (español/inglés)',
+                'pricing-madidi-transport': 'Transporte en bote hacia/desde Ecolodge Tacuaral',
+                'pricing-guide': 'Guía local profesional (Inglés/Español)',
                 'pricing-meals': 'Todas las comidas durante el tour',
-                'pricing-madidi-transport': 'Transporte en bote hacia/desde Tacuaral Ecolodge',
-                'pricing-madidi-accommodation': 'Alojamiento en Tacuaral Ecolodge',
+                'pricing-madidi-accommodation': 'Alojamiento en Ecolodge Tacuaral',
                 'pricing-madidi-walks': 'Caminatas guiadas en la selva y observación de vida silvestre',
-                'pricing-madidi-macaw': 'Visita al bebedero de guacamayos Caquiahuara',
+                'pricing-madidi-macaw': 'Visita al lamecero de guacamayos Caquiahuara',
                 'pricing-madidi-night': 'Experiencias nocturnas en la selva',
                 'pricing-madidi-plants': 'Demostraciones de plantas medicinales',
-                'pricing-pampas-transport': 'Transporte 4WD hacia/desde Caracoles Ecolodge',
-                'pricing-pampas-accommodation': 'Alojamiento en Caracoles Ecolodge',
-                'pricing-pampas-boat': 'Excursiones en bote por el río Yacuma',
-                'pricing-pampas-dolphins': 'Natación con delfines rosados',
+                'pricing-book-madidi': 'Reservar Tour Madidi',
+                'pricing-pampas-transport': 'Transporte 4WD hacia/desde Ecolodge Caracoles',
+                'pricing-pampas-accommodation': 'Alojamiento en Ecolodge Caracoles',
+                'pricing-pampas-boat': 'Excursiones en bote en el río Yacuma',
+                'pricing-pampas-dolphins': 'Nado con delfines rosados',
                 'pricing-pampas-fishing': 'Experiencia de pesca de pirañas',
                 'pricing-pampas-anaconda': 'Búsqueda de anacondas y caimanes',
                 'pricing-pampas-birds': 'Observación de aves (Guacamayo Barbazul)',
+                'pricing-book-pampas': 'Reservar Tour Pampas',
                 'pricing-combined-transport': 'Todo el transporte (bote y 4WD)',
                 'pricing-combined-guides': 'Guías profesionales para ambos ecosistemas',
                 'pricing-combined-meals': 'Todas las comidas durante todo el tour',
                 'pricing-combined-accommodation': 'Alojamiento en ambos ecolodges',
                 'pricing-combined-experiences': 'Experiencias completas de selva y pampas',
-                'pricing-combined-macaw': 'Observación del bebedero de guacamayos',
-                'pricing-combined-community': 'Visitas culturales a la comunidad',
+                'pricing-combined-macaw': 'Observación del lamecero de guacamayos',
+                'pricing-combined-community': 'Visitas culturales comunitarias',
                 'pricing-combined-night': 'Experiencias nocturnas de vida silvestre',
-
-                // Not Included & Booking Terms
+                'pricing-book-combined': 'Reservar Tour Combinado',
                 'pricing-not-included': 'No Incluido',
                 'pricing-not-transport': 'Transporte hacia/desde Rurrenabaque',
                 'pricing-not-fees': 'Tarifas de entrada al parque (aprox. $15 USD)',
@@ -927,20 +1053,20 @@ class LanguageManager {
                 'pricing-group-size': '<strong>Tamaño del Grupo:</strong> Mínimo 2, Máximo 6 personas',
                 'pricing-age-limit': '<strong>Límite de Edad:</strong> Apropiado para edades 8-70',
                 'pricing-season': '<strong>Temporada:</strong> Tours disponibles todo el año',
-                'pricing-weather': '<strong>Clima:</strong> Los tours operan llueva o haga sol',
+                'pricing-weather': '<strong>Clima:</strong> Tours operan llueva o truene',
 
-                // What to Bring Section
+                // What to Bring Section - Spanish
                 'bring-title': 'Qué Traer',
                 'bring-subtitle': 'Artículos esenciales para tu aventura amazónica',
                 'bring-clothing-title': 'Ropa y Protección',
                 'bring-clothing-desc': 'Equipo esencial para comodidad y seguridad en el ambiente amazónico.',
-                'bring-clothing-1': 'Camisas de manga larga y pantalones (secado rápido)',
-                'bring-clothing-2': 'Chaqueta impermeable ligera o poncho',
-                'bring-clothing-3': 'Sombrero con ala y zapatos para caminar',
+                'bring-clothing-1': 'Camisas y pantalones de manga larga (secado rápido)',
+                'bring-clothing-2': 'Chaqueta ligera para lluvia o poncho',
+                'bring-clothing-3': 'Sombrero con visera y zapatos para caminar',
                 'bring-clothing-4': 'Sandalias impermeables y ropa de baño',
                 'bring-clothing-5': 'Repelente de insectos y protector solar',
                 'bring-health-title': 'Salud y Seguridad',
-                'bring-health-desc': 'Artículos de salud importantes para asegurar tu comodidad durante el tour.',
+                'bring-health-desc': 'Artículos importantes de salud para asegurar tu comodidad durante el tour.',
                 'bring-health-1': 'Botiquín personal de primeros auxilios y medicamentos',
                 'bring-health-2': 'Gafas de sol y artículos de tocador biodegradables',
                 'bring-health-3': 'Desinfectante de manos para higiene',
@@ -951,44 +1077,35 @@ class LanguageManager {
                 'bring-equipment-1': 'Cámara con baterías extra y memoria',
                 'bring-equipment-2': 'Binoculares para observación de vida silvestre',
                 'bring-equipment-3': 'Linterna o lámpara frontal con baterías',
-                'bring-equipment-4': 'Power bank y bolsas impermeables',
+                'bring-equipment-4': 'Banco de energía y bolsas impermeables',
                 'bring-equipment-5': 'Mochila pequeña y toalla de secado rápido',
                 'bring-pro-tip': 'Consejo Profesional:',
                 'bring-tip-text': '¡Empaca ligero! Servicio de lavandería está disponible en ambos ecolodges.',
 
-                // Wildlife Gallery Section - Spanish
-                'wildlife-dolphins-title': 'Delfines Rosados del Río',
-                'wildlife-dolphins-desc': 'Nada con estas increíbles criaturas en las aguas prístinas de los Pampas del Yacuma. Estos mamíferos inteligentes son únicos de la cuenca amazónica y ofrecen una experiencia de natación inolvidable.',
-                'wildlife-macaws-title': 'Guacamayos Coloridos',
-                'wildlife-macaws-desc': 'Observa el raro y endémico Guacamayo Barbazul, encontrado solo en Bolivia. Esta especie en peligro de extinción es un punto culminante para observadores de aves y entusiastas de la conservación.',
-                'wildlife-capybaras-title': 'Capibaras Amigables',
-                'wildlife-capybaras-desc': 'Conoce a los roedores más grandes del mundo en su hábitat natural. Estos gigantes gentiles a menudo se ven descansando junto a las orillas del río y nadando en las aguas.',
-                'wildlife-caimans-title': 'Caimanes Espectaculares',
-                'wildlife-caimans-desc': 'Avista a estos impresionantes reptiles durante excursiones nocturnas. Nuestros guías te mostrarán de manera segura los caimanes en su ambiente natural a lo largo de las orillas del río.',
-                'wildlife-howler-title': 'Monos Aulladores',
-                'wildlife-howler-desc': 'Escucha los distintivos llamados de los monos aulladores resonando a través del dosel de la selva. Estos primates están entre los animales más ruidosos del mundo.',
-                'wildlife-sloths-title': 'Perezosos de Tres Dedos',
-                'wildlife-sloths-desc': 'Descubre estas maravillas de movimiento lento colgando en el dosel de la selva tropical. Los perezosos son maestros del camuflaje y la conservación de energía.',
-                'wildlife-baby-monkeys-title': 'Monos Bebé con Familias',
-                'wildlife-baby-monkeys-desc': 'Presencia momentos conmovedores de familias de monos en su hábitat natural. Los monos bebé aprendiendo de sus madres es una de las experiencias de vida silvestre más emotivas.',
-                'wildlife-kingfisher-title': 'Martines Pescadores Vibrantes',
-                'wildlife-kingfisher-desc': 'Observa a estas aves coloridas zambullirse por peces a lo largo de las orillas del río. La Amazonía es hogar de múltiples especies de estas hermosas aves pescadoras.',
-                'wildlife-butterflies-title': 'Mariposas Exóticas',
-                'wildlife-butterflies-desc': 'Maravíllate con la increíble diversidad de mariposas en la Amazonía. Desde especies pequeñas como joyas hasta grandes mariposas morpho con alas azules brillantes.',
-                'wildlife-hawks-title': 'Aves de Presa Majestuosas',
-                'wildlife-hawks-desc': 'Avista impresionantes halcones y otras rapaces volando sobre el dosel amazónico. Estos cazadores hábiles son esenciales para el equilibrio del ecosistema.',
-                'wildlife-piranhas-title': 'Pirañas Legendarias',
-                'wildlife-piranhas-desc': '¡Prueba tu suerte pescando pirañas en las aguas amazónicas! A pesar de su reputación, estos peces son criaturas fascinantes y sorprendentemente sabrosos cuando se cocinan.',
-                'wildlife-frogs-title': 'Ranas de Árbol Coloridas',
-                'wildlife-frogs-desc': 'Descubre la increíble variedad de ranas en la selva tropical amazónica. Desde pequeñas ranas venenosas hasta ranas de árbol más grandes, cada especie está únicamente adaptada a la vida en la selva.',
-                'wildlife-turtles-title': 'Tortugas de Río Ancestrales',
-                'wildlife-turtles-desc': 'Encuentra a estas criaturas prehistóricas tomando el sol en troncos y orillas del río. Algunas especies de tortugas en la Amazonía pueden vivir más de 100 años.',
-                'wildlife-tarantulas-title': 'Tarántulas Amazónicas',
-                'wildlife-tarantulas-desc': 'Para los valientes de corazón, observa a estas impresionantes arañas en su hábitat natural. Las tarántulas juegan un papel importante en el control de poblaciones de insectos.',
-                'wildlife-capuchin-title': 'Monos Capuchinos Inteligentes',
-                'wildlife-capuchin-desc': 'Observa a estos primates inteligentes usar herramientas y resolver problemas en la naturaleza. Los monos capuchinos están entre los animales más inteligentes de la Amazonía.',
-                'wildlife-exotic-birds-title': 'Aves Exóticas Espectaculares',
-                'wildlife-exotic-birds-desc': 'La Amazonía es hogar de más de 1,300 especies de aves. Desde pequeños colibríes hasta magníficos tucanes, la diversidad es absolutamente impresionante.'
+                // Testimonials Section - Spanish
+                'testimonials-title': 'Lo Que Dicen Nuestros Huéspedes',
+                'testimonials-subtitle': 'Experiencias reales de nuestros viajeros satisfechos',
+
+                // Trust Section Items - Spanish
+                'trust-certified-item1': 'Operador turístico licenciado por el gobierno',
+                'trust-certified-item2': 'Cobertura de seguro para todas las actividades',
+                'trust-certified-item3': 'Guías certificados en primeros auxilios en la naturaleza',
+                'trust-certified-item4': 'Equipo de comunicación de emergencia',
+                'trust-local-item1': 'Guías nativos con más de 10 años de experiencia',
+                'trust-local-item2': 'Conocimiento profundo del comportamiento de la vida silvestre',
+                'trust-local-item3': 'Habilidades expertas de navegación en la selva',
+                'trust-local-item4': 'Fluidos en múltiples idiomas',
+                'trust-safety-item1': 'Chalecos salvavidas para todas las actividades acuáticas',
+                'trust-safety-item2': 'Botiquines de primeros auxilios en cada tour',
+                'trust-safety-item3': 'Dispositivos de comunicación satelital',
+                'trust-safety-item4': 'Equipo de monitoreo meteorológico',
+
+                // Footer - Spanish
+                'footer-about-text': 'Liderando experiencias auténticas del Amazonas en Bolivia desde 2010. Turismo sostenible, guías expertos, aventuras inolvidables.',
+                'footer-links': 'Enlaces Rápidos',
+                'footer-contact-info': 'Información de Contacto',
+                'footer-copyright': '© 2025 Bala Tours. Todos los derechos reservados.',
+                'footer-credit': 'Sitio web diseñado por RoRo HQ'
             }
         };
         this.init();
@@ -1005,6 +1122,11 @@ class LanguageManager {
             this.updateLanguage(this.currentLanguage);
             this.bindEvents();
         }
+        
+        // Also add a backup initialization after a short delay to catch any dynamically loaded content
+        setTimeout(() => {
+            this.updateLanguage(this.currentLanguage);
+        }, 500);
     }
 
     updateLanguage(lang) {
@@ -1015,12 +1137,18 @@ class LanguageManager {
         document.querySelectorAll('[data-translate]').forEach(element => {
             const key = element.getAttribute('data-translate');
             if (this.translations[lang] && this.translations[lang][key]) {
-                // Handle elements with HTML content
-                if (key.includes('-deposit') || key.includes('-payment') || key.includes('-cancellation') || key.includes('-group-size') || key.includes('-age-limit') || key.includes('-season') || key.includes('-weather')) {
+                // Handle elements with HTML content (booking terms that contain <strong> tags)
+                if (key.includes('-deposit') || key.includes('-payment') || key.includes('-cancellation') || 
+                    key.includes('-group-size') || key.includes('-age-limit') || key.includes('-season') || 
+                    key.includes('-weather')) {
                     element.innerHTML = this.translations[lang][key];
                 } else {
+                    // For all other elements including gallery captions, use textContent
                     element.textContent = this.translations[lang][key];
                 }
+            } else {
+                // Log missing translations for debugging
+                console.warn(`Missing translation for key: "${key}" in language: "${lang}"`);
             }
         });
 
@@ -1043,10 +1171,47 @@ class LanguageManager {
         // Update document language attribute
         document.documentElement.lang = lang;
 
+        // Force refresh of any dynamically loaded content
+        this.refreshWildlifeGallery();
+
         // Debug logging
         console.log(`Language updated to: ${lang}`);
         console.log(`Found ${document.querySelectorAll('[data-translate]').length} translatable elements`);
-        console.log(`Found ${document.querySelectorAll('.nav-lang-btn').length} language buttons`);
+        
+        // Specific debugging for wildlife gallery
+        const wildlifeElements = document.querySelectorAll('.wildlife-large-overlay [data-translate]');
+        console.log(`Wildlife gallery translatable elements: ${wildlifeElements.length}`);
+        wildlifeElements.forEach(el => {
+            const key = el.getAttribute('data-translate');
+            console.log(`Wildlife element key: ${key}, current text: "${el.textContent}"`);
+        });
+    }
+
+    // New method to specifically handle wildlife gallery refresh
+    refreshWildlifeGallery() {
+        const wildlifeGallery = document.querySelector('.wildlife-large-gallery');
+        if (wildlifeGallery) {
+            // Force a re-render of wildlife gallery captions
+            const overlays = wildlifeGallery.querySelectorAll('.wildlife-large-overlay');
+            overlays.forEach(overlay => {
+                const titleElement = overlay.querySelector('h3[data-translate]');
+                const descElement = overlay.querySelector('p[data-translate]');
+                
+                if (titleElement) {
+                    const titleKey = titleElement.getAttribute('data-translate');
+                    if (this.translations[this.currentLanguage] && this.translations[this.currentLanguage][titleKey]) {
+                        titleElement.textContent = this.translations[this.currentLanguage][titleKey];
+                    }
+                }
+                
+                if (descElement) {
+                    const descKey = descElement.getAttribute('data-translate');
+                    if (this.translations[this.currentLanguage] && this.translations[this.currentLanguage][descKey]) {
+                        descElement.textContent = this.translations[this.currentLanguage][descKey];
+                    }
+                }
+            });
+        }
     }
 
     bindEvents() {
@@ -1360,6 +1525,10 @@ document.addEventListener('DOMContentLoaded', () => {
     new TabSystem();
     new FormHandler();
     new ImageLazyLoader();
+    
+    // Initialize WhatsApp button and icon checking
+    addWhatsAppButton();
+    checkAndFixIcons();
 
     console.log('🌿 Bala Tours website initialized successfully!');
 });

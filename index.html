@@ -6,11 +6,143 @@
     <title>Bala Tours - Authentic Amazon Adventures in Bolivia</title>
     <meta name="description" content="Discover the Amazon with Bala Tours. Expert-guided wildlife adventures in the Pampas and Madidi National Park. Sustainable tourism, authentic experiences.">
     <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts - Multiple fallback sources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Font Awesome - Updated with latest version and multiple fallbacks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <!-- Fallback Font Awesome sources -->
+    <script>
+        // Check if Font Awesome loaded properly
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                var testEl = document.createElement('i');
+                testEl.className = 'fas fa-home';
+                testEl.style.display = 'none';
+                document.body.appendChild(testEl);
+                
+                var computedStyle = window.getComputedStyle(testEl, ':before');
+                var content = computedStyle.getPropertyValue('content');
+                var fontFamily = computedStyle.getPropertyValue('font-family');
+                
+                document.body.removeChild(testEl);
+                
+                // Check if Font Awesome loaded properly
+                if (content === 'none' || content === '' || !fontFamily.includes('Font Awesome')) {
+                    console.log('Primary Font Awesome failed, loading fallback...');
+                    
+                    // Try alternative CDN
+                    var link1 = document.createElement('link');
+                    link1.rel = 'stylesheet';
+                    link1.href = 'https://pro.fontawesome.com/releases/v5.15.4/css/all.css';
+                    link1.crossOrigin = 'anonymous';
+                    document.head.appendChild(link1);
+                    
+                    // Try another fallback
+                    setTimeout(function() {
+                        var link2 = document.createElement('link');
+                        link2.rel = 'stylesheet';
+                        link2.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+                        document.head.appendChild(link2);
+                    }, 500);
+                }
+            }, 100);
+        });
+    </script>
+    
+    <!-- Fallback fonts and icon styles -->
+    <style>
+        @import url('https://fonts.bunny.net/css?family=poppins:300,400,500,600,700');
+        
+        /* Fallback font stack */
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        /* Enhanced fallback icon styles */
+        .fas, .fab, .far, .fa {
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'FontAwesome', sans-serif !important;
+            font-weight: 900;
+            font-style: normal;
+            font-variant: normal;
+            text-rendering: auto;
+            line-height: 1;
+        }
+        
+        .fab {
+            font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', 'FontAwesome', sans-serif !important;
+            font-weight: 400;
+        }
+        
+        /* Specific fallback for common social media icons */
+        .fa-facebook-f:before { content: "\f39e"; }
+        .fa-whatsapp:before { content: "\f232"; }
+        .fa-map-marked-alt:before { content: "\f5a0"; }
+        .fa-phone:before { content: "\f095"; }
+        .fa-envelope:before { content: "\f0e0"; }
+        .fa-clock:before { content: "\f017"; }
+        .fa-language:before { content: "\f1ab"; }
+        .fa-credit-card:before { content: "\f09d"; }
+        .fa-share-alt:before { content: "\f1e0"; }
+        
+        /* CSS-only social media icons as ultimate fallback */
+        .social-icon-fallback {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            line-height: 20px;
+            border-radius: 3px;
+            color: white;
+            font-weight: bold;
+            font-size: 12px;
+        }
+        
+        .facebook-fallback {
+            background: #1877f2;
+        }
+        
+        .whatsapp-fallback {
+            background: #25d366;
+        }
+        
+        .tripadvisor-fallback {
+            background: #00cc66;
+        }
+        
+        /* WhatsApp floating button enhanced styling */
+        .whatsapp-float {
+            position: fixed !important;
+            width: 60px !important;
+            height: 60px !important;
+            bottom: 20px !important;
+            right: 20px !important;
+            background: #25d366 !important;
+            color: white !important;
+            border-radius: 50% !important;
+            text-align: center !important;
+            font-size: 30px !important;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.2) !important;
+            z-index: 1000 !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-decoration: none !important;
+            transition: all 0.3s ease !important;
+            animation: pulse 2s infinite !important;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1) !important;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.3) !important;
+        }
+    </style>
 </head>
 <body>
-    <!-- Header -->
     <header class="header">
         <nav class="nav-container">
             <div class="nav-logo">
@@ -19,23 +151,17 @@
             </div>
             
             <ul class="nav-menu">
-                <li><a href="#home" class="nav-link" data-translate="nav-home">Home</a></li>
-                <li><a href="#about" class="nav-link" data-translate="nav-about">About</a></li>
-                <li><a href="#tours" class="nav-link" data-translate="nav-tours">Tours</a></li>
-                <li><a href="#ecolodges" class="nav-link" data-translate="nav-ecolodges">Ecolodges</a></li>
-                <li><a href="#wildlife" class="nav-link" data-translate="nav-wildlife">Wildlife</a></li>
-                <li><a href="#contact" class="nav-link" data-translate="nav-contact">Contact</a></li>
-                <li><a href="https://buy.stripe.com/14k4ja9hJ6th8kEcMV" class="nav-link" target="_blank" rel="noopener noreferrer">Payment</a></li>
+                <li class="nav-item"><a href="#home" class="nav-link" data-translate="nav-home">Home</a></li>
+                <li class="nav-item"><a href="#about" class="nav-link" data-translate="nav-about">About</a></li>
+                <li class="nav-item"><a href="#tours" class="nav-link" data-translate="nav-tours">Tours</a></li>
+                <li class="nav-item"><a href="#ecolodges" class="nav-link" data-translate="nav-ecolodges">Ecolodges</a></li>
+                <li class="nav-item"><a href="#contact" class="nav-link" data-translate="nav-contact">Contact</a></li>
+                <li class="nav-item"><a href="https://buy.stripe.com/14k4ja9hJ6th8kEcMV" class="nav-link" target="_blank" data-translate="nav-payment">Payment</a></li>
             </ul>
 
-            <!-- Language Toggle Buttons -->
             <div class="nav-language">
-                <button class="nav-lang-btn active" data-lang="en" title="English">
-                    🇺🇸 EN
-                </button>
-                <button class="nav-lang-btn" data-lang="es" title="Español">
-                    🇪🇸 ES
-                </button>
+                <button class="nav-lang-btn" data-lang="en">🇺🇸 EN</button>
+                <button class="nav-lang-btn" data-lang="es">🇪🇸 ES</button>
             </div>
 
             <div class="hamburger">
@@ -940,7 +1066,7 @@
             </div>
             <div class="footer-bottom">
                 <p data-translate="footer-copyright">&copy; 2025 Bala Tours. All rights reserved.</p>
-                <p class="footer-credit" data-translate="footer-credit">Website designed by RoRo HQ</p>
+                <p class="footer-credit">Website designed with love ❤️ by <a href="https://nomadicwebstudio.netlify.app" target="_blank">Nomadic Web Studios</a></p>
             </div>
         </div>
     </footer>
