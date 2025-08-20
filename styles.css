@@ -161,7 +161,7 @@ body {
 /* Hero Section */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('Images/hero image of monkey.jpg') center/cover no-repeat;
+    background: url('Images/hero image of monkey.jpg') center/cover no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -171,94 +171,215 @@ body {
     text-align: center;
     color: white;
     position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 80%, rgba(45, 122, 45, 0.1) 0%, transparent 80%),
+        radial-gradient(circle at 80% 20%, rgba(230, 126, 34, 0.1) 0%, transparent 80%);
+    animation: heroShimmer 8s ease-in-out infinite;
+    z-index: 1;
+}
+
+.hero::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: 
+        radial-gradient(circle, rgba(255, 215, 0, 0.02) 0%, transparent 70%);
+    animation: heroGlow 6s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+@keyframes heroShimmer {
+    0%, 100% { 
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    50% { 
+        opacity: 0.8;
+        transform: scale(1.05) rotate(1deg);
+    }
+}
+
+@keyframes heroGlow {
+    0% { 
+        opacity: 0.3;
+        transform: scale(1) rotate(0deg);
+    }
+    100% { 
+        opacity: 0.6;
+        transform: scale(1.2) rotate(180deg);
+    }
 }
 
 .hero-content {
-    max-width: 800px;
+    max-width: 900px;
     padding: 0 20px;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     height: 100%;
     justify-content: space-between;
-    padding-top: 15vh;
-    padding-bottom: 10vh;
+    padding-top: 12vh;
+    padding-bottom: 8vh;
+    position: relative;
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: 4rem;
+    font-weight: 800;
     margin-bottom: 1rem;
     animation: fadeInUp 1s ease;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    text-shadow: 
+        3px 3px 6px rgba(0,0,0,0.7),
+        0 0 30px rgba(0, 0, 0, 0.4),
+        0 0 60px rgba(0, 0, 0, 0.3);
+    color: white;
+    animation: fadeInUp 1s ease, textShine 3s ease-in-out infinite;
+}
+
+@keyframes textShine {
+    0%, 100% { 
+        text-shadow: 
+            3px 3px 6px rgba(0,0,0,0.7),
+            0 0 30px rgba(255, 255, 255, 0.3);
+    }
+    50% { 
+        text-shadow: 
+            3px 3px 6px rgba(0,0,0,0.7),
+            0 0 30px rgba(255, 255, 255, 0.6);
+    }
 }
 
 .hero-subtitle {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     margin-bottom: 2rem;
     opacity: 0.95;
     animation: fadeInUp 1s ease 0.2s both;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
 .hero-spacer {
     flex: 1;
-    min-height: 8vh;
+    min-height: 25vh;
+    position: relative;
+}
+
+.hero-spacer::before {
+    content: '🌿';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    opacity: 0.3;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(-50%, -50%) translateY(0px); }
+    50% { transform: translate(-50%, -50%) translateY(-10px); }
 }
 
 .hero-tagline {
-    font-size: 1rem;
-    margin-bottom: 2rem;
+    font-size: 1.1rem;
+    margin-bottom: 0;
     opacity: 0.9;
-    font-weight: 500;
-    animation: fadeInUp 1s ease 0.3s both;
+    font-weight: 600;
+    animation: fadeInUp 1s ease 0.5s both;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    padding: 1rem 2rem;
+    background: rgba(45, 122, 45, 0.2);
+    border-radius: 50px;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    backdrop-filter: blur(10px);
 }
 
 .hero-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
     animation: fadeInUp 1s ease 0.4s both;
+    margin-bottom: 2rem;
 }
 
-/* Button Styles */
+/* Enhanced Button Styles */
 .btn {
     display: inline-block;
-    padding: 12px 30px;
+    padding: 15px 35px;
     text-decoration: none;
     border-radius: 50px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
+    font-weight: 700;
+    transition: all 0.4s ease;
+    border: 3px solid transparent;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    position: relative;
+    overflow: hidden;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.btn:hover::before {
+    left: 100%;
 }
 
 .btn-primary {
-    background: #e67e22;
+    background: linear-gradient(135deg, #e67e22 0%, #d35400 50%, #e67e22 100%);
     color: white;
     border-color: #e67e22;
+    box-shadow: 0 8px 25px rgba(230, 126, 34, 0.4);
 }
 
 .btn-primary:hover {
-    background: transparent;
-    border-color: #e67e22;
-    color: #e67e22;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(230, 126, 34, 0.3);
+    background: linear-gradient(135deg, #d35400 0%, #e67e22 50%, #d35400 100%);
+    border-color: #ffd700;
+    color: white;
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(230, 126, 34, 0.6);
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
 }
 
 .btn-secondary {
-    background: transparent;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.2) 100%);
     color: white;
-    border-color: white;
+    border-color: #ffd700;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.3);
 }
 
 .btn-secondary:hover {
-    background: white;
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
     color: #2d7a2d;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 215, 0, 0.6);
+    border-color: #ffd700;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
 }
 
 /* Section Styles */
@@ -2328,5 +2449,804 @@ body.menu-open {
 
     .hamburger.active .bar:nth-child(3) {
         transform: translateY(-8px) rotate(-45deg);
+    }
+}
+
+/* Mobile-First Responsive Design Enhancements */
+
+/* Base Mobile Styles - 320px and up */
+@media (max-width: 480px) {
+    /* Mobile-first container */
+    .container {
+        padding: 0 15px;
+    }
+    
+    /* Hero section mobile optimization */
+    .hero {
+        background-attachment: scroll; /* Better performance on mobile */
+        min-height: 100vh;
+        height: auto;
+    }
+    
+    .hero-content {
+        padding: 120px 15px 60px;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .hero-title {
+        font-size: 2.2rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+        line-height: 1.4;
+    }
+    
+    .hero-tagline {
+        font-size: 0.9rem;
+        padding: 0.8rem 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .hero-buttons {
+        gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn {
+        width: 100%;
+        max-width: 280px;
+        padding: 14px 20px;
+        font-size: 1rem;
+        text-align: center;
+    }
+    
+    /* Section spacing mobile optimization */
+    .about, .tours, .ecolodges, .testimonials, .trust-safety, .what-to-bring, .pricing {
+        padding: 4rem 0;
+    }
+    
+    .section-header {
+        margin-bottom: 2.5rem;
+    }
+    
+    .section-title {
+        font-size: 1.8rem;
+        line-height: 1.3;
+        margin-bottom: 0.8rem;
+    }
+    
+    .section-subtitle {
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+    
+    /* About section mobile */
+    .about-text h3 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .about-text p {
+        font-size: 1rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .about-features {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .feature {
+        padding: 1.5rem;
+    }
+    
+    .feature i {
+        font-size: 2.5rem;
+    }
+    
+    .feature h4 {
+        font-size: 1.2rem;
+    }
+    
+    /* Tours section mobile optimization */
+    .tours-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .destination-card {
+        margin: 0 5px;
+    }
+    
+    .destination-image {
+        height: 200px;
+    }
+    
+    .destination-content {
+        padding: 1.2rem;
+    }
+    
+    .destination-content h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .tour-highlights ul {
+        margin: 0;
+        padding: 0;
+    }
+    
+    .tour-highlights li {
+        font-size: 0.9rem;
+        padding: 0.4rem 0;
+    }
+    
+    .tour-details {
+        padding: 1rem;
+        margin-top: 1rem;
+    }
+    
+    .detail-item {
+        font-size: 0.9rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .destination-price {
+        font-size: 1.1rem;
+        margin: 1rem 0;
+    }
+    
+    .btn-whatsapp {
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+    
+    /* Contact section mobile */
+    .contact {
+        padding: 60px 0;
+    }
+    
+    .contact-content {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .contact-item {
+        padding: 15px;
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    
+    .contact-item i {
+        font-size: 1.2rem;
+        margin-top: 0;
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+    
+    .contact-item h3 {
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+    
+    .contact-item p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+    
+    .map-container,
+    .whatsapp-booking {
+        padding: 15px;
+    }
+    
+    .map-wrapper iframe {
+        height: 250px;
+    }
+    
+    .social-links {
+        gap: 10px;
+    }
+    
+    .social-link {
+        padding: 10px 12px;
+        flex-direction: row;
+        justify-content: flex-start;
+    }
+    
+    .social-link i {
+        font-size: 1.1rem;
+        width: 18px;
+    }
+    
+    .social-link span {
+        font-size: 0.85rem;
+    }
+    
+    /* Footer mobile */
+    .footer {
+        padding: 2rem 0 1rem;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1.5rem;
+    }
+    
+    .footer-logo-img {
+        height: 50px;
+    }
+    
+    .footer-logo h3 {
+        font-size: 1.3rem;
+    }
+    
+    .footer-logo p {
+        font-size: 0.85rem;
+    }
+    
+    .footer-social {
+        gap: 10px;
+        margin-top: 1rem;
+    }
+    
+    .footer-social-link {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .footer-bottom p {
+        font-size: 0.8rem;
+    }
+    
+    /* Pricing section mobile */
+    .pricing-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .pricing-card {
+        padding: 1.5rem;
+        margin: 0 5px;
+    }
+    
+    .pricing-card.featured {
+        transform: none;
+        margin-top: 1rem;
+    }
+    
+    .featured-badge {
+        top: -10px;
+        font-size: 0.8rem;
+        padding: 0.4rem 1rem;
+    }
+    
+    .pricing-header h3 {
+        font-size: 1.3rem;
+    }
+    
+    .price-option {
+        padding: 0.8rem;
+    }
+    
+    .duration {
+        font-size: 0.9rem;
+    }
+    
+    .price {
+        font-size: 1.3rem;
+    }
+    
+    .inclusions {
+        margin-top: 1.5rem;
+    }
+    
+    .included-list li {
+        font-size: 0.85rem;
+        padding: 0.4rem 0;
+    }
+    
+    .pricing-notes {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .not-included,
+    .booking-terms {
+        padding: 1.5rem;
+    }
+    
+    /* What to bring section mobile */
+    .bring-categories {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .bring-category {
+        padding: 1.5rem;
+    }
+    
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .category-icon i {
+        font-size: 1.5rem;
+    }
+    
+    .bring-category h3 {
+        font-size: 1.2rem;
+    }
+    
+    .bring-category ul {
+        margin-top: 1rem;
+    }
+    
+    .bring-category li {
+        font-size: 0.85rem;
+        padding: 0.4rem 0;
+    }
+    
+    .bring-note {
+        margin-top: 2rem;
+        padding: 1.5rem;
+    }
+    
+    .bring-note p {
+        font-size: 1rem;
+    }
+    
+    /* Testimonials mobile */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .testimonial-card {
+        padding: 1.5rem;
+        margin: 0 5px;
+    }
+    
+    .testimonial-content p {
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    
+    .author-info {
+        gap: 0.8rem;
+    }
+    
+    .country-flag {
+        font-size: 1.5rem;
+    }
+    
+    /* Wildlife gallery mobile */
+    .wildlife-gallery-section {
+        padding: 60px 0;
+    }
+    
+    .wildlife-large-gallery {
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-top: 30px;
+    }
+    
+    .wildlife-large-item {
+        height: 250px;
+        margin: 0 5px;
+    }
+    
+    .wildlife-large-overlay {
+        padding: 15px;
+        transform: translateY(30%);
+    }
+    
+    .wildlife-large-overlay h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+    
+    .wildlife-large-overlay p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+    
+    /* Trust & Safety mobile */
+    .trust-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .trust-card {
+        padding: 1.5rem;
+    }
+    
+    .trust-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 1rem;
+    }
+    
+    .trust-icon i {
+        font-size: 1.5rem;
+    }
+    
+    .trust-card h3 {
+        font-size: 1.2rem;
+    }
+    
+    .trust-list li {
+        font-size: 0.85rem;
+        padding: 0.4rem 0;
+    }
+    
+    .guarantee-section {
+        padding: 2rem 1.5rem;
+        margin-top: 2rem;
+    }
+    
+    .guarantee-badge {
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .guarantee-badge i {
+        font-size: 2.5rem;
+    }
+    
+    .guarantee-text h3 {
+        font-size: 1.4rem;
+    }
+    
+    .guarantee-text p {
+        font-size: 1rem;
+    }
+    
+    /* Ecolodges mobile */
+    .ecolodges-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .ecolodge-card {
+        margin: 0 5px;
+    }
+    
+    .ecolodge-image {
+        height: 200px;
+    }
+    
+    .ecolodge-content {
+        padding: 1.5rem;
+    }
+    
+    .ecolodge-content h3 {
+        font-size: 1.3rem;
+    }
+    
+    .ecolodge-features {
+        grid-template-columns: 1fr;
+        gap: 0.4rem;
+        margin-top: 1rem;
+    }
+    
+    .ecolodge-features li {
+        font-size: 0.85rem;
+    }
+}
+
+/* Medium Mobile Devices - 481px to 767px */
+@media (min-width: 481px) and (max-width: 767px) {
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .tours-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .wildlife-large-gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .wildlife-large-item {
+        height: 300px;
+    }
+    
+    .bring-categories {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: row;
+        gap: 1rem;
+    }
+    
+    .btn {
+        width: auto;
+        min-width: 140px;
+    }
+}
+
+/* Tablet Landscape - 768px to 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .hero-title {
+        font-size: 3.2rem;
+    }
+    
+    .tours-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .wildlife-large-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+    
+    .about-features {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .trust-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .bring-categories {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .testimonials-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pricing-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pricing-card.featured {
+        grid-column: 1 / -1;
+        max-width: 500px;
+        margin: 2rem auto 0;
+    }
+}
+
+/* Mobile Navigation Enhancements */
+@media (max-width: 768px) {
+    .hamburger {
+        display: flex;
+        z-index: 1002;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 70px;
+        flex-direction: column;
+        background: rgba(255, 255, 255, 0.98);
+        width: 100%;
+        text-align: center;
+        transition: left 0.3s ease;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        padding: 1.5rem 0;
+        gap: 0;
+        z-index: 1001;
+        max-height: calc(100vh - 70px);
+        overflow-y: auto;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .nav-item {
+        margin: 0.8rem 0;
+    }
+    
+    .nav-link {
+        padding: 0.8rem 1.5rem;
+        display: block;
+        font-size: 1rem;
+        border-radius: 8px;
+        margin: 0 1rem;
+        transition: all 0.3s ease;
+        color: #333;
+    }
+    
+    .nav-link:hover {
+        background: rgba(45, 122, 45, 0.1);
+        color: #2d7a2d;
+    }
+    
+    .nav-language {
+        position: relative;
+        right: auto;
+        order: -1;
+        justify-content: center;
+        margin-bottom: 1rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(45, 122, 45, 0.2);
+    }
+    
+    .nav-lang-btn {
+        font-size: 11px;
+        padding: 5px 8px;
+        min-width: 45px;
+        height: 32px;
+        gap: 2px;
+    }
+    
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+    
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+    
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
+        position: fixed;
+        width: 100%;
+    }
+}
+
+/* Touch-friendly enhancements */
+@media (max-width: 768px) {
+    /* Ensure all interactive elements are at least 44px */
+    .btn, .nav-link, .social-link, .footer-social-link {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Improve spacing for touch */
+    .hero-buttons .btn {
+        margin: 0.5rem 0;
+    }
+    
+    .tour-highlights li,
+    .detail-item,
+    .trust-list li,
+    .included-list li {
+        padding: 0.6rem 0;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    /* Optimize images for mobile */
+    .destination-image img,
+    .ecolodge-image img,
+    .wildlife-large-item img,
+    .team-image {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/* Performance optimizations for mobile */
+@media (max-width: 768px) {
+    /* Reduce animations on mobile for better performance */
+    .hero::before,
+    .hero::after {
+        animation-duration: 12s;
+    }
+    
+    .hero-title {
+        animation-duration: 1.5s;
+    }
+    
+    /* Optimize background attachments */
+    .hero,
+    .contact,
+    .wildlife-gallery-section {
+        background-attachment: scroll;
+    }
+    
+    /* Optimize transforms */
+    .destination-card:hover,
+    .ecolodge-card:hover,
+    .testimonial-card:hover,
+    .trust-card:hover {
+        transform: none;
+    }
+    
+    .destination-card:hover .destination-image img,
+    .ecolodge-card:hover .ecolodge-image img,
+    .wildlife-large-item:hover img {
+        transform: none;
+    }
+}
+
+/* High DPI displays */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    /* Optimize for retina displays */
+    .hero {
+        background-image: url('Images/hero image of monkey.jpg');
+    }
+}
+
+/* Landscape orientation fixes */
+@media (max-width: 768px) and (orientation: landscape) {
+    .hero {
+        min-height: 100vh;
+        height: auto;
+    }
+    
+    .hero-content {
+        padding: 80px 15px 40px;
+        justify-content: center;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+        margin-bottom: 0.8rem;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-tagline {
+        font-size: 0.8rem;
+        padding: 0.6rem 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .hero-spacer {
+        min-height: 2vh;
+    }
+}
+
+/* Accessibility improvements for mobile */
+@media (max-width: 768px) {
+    /* Ensure sufficient color contrast */
+    .nav-link,
+    .btn,
+    .social-link {
+        font-weight: 500;
+    }
+    
+    /* Focus states for keyboard navigation */
+    .nav-link:focus,
+    .btn:focus,
+    .social-link:focus {
+        outline: 2px solid #2d7a2d;
+        outline-offset: 2px;
+    }
+    
+    /* Improve readability */
+    .section-subtitle,
+    .tour-description,
+    .testimonial-content p {
+        line-height: 1.6;
     }
 }
