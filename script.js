@@ -218,7 +218,93 @@ function animateCounter(element, target, duration = 2000) {
     }, 16);
 }
 
-// Add floating WhatsApp button functionality
+// Enhanced icon loading check with improved fallback system
+function checkAndFixIcons() {
+    setTimeout(() => {
+        // Check if Font Awesome loaded properly first
+        const testEl = document.createElement('i');
+        testEl.className = 'fas fa-home';
+        testEl.style.cssText = 'position: absolute; left: -9999px; font-size: 16px;';
+        document.body.appendChild(testEl);
+        
+        setTimeout(() => {
+            const computedStyle = window.getComputedStyle(testEl, ':before');
+            const content = computedStyle.getPropertyValue('content');
+            const fontFamily = computedStyle.getPropertyValue('font-family');
+            
+            document.body.removeChild(testEl);
+            
+            // Enhanced check for Font Awesome loading
+            const isFontAwesomeLoaded = content !== 'none' && 
+                                      content !== '' && 
+                                      (fontFamily.includes('Font Awesome') || 
+                                       content.charCodeAt(0) > 61440);
+            
+            if (!isFontAwesomeLoaded) {
+                console.log('Font Awesome not detected, activating comprehensive fallbacks');
+                document.body.classList.add('fa-fallback');
+                
+                // Apply specific fallbacks for critical icons
+                const criticalIcons = document.querySelectorAll('.fab, .fas, .far, .fa');
+                criticalIcons.forEach(icon => {
+                    const parentLink = icon.closest('a');
+                    const iconClasses = icon.className;
+                    
+                    // Enhanced fallback system for social media icons
+                    if (parentLink) {
+                        if (parentLink.href.includes('facebook')) {
+                            icon.textContent = 'f';
+                            icon.style.cssText = 'background: #1877f2; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold; font-family: sans-serif !important; text-decoration: none;';
+                        } else if (parentLink.href.includes('whatsapp') || parentLink.href.includes('wa.me')) {
+                            icon.textContent = 'W';
+                            icon.style.cssText = 'background: #25d366; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold; font-family: sans-serif !important; text-decoration: none;';
+                        } else if (parentLink.href.includes('tripadvisor')) {
+                            icon.textContent = 'T';
+                            icon.style.cssText = 'background: #00cc66; color: white; padding: 4px 8px; border-radius: 3px; font-weight: bold; font-family: sans-serif !important; text-decoration: none;';
+                        }
+                    }
+                    
+                    // Fallbacks for common functional icons
+                    if (iconClasses.includes('fa-phone')) {
+                        icon.textContent = '📞';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-envelope')) {
+                        icon.textContent = '✉';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-clock')) {
+                        icon.textContent = '🕐';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-map-marker') || iconClasses.includes('fa-map-marked')) {
+                        icon.textContent = '📍';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-users')) {
+                        icon.textContent = '👥';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-certificate')) {
+                        icon.textContent = '🏆';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-shield')) {
+                        icon.textContent = '🛡';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-leaf')) {
+                        icon.textContent = '🌿';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-star')) {
+                        icon.textContent = '⭐';
+                        icon.style.fontFamily = 'sans-serif';
+                    } else if (iconClasses.includes('fa-info')) {
+                        icon.textContent = 'ℹ';
+                        icon.style.fontFamily = 'sans-serif';
+                    }
+                });
+            } else {
+                console.log('Font Awesome loaded successfully');
+            }
+        }, 300);
+    }, 1000);
+}
+
+// Enhanced WhatsApp button with better fallback
 function addWhatsAppButton() {
     const whatsappBtn = document.createElement('a');
     whatsappBtn.href = 'https://wa.me/59171245281?text=Hello! I\'m interested in booking a tour with Bala Tours.';
@@ -328,6 +414,79 @@ function addWhatsAppButton() {
         }
     `;
     document.head.appendChild(style);
+
+    // Enhanced icon fallback CSS for better compatibility
+    const enhancedIconCSS = `
+        /* Enhanced Font Awesome fallback system */
+        .fab.fa-whatsapp:before {
+            content: "\\f232" !important;
+            font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', 'Font Awesome 6 Free', 'Font Awesome 5 Free', sans-serif !important;
+        }
+        
+        .fab.fa-facebook-f:before {
+            content: "\\f39e" !important;
+            font-family: 'Font Awesome 6 Brands', 'Font Awesome 5 Brands', 'Font Awesome 6 Free', 'Font Awesome 5 Free', sans-serif !important;
+        }
+        
+        .fas.fa-map-marked-alt:before {
+            content: "\\f3c5" !important;
+            font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', sans-serif !important;
+        }
+        
+        /* Enhanced fallback for when Font Awesome completely fails */
+        .fa-fallback .footer-social-link, 
+        .fa-fallback .social-link {
+            position: relative;
+            overflow: visible;
+        }
+        
+        .fa-fallback .footer-social-link i, 
+        .fa-fallback .social-link i {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            font-weight: bold !important;
+            display: inline-block !important;
+            width: auto !important;
+            text-align: center !important;
+            line-height: 1 !important;
+        }
+        
+        /* Specific styling for floating WhatsApp button fallback */
+        .fa-fallback .whatsapp-float i {
+            font-size: 24px !important;
+            font-weight: bold !important;
+        }
+        
+        /* Enhanced social media icon backgrounds for better visibility */
+        .fa-fallback .social-link.facebook i,
+        .fa-fallback .footer-social-link[href*="facebook"] i {
+            background: #1877f2 !important;
+            color: white !important;
+            padding: 2px 6px !important;
+            border-radius: 3px !important;
+        }
+        
+        .fa-fallback .social-link.whatsapp i,
+        .fa-fallback .footer-social-link[href*="whatsapp"] i,
+        .fa-fallback .footer-social-link[href*="wa.me"] i {
+            background: #25d366 !important;
+            color: white !important;
+            padding: 2px 6px !important;
+            border-radius: 3px !important;
+        }
+        
+        .fa-fallback .social-link.tripadvisor i,
+        .fa-fallback .footer-social-link[href*="tripadvisor"] i {
+            background: #00cc66 !important;
+            color: white !important;
+            padding: 2px 6px !important;
+            border-radius: 3px !important;
+        }
+    `;
+    
+    // Apply enhanced CSS
+    const enhancedStyle = document.createElement('style');
+    enhancedStyle.textContent = enhancedIconCSS;
+    document.head.appendChild(enhancedStyle);
 }
 
 // Enhanced icon loading check
@@ -823,7 +982,199 @@ class LanguageManager {
                 'footer-links': 'Quick Links',
                 'footer-contact-info': 'Contact Information',
                 'footer-copyright': '© 2025 Bala Tours. All rights reserved.',
-                'footer-credit': 'Website designed by RoRo HQ'
+                'footer-credit': 'Website designed by RoRo HQ',
+
+                // Detailed Itineraries Section - English
+                'itineraries-title': 'Detailed Itineraries',
+                'itineraries-subtitle': 'Day-by-day breakdown of each tour experience',
+                
+                // Tab Labels
+                'tab-madidi-3day': 'Madidi 3 Days',
+                'tab-madidi-4day': 'Madidi 4 Days', 
+                'tab-madidi-ayahuasca': 'Madidi Ayahuasca',
+                'tab-pampas-2day': 'Pampas 2 Days',
+                'tab-pampas-3day': 'Pampas 3 Days',
+                'tab-combined-3day': 'Combined 3 Days',
+                'tab-combined-4day': 'Combined 4 Days',
+                'tab-combined-5day': 'Combined 5 Days',
+                'tab-combined-6day': 'Combined 6 Days',
+
+                // Detailed Itinerary Content - English
+                'itinerary-madidi-3day-title': 'Madidi National Park - 3 Days / 2 Nights',
+                'itinerary-madidi-3day-code': 'Tour Code: SPM 1',
+                'itinerary-madidi-4day-title': 'Madidi National Park - 4 Days / 3 Nights',
+                'itinerary-madidi-4day-code': 'Tour Code: SPM 2',
+                'itinerary-madidi-ayahuasca-title': 'Madidi Ayahuasca Experience - 4 Days / 3 Nights',
+                'itinerary-madidi-ayahuasca-code': 'Tour Code: SPM 3',
+                'itinerary-pampas-2day-title': 'Pampas Wildlife Tour - 2 Days / 1 Night',
+                'itinerary-pampas-2day-code': 'Tour Code: Based on Combined Tours',
+                'itinerary-pampas-3day-title': 'Pampas Wildlife Tour - 3 Days / 2 Nights',
+                'itinerary-pampas-3day-code': 'Enhanced Pampas Experience',
+                'itinerary-combined-3day-title': 'Combined Jungle & Pampas - 3 Days / 2 Nights',
+                'itinerary-combined-3day-code': 'EP 3',
+                'itinerary-combined-4day-title': 'Combined Jungle & Pampas - 4 Days / 3 Nights',
+                'itinerary-combined-4day-code': 'EP 4',
+                'itinerary-combined-5day-title': 'Combined Jungle & Pampas - 5 Days / 4 Nights',
+                'itinerary-combined-5day-code': 'EP 2',
+                'itinerary-combined-6day-title': 'Complete Amazon Experience - 6 Days / 5 Nights',
+                'itinerary-combined-6day-code': 'EP 5 & EP 1',
+
+                // Features
+                'feature-wildlife-obs': 'Wildlife observation',
+                'feature-night-walks': 'Night walks',
+                'feature-community-visits': 'Community visits',
+                'feature-deep-forest': 'Deep forest exploration',
+                'feature-spiritual-ceremony': 'Spiritual ceremony',
+                'feature-jungle-shaman': 'Jungle shaman guide',
+                'feature-pink-dolphins': 'Pink dolphins',
+                'feature-piranha-fishing': 'Piranha fishing',
+                'feature-anaconda-search': 'Anaconda search',
+                'feature-dolphin-swimming': 'Dolphin swimming',
+                'feature-best-ecosystems': 'Best of both ecosystems',
+                'feature-quick-adventure': 'Quick adventure',
+                'feature-sport-fishing': 'Sport fishing',
+                'feature-river-swimming': 'River swimming',
+
+                // Special Notice
+                'special-notice-ayahuasca': 'This tour includes traditional plant medicine ceremony. Participants must be 18+ and in good physical/mental health.',
+
+                // Day Labels
+                'day-label': 'Day',
+                'days-label': 'Days',
+                'breakfast': 'Breakfast',
+                'lunch': 'Lunch',
+                'dinner': 'Dinner',
+                'meals-similar': 'Similar to 3-day program',
+
+                // Important Notes
+                'notes-important-title': 'Important Notes',
+                'notes-important-1': 'All departure times are approximate and may vary due to weather conditions',
+                'notes-important-2': 'Wildlife sightings cannot be guaranteed as animals are in their natural habitat',
+                'notes-important-3': 'Itineraries may be adjusted based on weather, river conditions, and group preferences',
+                'notes-important-4': 'Meals are indicated as: B = Breakfast, L = Lunch, D = Dinner',
+                'notes-eco-title': 'Eco-Friendly Practices',
+                'notes-eco-1': 'Leave no trace principles apply to all activities',
+                'notes-eco-2': 'Use biodegradable toiletries only',
+                'notes-eco-3': 'Respect wildlife - maintain safe distances',
+                'notes-eco-4': 'Support local communities through our responsible tourism practices',
+
+                // Detailed Day Content Translations - English
+                // Madidi 3 Day - Day 1
+                'madidi-3day-day1-departure': '<strong>9:00 AM:</strong> Departure by boat through the Beni River to enter Madidi National Park, one of the world\'s most biodiverse parks.',
+                'madidi-3day-day1-arrival': '<strong>12:00 PM:</strong> After 3 hours, arrival at Tacuaral Lodge beside the Tuichi River. Lunch and rest in hammocks.',
+                'madidi-3day-day1-afternoon': '<strong>Afternoon:</strong> Guided forest walk with possibilities to see monkeys, deer, wild pigs (peccaries), capybaras and various bird species.',
+                'madidi-3day-day1-evening': '<strong>Evening:</strong> Dinner followed by night walk to appreciate jungle sounds and observe nocturnal animals.',
+
+                // Madidi 3 Day - Day 2
+                'madidi-3day-day2-morning': '<strong>Morning:</strong> Boat trip to Caquiahuara clay lick to observe macaws and parrots. Excellent photographic opportunities.',
+                'madidi-3day-day2-midday': '<strong>Midday:</strong> Interpretive walk and lunch at the lodge.',
+                'madidi-3day-day2-afternoon': '<strong>Afternoon:</strong> Sport fishing and swimming in the river.',
+                'madidi-3day-day2-evening': '<strong>Evening:</strong> Dinner and night walk to discover nocturnal wildlife.',
+
+                // Madidi 3 Day - Day 3
+                'madidi-3day-day3-early-morning': '<strong>Early morning:</strong> Extended jungle walk to explore different ecological zones and penetrate deeper into the forest to discover various timber plant species.',
+                'madidi-3day-day3-morning': '<strong>Morning:</strong> Collection of palm seeds to make rings and other crafts.',
+                'madidi-3day-day3-late-morning': '<strong>Late morning:</strong> Return to lodge to create crafts with seeds collected during the walk.',
+                'madidi-3day-day3-midday': '<strong>Midday:</strong> Lunch and relaxation time.',
+                'madidi-3day-day3-afternoon': '<strong>Afternoon:</strong> Return by boat to Rurrenabaque, arriving approximately at 5:00 PM. Enjoy spectacular sunset views during the journey.',
+
+                // Madidi 4 Day
+                'madidi-4day-days12-similar': 'The first two days follow the same itinerary as the 3-day/2-night program with wildlife observation, Caquiahuara visit, and fishing activities.',
+                'madidi-4day-day3-early-morning': '<strong>Early morning:</strong> Deep jungle walk to explore different ecological zones, penetrating deeper into the forest to discover various timber plant species.',
+                'madidi-4day-day3-morning': '<strong>Morning:</strong> Collection of palm seeds to make rings and other crafts back at the lodge.',
+                'madidi-4day-day3-afternoon': '<strong>Afternoon:</strong> Boat trip upstream on the Beni to visit indigenous Moseten communities within Madidi National Park. Experience traditional daily life and survival techniques.',
+                'madidi-4day-day3-evening': '<strong>Evening:</strong> Return to lodge for dinner.',
+                'madidi-4day-day4-morning': '<strong>Morning:</strong> Additional wildlife observation activities and final forest exploration.',
+                'madidi-4day-day4-midday': '<strong>Midday:</strong> Return to lodge for lunch.',
+                'madidi-4day-day4-afternoon': '<strong>Afternoon:</strong> Return journey to Rurrenabaque, enjoying spectacular sunset views. Arrival around 5:00 PM.',
+
+                // Ayahuasca Experience
+                'ayahuasca-day1-afternoon': '<strong>Afternoon:</strong> Arrival and orientation with the jungle shaman. Preparation for the traditional ceremony.',
+                'ayahuasca-day1-evening': '<strong>Evening:</strong> First ayahuasca ceremony guided by an experienced jungle shaman.',
+                'ayahuasca-day2-morning': '<strong>Morning:</strong> Reflection and integration time. Gentle jungle walk.',
+                'ayahuasca-day2-afternoon': '<strong>Afternoon:</strong> Workshop on medicinal plants and their traditional uses.',
+                'ayahuasca-day2-evening': '<strong>Evening:</strong> Second ayahuasca ceremony with focus on personal healing.',
+                'ayahuasca-day3-morning': '<strong>Morning:</strong> Final integration session and meditation in nature.',
+                'ayahuasca-day3-afternoon': '<strong>Afternoon:</strong> Closing jungle walk and craft preparation.',
+                'ayahuasca-day3-evening': '<strong>Evening:</strong> Closing ceremony and community celebration.',
+                'ayahuasca-day4-morning': '<strong>Morning:</strong> Farewell to the shaman and final gratitude ritual.',
+                'ayahuasca-day4-lunch': '<strong>Midday:</strong> Lunch at the lodge.',
+                'ayahuasca-day4-return': '<strong>Afternoon:</strong> Return journey to Rurrenabaque, enjoying spectacular sunset views. Arrival around 5:00 PM.',
+
+                // Pampas 2 Day
+                'pampas-2day-day1-afternoon': '<strong>Afternoon:</strong> 4WD transfer to Santa Rosa Yacuma (3 hours), lunch at Caracoles Lodge and first boat excursion to observe Pampas wildlife.',
+                'pampas-2day-day1-evening': '<strong>Evening:</strong> Dinner at the lodge followed by night boat excursion with flashlights to spotlight caiman eyes.',
+                'pampas-2day-day2-morning': '<strong>Morning:</strong> Pampas walk to find anacondas and caimans, followed by piranha fishing.',
+                'pampas-2day-day2-afternoon': '<strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.',
+
+                // Pampas 3 Day
+                'pampas-3day-day1-afternoon': '<strong>Afternoon:</strong> 4WD transfer to Santa Rosa Yacuma (3 hours), lunch at Caracoles Lodge and boat excursion to observe Pampas wildlife.',
+                'pampas-3day-day1-evening': '<strong>Evening:</strong> Dinner at the lodge followed by night boat excursion.',
+                'pampas-3day-day2-morning': '<strong>Morning:</strong> Pampas walk to find anacondas and caimans.',
+                'pampas-3day-day2-afternoon': '<strong>Afternoon:</strong> Piranha fishing in the river. If water levels permit, swimming with dolphins.',
+                'pampas-3day-day2-evening': '<strong>Evening:</strong> Dinner followed by boat excursion with flashlights to spotlight caiman eyes.',
+                'pampas-3day-day3-morning': '<strong>Morning:</strong> Navigation along the Yacuma River to observe squirrel monkeys (chichilos) and final wildlife observation.',
+                'pampas-3day-day3-afternoon': '<strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.',
+
+                // Combined 3 Day
+                'combined-3day-day1-morning': '<strong>Morning:</strong> Departure by boat through the Beni River to Madidi National Park. Arrival at Tacuaral Lodge for lunch.',
+                'combined-3day-day1-afternoon': '<strong>Afternoon:</strong> Jungle walk for wildlife observation: monkeys, deer, wild peccaries, capybaras and bird species.',
+                'combined-3day-day1-evening': '<strong>Evening:</strong> Dinner followed by night jungle walk.',
+                'combined-3day-day2-morning': '<strong>Morning:</strong> Return to Rurrenabaque by boat, arriving around 8:30 AM. Brief rest before 4WD transfer to Santa Rosa Yacuma.',
+                'combined-3day-day2-afternoon': '<strong>Afternoon:</strong> Lunch at Caracoles Lodge and boat excursion to observe Pampas wildlife: caimans, anacondas, turtles, capybaras, pink dolphins, monkeys and bird species.',
+                'combined-3day-day2-evening': '<strong>Evening:</strong> Dinner at the lodge.',
+                'combined-3day-day3-morning': '<strong>Morning:</strong> Pampas walk to find anacondas and caimans.',
+                'combined-3day-day3-afternoon': '<strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.',
+
+                // Combined 4 Day
+                'combined-4day-days12-similar': 'The first two days follow the same itinerary as the 3-day program with wildlife observation, Caquiahuara visit, and fishing activities.',
+                'combined-4day-day3-morning': '<strong>Morning:</strong> Return to Rurrenabaque by boat, arriving around 8:30 AM. Brief rest before 4WD transfer to Santa Rosa Yacuma (3 hours).',
+                'combined-4day-day3-afternoon': '<strong>Afternoon:</strong> Lunch at Caracoles Lodge and boat excursion to observe Pampas wildlife.',
+                'combined-4day-day3-evening': '<strong>Evening:</strong> Dinner at the lodge.',
+                'combined-4day-day4-morning': '<strong>Morning:</strong> Pampas walk to find anacondas and caimans.',
+                'combined-4day-day4-afternoon': '<strong>Afternoon:</strong> Piranha fishing. If water levels permit, swimming with dolphins.',
+                'combined-4day-day4-evening': '<strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.',
+
+                // Combined 5 Day
+                'combined-5day-day1-departure': '<strong>9:00 AM:</strong> Departure by boat upstream on the Beni River to Madidi National Park.',
+                'combined-5day-day1-arrival': '<strong>12:00 PM:</strong> Arrival at Tacuaral Lodge on the Tuichi River. Lunch.',
+                'combined-5day-day1-afternoon': '<strong>Afternoon:</strong> Extended walk along forest trails for wildlife observation: monkeys, deer, wild peccaries, capybaras and bird species.',
+                'combined-5day-day1-evening': '<strong>Evening:</strong> Dinner followed by night jungle walk to discover nocturnal wildlife.',
+                'combined-5day-day2-morning': '<strong>Morning:</strong> Boat trip to Caquiahuara clay lick for macaw and parrot observation. Excellent photographic opportunities.',
+                'combined-5day-day2-midday': '<strong>Midday:</strong> Interpretive walk and lunch at the lodge.',
+                'combined-5day-day2-afternoon': '<strong>Afternoon:</strong> Sport fishing and swimming in the river.',
+                'combined-5day-day2-evening': '<strong>Evening:</strong> Dinner and night jungle walk to discover nocturnal wildlife.',
+                'combined-5day-day3-early-morning': '<strong>Early morning:</strong> Deep jungle walk to explore different ecological zones, penetrating deeper into the forest to discover various timber plant species.',
+                'combined-5day-day3-morning': '<strong>Morning:</strong> Collection of palm seeds to make rings and other crafts.',
+                'combined-5day-day3-afternoon': '<strong>Afternoon:</strong> Boat trip upstream on the Beni to visit indigenous Moseten communities within Madidi National Park. Experience traditional daily life and survival techniques.',
+                'combined-5day-day3-evening': '<strong>Evening:</strong> Return to lodge for dinner.',
+                'combined-5day-day4-early-morning': '<strong>Early morning:</strong> Breakfast and boat journey back to Rurrenabaque, arriving around 8:30 AM.',
+                'combined-5day-day4-late-morning': '<strong>Late morning:</strong> Brief rest before 4WD transfer to Santa Rosa Yacuma (3 hours).',
+                'combined-5day-day4-midday': '<strong>Midday:</strong> Lunch at Caracoles Lodge and free time to relax in hammocks.',
+                'combined-5day-day4-afternoon': '<strong>Afternoon:</strong> Boat excursion to observe Pampas wildlife: caimans, anacondas, turtles, capybaras, pink dolphins, monkeys and bird species.',
+                'combined-5day-day4-evening': '<strong>Evening:</strong> Dinner at the lodge.',
+                'combined-5day-day5-morning': '<strong>Morning:</strong> Pampas walk to find anacondas and caimans.',
+                'combined-5day-day5-midday': '<strong>Midday:</strong> Lunch and rest at the lodge.',
+                'combined-5day-day5-afternoon': '<strong>Afternoon:</strong> Piranha fishing in the river. If water levels permit, swimming with dolphins.',
+                'combined-5day-day5-evening': '<strong>Evening:</strong> Dinner followed by boat excursion with flashlights to spotlight caiman eyes.',
+
+                // Combined 6 Day - Day 6 only (other days same as 5-day)
+                'combined-6day-day6-morning': '<strong>Morning:</strong> Navigation along the Yacuma River to observe squirrel monkeys (chichilos) and final wildlife observation.',
+                'combined-6day-day6-late-morning': '<strong>Late morning:</strong> Last photographic opportunities and wildlife observation.',
+                'combined-6day-day6-midday': '<strong>Midday:</strong> Lunch at the lodge.',
+                'combined-6day-day6-afternoon': '<strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.',
+
+                // Booking form translations  
+                'booking-name': 'Full name',
+                'booking-email': 'Email address',
+                'booking-phone': 'Phone / WhatsApp',
+                'booking-tour': 'Preferred tour',
+                'booking-date': 'Preferred date',
+                'booking-group-size': 'Group size',
+                'booking-special-requests': 'Special requests',
+                'booking-submit': 'Send inquiry',
+                'booking-form-title': 'Quick booking form',
+                'booking-form-subtitle': 'Fill out this form and we\'ll contact you within 24 hours'
             },
             es: {
                 // Navigation
@@ -1105,7 +1456,199 @@ class LanguageManager {
                 'footer-links': 'Enlaces Rápidos',
                 'footer-contact-info': 'Información de Contacto',
                 'footer-copyright': '© 2025 Bala Tours. Todos los derechos reservados.',
-                'footer-credit': 'Sitio web diseñado por RoRo HQ'
+                'footer-credit': 'Sitio web diseñado por RoRo HQ',
+
+                // Detailed Itineraries Section - Spanish
+                'itineraries-title': 'Itinerarios Detallados',
+                'itineraries-subtitle': 'Desglose día a día de cada experiencia de tour',
+                
+                // Tab Labels - Spanish
+                'tab-madidi-3day': 'Madidi 3 Días',
+                'tab-madidi-4day': 'Madidi 4 Días',
+                'tab-madidi-ayahuasca': 'Madidi Ayahuasca', 
+                'tab-pampas-2day': 'Pampas 2 Días',
+                'tab-pampas-3day': 'Pampas 3 Días',
+                'tab-combined-3day': 'Combinado 3 Días',
+                'tab-combined-4day': 'Combinado 4 Días',
+                'tab-combined-5day': 'Combinado 5 Días',
+                'tab-combined-6day': 'Combinado 6 Días',
+
+                // Detailed Itinerary Content - Spanish
+                'itinerary-madidi-3day-title': 'Parque Nacional Madidi - 3 Días / 2 Noches',
+                'itinerary-madidi-3day-code': 'Código de Tour: SPM 1',
+                'itinerary-madidi-4day-title': 'Parque Nacional Madidi - 4 Días / 3 Noches',
+                'itinerary-madidi-4day-code': 'Código de Tour: SPM 2',
+                'itinerary-madidi-ayahuasca-title': 'Experiencia Ayahuasca Madidi - 4 Días / 3 Noches',
+                'itinerary-madidi-ayahuasca-code': 'Código de Tour: SPM 3',
+                'itinerary-pampas-2day-title': 'Tour de Vida Silvestre Pampas - 2 Días / 1 Noche',
+                'itinerary-pampas-2day-code': 'Código de Tour: Basado en Tours Combinados',
+                'itinerary-pampas-3day-title': 'Tour de Vida Silvestre Pampas - 3 Días / 2 Noches',
+                'itinerary-pampas-3day-code': 'Experiencia Pampas Mejorada',
+                'itinerary-combined-3day-title': 'Selva y Pampas Combinados - 3 Días / 2 Noches',
+                'itinerary-combined-3day-code': 'EP 3',
+                'itinerary-combined-4day-title': 'Selva y Pampas Combinados - 4 Días / 3 Noches',
+                'itinerary-combined-4day-code': 'EP 4',
+                'itinerary-combined-5day-title': 'Selva y Pampas Combinados - 5 Días / 4 Noches',
+                'itinerary-combined-5day-code': 'EP 2',
+                'itinerary-combined-6day-title': 'Experiencia Completa del Amazonas - 6 Días / 5 Noches',
+                'itinerary-combined-6day-code': 'EP 5 & EP 1',
+
+                // Features - Spanish
+                'feature-wildlife-obs': 'Observación de vida silvestre',
+                'feature-night-walks': 'Caminatas nocturnas',
+                'feature-community-visits': 'Visitas comunitarias',
+                'feature-deep-forest': 'Exploración profunda del bosque',
+                'feature-spiritual-ceremony': 'Ceremonia espiritual',
+                'feature-jungle-shaman': 'Guía chamán de la selva',
+                'feature-pink-dolphins': 'Delfines rosados',
+                'feature-piranha-fishing': 'Pesca de pirañas',
+                'feature-anaconda-search': 'Búsqueda de anacondas',
+                'feature-dolphin-swimming': 'Nado con delfines',
+                'feature-best-ecosystems': 'Lo mejor de ambos ecosistemas',
+                'feature-quick-adventure': 'Aventura rápida',
+                'feature-sport-fishing': 'Pesca deportiva',
+                'feature-river-swimming': 'Nado en río',
+
+                // Special Notice - Spanish
+                'special-notice-ayahuasca': 'Este tour incluye ceremonia tradicional de medicina vegetal. Los participantes deben tener 18+ años y estar en buena salud física/mental.',
+
+                // Day Labels - Spanish
+                'day-label': 'Día',
+                'days-label': 'Días',
+                'breakfast': 'Desayuno',
+                'lunch': 'Almuerzo',
+                'dinner': 'Cena',
+                'meals-similar': 'Similar al programa de 3 días',
+
+                // Important Notes - Spanish
+                'notes-important-title': 'Notas Importantes',
+                'notes-important-1': 'Todos los horarios de salida son aproximados y pueden variar debido a las condiciones climáticas',
+                'notes-important-2': 'Los avistamientos de vida silvestre no pueden garantizarse ya que los animales están en su hábitat natural',
+                'notes-important-3': 'Los itinerarios pueden ajustarse según el clima, condiciones del río y preferencias del grupo',
+                'notes-important-4': 'Las comidas se indican como: D = Desayuno, A = Almuerzo, C = Cena',
+                'notes-eco-title': 'Prácticas Ecológicas',
+                'notes-eco-1': 'Se aplican principios de no dejar rastro en todas las actividades',
+                'notes-eco-2': 'Usar solo artículos de tocador biodegradables',
+                'notes-eco-3': 'Respetar la vida silvestre - mantener distancias seguras',
+                'notes-eco-4': 'Apoyar las comunidades locales a través de nuestras prácticas de turismo responsable',
+
+                // Detailed Day Content Translations - Spanish
+                // Madidi 3 Day - Day 1
+                'madidi-3day-day1-departure': '<strong>9:00 AM:</strong> Salida en bote por el río Beni para ingresar al Parque Nacional Madidi, uno de los parques más biodiversos del mundo.',
+                'madidi-3day-day1-arrival': '<strong>12:00 PM:</strong> Después de 3 horas, llegada al Lodge Tacuaral junto al río Tuichi. Almuerzo y descanso en hamacas.',
+                'madidi-3day-day1-afternoon': '<strong>Tarde:</strong> Caminata guiada por el bosque con posibilidades de ver monos, venados, cerdos salvajes (pecaríes), capibaras y varias especies de aves.',
+                'madidi-3day-day1-evening': '<strong>Noche:</strong> Cena seguida de caminata nocturna para apreciar los sonidos del bosque y observar animales nocturnos.',
+
+                // Madidi 3 Day - Day 2
+                'madidi-3day-day2-morning': '<strong>Mañana:</strong> Viaje en bote al acantilado de arcilla Caquiahuara para observar guacamayos y loros. Excelentes oportunidades fotográficas.',
+                'madidi-3day-day2-midday': '<strong>Mediodía:</strong> Caminata interpretativa y almuerzo en el lodge.',
+                'madidi-3day-day2-afternoon': '<strong>Tarde:</strong> Pesca deportiva y natación en el río.',
+                'madidi-3day-day2-evening': '<strong>Noche:</strong> Cena y caminata nocturna para descubrir vida silvestre nocturna.',
+
+                // Madidi 3 Day - Day 3
+                'madidi-3day-day3-early-morning': '<strong>Temprano en la mañana:</strong> Caminata extendida por la selva para explorar diferentes zonas ecológicas y penetrar más profundo en el bosque para descubrir varias especies de plantas maderables.',
+                'madidi-3day-day3-morning': '<strong>Mañana:</strong> Recolección de semillas de palma para elaborar anillos y otras artesanías.',
+                'madidi-3day-day3-late-morning': '<strong>Media mañana:</strong> Regreso al lodge para crear artesanías con las semillas recolectadas durante la caminata.',
+                'madidi-3day-day3-midday': '<strong>Mediodía:</strong> Almuerzo y tiempo de relajación.',
+                'madidi-3day-day3-afternoon': '<strong>Tarde:</strong> Regreso en bote a Rurrenabaque, llegando aproximadamente a las 5:00 PM. Disfruta de vistas espectaculares del atardecer durante el viaje.',
+
+                // Madidi 4 Day
+                'madidi-4day-days12-similar': 'Los primeros dos días siguen el mismo itinerario que el programa de 3 días/2 noches con observación de vida silvestre, visita a Caquiahuara y actividades de pesca.',
+                'madidi-4day-day3-early-morning': '<strong>Temprano en la mañana:</strong> Caminata profunda por la selva para explorar diferentes zonas ecológicas, penetrando más profundo en el bosque para descubrir varias especies de plantas maderables.',
+                'madidi-4day-day3-morning': '<strong>Mañana:</strong> Recolección de semillas de palma para elaborar anillos y otras artesanías de vuelta en el lodge.',
+                'madidi-4day-day3-afternoon': '<strong>Tarde:</strong> Viaje en bote río arriba por el Beni para visitar comunidades indígenas Moseten dentro del Parque Nacional Madidi. Experimenta la vida diaria tradicional y técnicas de supervivencia.',
+                'madidi-4day-day3-evening': '<strong>Noche:</strong> Regreso al lodge para cenar.',
+                'madidi-4day-day4-morning': '<strong>Mañana:</strong> Actividades adicionales de observación de vida silvestre y exploración final del bosque.',
+                'madidi-4day-day4-midday': '<strong>Mediodía:</strong> Regreso al lodge para almorzar.',
+                'madidi-4day-day4-afternoon': '<strong>Tarde:</strong> Viaje de regreso a Rurrenabaque, disfrutando de vistas espectaculares del atardecer. Llegada alrededor de las 5:00 PM.',
+
+                // Ayahuasca Experience
+                'ayahuasca-day1-afternoon': '<strong>Tarde:</strong> Llegada y orientación con el chamán de la selva. Preparación para la ceremonia tradicional.',
+                'ayahuasca-day1-evening': '<strong>Noche:</strong> Primera ceremonia de ayahuasca guiada por un chamán experimentado de la selva.',
+                'ayahuasca-day2-morning': '<strong>Mañana:</strong> Tiempo de reflexión e integración. Caminata suave por la selva.',
+                'ayahuasca-day2-afternoon': '<strong>Tarde:</strong> Taller sobre plantas medicinales y sus usos tradicionales.',
+                'ayahuasca-day2-evening': '<strong>Noche:</strong> Segunda ceremonia de ayahuasca con enfoque en sanación personal.',
+                'ayahuasca-day3-morning': '<strong>Mañana:</strong> Sesión final de integración y meditación en la naturaleza.',
+                'ayahuasca-day3-afternoon': '<strong>Tarde:</strong> Caminata de cierre por la selva y preparación de artesanías.',
+                'ayahuasca-day3-evening': '<strong>Noche:</strong> Ceremonia de cierre y celebración comunitaria.',
+                'ayahuasca-day4-morning': '<strong>Mañana:</strong> Despedida del chamán y ritual final de agradecimiento.',
+                'ayahuasca-day4-lunch': '<strong>Mediodía:</strong> Almuerzo en el lodge.',
+                'ayahuasca-day4-return': '<strong>Tarde:</strong> Viaje de regreso a Rurrenabaque, disfrutando de vistas espectaculares del atardecer. Llegada alrededor de las 5:00 PM.',
+
+                // Pampas 2 Day
+                'pampas-2day-day1-afternoon': '<strong>Tarde:</strong> Traslado en 4WD a Santa Rosa Yacuma (3 horas), almuerzo en Caracoles Lodge y primera excursión en bote para observar vida silvestre de los Pampas.',
+                'pampas-2day-day1-evening': '<strong>Noche:</strong> Cena en el lodge seguida de excursión nocturna en bote con linternas para enfocar los ojos de los caimanes.',
+                'pampas-2day-day2-morning': '<strong>Mañana:</strong> Caminata por los Pampas para encontrar anacondas y caimanes, seguida de pesca de pirañas.',
+                'pampas-2day-day2-afternoon': '<strong>Tarde:</strong> Viaje de regreso a Rurrenabaque. Llegada alrededor de las 5:00 PM.',
+
+                // Pampas 3 Day
+                'pampas-3day-day1-afternoon': '<strong>Tarde:</strong> Traslado en 4WD a Santa Rosa Yacuma (3 horas), almuerzo en Caracoles Lodge y excursión en bote para observar vida silvestre de los Pampas.',
+                'pampas-3day-day1-evening': '<strong>Noche:</strong> Cena en el lodge seguida de excursión nocturna en bote.',
+                'pampas-3day-day2-morning': '<strong>Mañana:</strong> Caminata por los Pampas para encontrar anacondas y caimanes.',
+                'pampas-3day-day2-afternoon': '<strong>Tarde:</strong> Pesca de pirañas en el río. Si los niveles de agua lo permiten, nado con delfines.',
+                'pampas-3day-day2-evening': '<strong>Noche:</strong> Cena seguida de excursión en bote con linternas para enfocar los ojos de los caimanes.',
+                'pampas-3day-day3-morning': '<strong>Mañana:</strong> Navegación por el río Yacuma para observar monos ardilla (chichilos) y observación final de vida silvestre.',
+                'pampas-3day-day3-afternoon': '<strong>Tarde:</strong> Viaje de regreso a Rurrenabaque. Llegada alrededor de las 5:00 PM.',
+
+                // Combined 3 Day
+                'combined-3day-day1-morning': '<strong>Mañana:</strong> Salida en bote por el río Beni al Parque Nacional Madidi. Llegada al Lodge Tacuaral para almorzar.',
+                'combined-3day-day1-afternoon': '<strong>Tarde:</strong> Caminata por la selva para observación de vida silvestre: monos, venados, pecaríes salvajes, capibaras y especies de aves.',
+                'combined-3day-day1-evening': '<strong>Noche:</strong> Cena seguida de caminata nocturna por la selva.',
+                'combined-3day-day2-morning': '<strong>Mañana:</strong> Regreso a Rurrenabaque en bote, llegando alrededor de las 8:30 AM. Breve descanso antes del traslado en 4WD a Santa Rosa Yacuma.',
+                'combined-3day-day2-afternoon': '<strong>Tarde:</strong> Almuerzo en Caracoles Lodge y excursión en bote para observar vida silvestre de los Pampas: caimanes, anacondas, tortugas, capibaras, delfines rosados, monos y especies de aves.',
+                'combined-3day-day2-evening': '<strong>Noche:</strong> Cena en el lodge.',
+                'combined-3day-day3-morning': '<strong>Mañana:</strong> Caminata por los Pampas para encontrar anacondas y caimanes.',
+                'combined-3day-day3-afternoon': '<strong>Tarde:</strong> Viaje de regreso a Rurrenabaque. Llegada alrededor de las 5:00 PM.',
+
+                // Combined 4 Day
+                'combined-4day-days12-similar': 'Los primeros dos días siguen el mismo itinerario que el programa de 3 días con observación de vida silvestre, visita a Caquiahuara y actividades de pesca.',
+                'combined-4day-day3-morning': '<strong>Mañana:</strong> Regreso a Rurrenabaque en bote, llegando alrededor de las 8:30 AM. Breve descanso antes del traslado en 4WD a Santa Rosa Yacuma (3 horas).',
+                'combined-4day-day3-afternoon': '<strong>Tarde:</strong> Almuerzo en Caracoles Lodge y excursión en bote para observar vida silvestre de los Pampas.',
+                'combined-4day-day3-evening': '<strong>Noche:</strong> Cena en el lodge.',
+                'combined-4day-day4-morning': '<strong>Mañana:</strong> Caminata por los Pampas para encontrar anacondas y caimanes.',
+                'combined-4day-day4-afternoon': '<strong>Tarde:</strong> Pesca de pirañas. Si los niveles de agua lo permiten, nado con delfines.',
+                'combined-4day-day4-evening': '<strong>Tarde:</strong> Viaje de regreso a Rurrenabaque. Llegada alrededor de las 5:00 PM.',
+
+                // Combined 5 Day
+                'combined-5day-day1-departure': '<strong>9:00 AM:</strong> Salida en bote río arriba por el río Beni al Parque Nacional Madidi.',
+                'combined-5day-day1-arrival': '<strong>12:00 PM:</strong> Llegada al Lodge Tacuaral en el río Tuichi. Almuerzo.',
+                'combined-5day-day1-afternoon': '<strong>Tarde:</strong> Caminata extendida por senderos del bosque para observación de vida silvestre: monos, venados, pecaríes salvajes, capibaras y especies de aves.',
+                'combined-5day-day1-evening': '<strong>Noche:</strong> Cena seguida de caminata nocturna por la selva para descubrir vida silvestre nocturna.',
+                'combined-5day-day2-morning': '<strong>Mañana:</strong> Viaje en bote al acantilado de arcilla Caquiahuara para observación de guacamayos y loros. Excelentes oportunidades fotográficas.',
+                'combined-5day-day2-midday': '<strong>Mediodía:</strong> Caminata interpretativa y almuerzo en el lodge.',
+                'combined-5day-day2-afternoon': '<strong>Tarde:</strong> Pesca deportiva y natación en el río.',
+                'combined-5day-day2-evening': '<strong>Noche:</strong> Cena y caminata nocturna por la selva para descubrir vida silvestre nocturna.',
+                'combined-5day-day3-early-morning': '<strong>Temprano en la mañana:</strong> Caminata profunda por la selva para explorar diferentes zonas ecológicas, penetrando más profundo en el bosque para descubrir varias especies de plantas maderables.',
+                'combined-5day-day3-morning': '<strong>Mañana:</strong> Recolección de semillas de palma para elaborar anillos y otras artesanías.',
+                'combined-5day-day3-afternoon': '<strong>Tarde:</strong> Viaje en bote río arriba por el Beni para visitar comunidades indígenas Moseten dentro del Parque Nacional Madidi. Experimenta la vida diaria tradicional y técnicas de supervivencia.',
+                'combined-5day-day3-evening': '<strong>Noche:</strong> Regreso al lodge para cenar.',
+                'combined-5day-day4-early-morning': '<strong>Temprano en la mañana:</strong> Desayuno y viaje en bote de regreso a Rurrenabaque, llegando alrededor de las 8:30 AM.',
+                'combined-5day-day4-late-morning': '<strong>Media mañana:</strong> Breve descanso antes del traslado en 4WD a Santa Rosa Yacuma (3 horas).',
+                'combined-5day-day4-midday': '<strong>Mediodía:</strong> Almuerzo en Caracoles Lodge y tiempo libre para relajarse en hamacas.',
+                'combined-5day-day4-afternoon': '<strong>Tarde:</strong> Excursión en bote para observar vida silvestre de los Pampas: caimanes, anacondas, tortugas, capibaras, delfines rosados, monos y especies de aves.',
+                'combined-5day-day4-evening': '<strong>Noche:</strong> Cena en el lodge.',
+                'combined-5day-day5-morning': '<strong>Mañana:</strong> Caminata por los Pampas para encontrar anacondas y caimanes.',
+                'combined-5day-day5-midday': '<strong>Mediodía:</strong> Almuerzo y descanso en el lodge.',
+                'combined-5day-day5-afternoon': '<strong>Tarde:</strong> Pesca de pirañas en el río. Si los niveles de agua lo permiten, nado con delfines.',
+                'combined-5day-day5-evening': '<strong>Noche:</strong> Cena seguida de excursión en bote con linternas para enfocar los ojos de los caimanes.',
+
+                // Combined 6 Day - Day 6 only (other days same as 5-day)
+                'combined-6day-day6-morning': '<strong>Mañana:</strong> Navegación por el río Yacuma para observar monos ardilla (chichilos) y observación final de vida silvestre.',
+                'combined-6day-day6-late-morning': '<strong>Media mañana:</strong> Últimas oportunidades fotográficas y observación de vida silvestre.',
+                'combined-6day-day6-midday': '<strong>Mediodía:</strong> Almuerzo en el lodge.',
+                'combined-6day-day6-afternoon': '<strong>Tarde:</strong> Viaje de regreso a Rurrenabaque. Llegada alrededor de las 5:00 PM.',
+
+                // Booking form translations  
+                'booking-name': 'Nombre completo',
+                'booking-email': 'Correo electrónico',
+                'booking-phone': 'Teléfono / WhatsApp',
+                'booking-tour': 'Tour preferido',
+                'booking-date': 'Fecha preferida',
+                'booking-group-size': 'Tamaño del grupo',
+                'booking-special-requests': 'Solicitudes especiales',
+                'booking-submit': 'Enviar consulta',
+                'booking-form-title': 'Formulario de reserva rápida',
+                'booking-form-subtitle': 'Complete este formulario y nos pondremos en contacto con usted en 24 horas'
             }
         };
         this.init();
@@ -1137,13 +1680,13 @@ class LanguageManager {
         document.querySelectorAll('[data-translate]').forEach(element => {
             const key = element.getAttribute('data-translate');
             if (this.translations[lang] && this.translations[lang][key]) {
-                // Handle elements with HTML content (booking terms that contain <strong> tags)
-                if (key.includes('-deposit') || key.includes('-payment') || key.includes('-cancellation') || 
-                    key.includes('-group-size') || key.includes('-age-limit') || key.includes('-season') || 
-                    key.includes('-weather')) {
+                // Check if the translation contains HTML tags
+                if (this.translations[lang][key].includes('<strong>') || 
+                    this.translations[lang][key].includes('<em>') ||
+                    this.translations[lang][key].includes('<br>') ||
+                    this.translations[lang][key].includes('<span>')) {
                     element.innerHTML = this.translations[lang][key];
                 } else {
-                    // For all other elements including gallery captions, use textContent
                     element.textContent = this.translations[lang][key];
                 }
             } else {
@@ -1173,17 +1716,34 @@ class LanguageManager {
 
         // Force refresh of any dynamically loaded content
         this.refreshWildlifeGallery();
+        
+        // Refresh itinerary content specifically
+        this.refreshItineraryContent();
 
         // Debug logging
         console.log(`Language updated to: ${lang}`);
         console.log(`Found ${document.querySelectorAll('[data-translate]').length} translatable elements`);
-        
-        // Specific debugging for wildlife gallery
-        const wildlifeElements = document.querySelectorAll('.wildlife-large-overlay [data-translate]');
-        console.log(`Wildlife gallery translatable elements: ${wildlifeElements.length}`);
-        wildlifeElements.forEach(el => {
-            const key = el.getAttribute('data-translate');
-            console.log(`Wildlife element key: ${key}, current text: "${el.textContent}"`);
+    }
+
+    // New method to specifically handle itinerary content refresh
+    refreshItineraryContent() {
+        const itineraryTabs = document.querySelectorAll('.tab-content');
+        itineraryTabs.forEach(tab => {
+            const translatableElements = tab.querySelectorAll('[data-translate]');
+            translatableElements.forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (this.translations[this.currentLanguage] && this.translations[this.currentLanguage][key]) {
+                    // Check if the translation contains HTML tags
+                    if (this.translations[this.currentLanguage][key].includes('<strong>') || 
+                        this.translations[this.currentLanguage][key].includes('<em>') ||
+                        this.translations[this.currentLanguage][key].includes('<br>') ||
+                        this.translations[this.currentLanguage][key].includes('<span>')) {
+                        element.innerHTML = this.translations[this.currentLanguage][key];
+                    } else {
+                        element.textContent = this.translations[this.currentLanguage][key];
+                    }
+                }
+            });
         });
     }
 
@@ -1535,5 +2095,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Initialize language manager immediately
 new LanguageManager();
+
+// Itinerary Tabs Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize itinerary tabs
+    initItineraryTabs();
+});
+
+function initItineraryTabs() {
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const tabContents = document.querySelectorAll('.tab-content');
+    
+    // Add click event listeners to tab buttons
+    tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const targetTab = this.getAttribute('data-tab');
+            
+            // Remove active class from all buttons and contents
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Show corresponding tab content
+            const targetContent = document.getElementById(targetTab);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
+    });
+    
+    // Ensure first tab is active by default
+    if (tabButtons.length > 0 && tabContents.length > 0) {
+        tabButtons[0].classList.add('active');
+        tabContents[0].classList.add('active');
+    }
+}
 
 console.log('Bala Tours website loaded successfully! 🌿');

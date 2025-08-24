@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=5.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device=width, initial-scale=1.0">
     <title>Bala Tours - Authentic Amazon Adventures in Bolivia</title>
     <meta name="description" content="Discover the Amazon with Bala Tours. Expert-guided wildlife adventures in the Pampas and Madidi National Park. Sustainable tourism, authentic experiences.">
     
@@ -16,49 +16,84 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- Font Awesome - Updated with latest version and multiple fallbacks -->
+    <!-- Font Awesome - Enhanced with improved fallbacks -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
     
-    <!-- Fallback Font Awesome sources -->
+    <!-- Enhanced fallback system with multiple CDN sources -->
     <script>
-        // Check if Font Awesome loaded properly
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
-                var testEl = document.createElement('i');
+        // Enhanced Font Awesome loading with better detection
+        let fontAwesomeAttempt = 0;
+        const maxAttempts = 3;
+        
+        function checkFontAwesome() {
+            return new Promise((resolve) => {
+                const testEl = document.createElement('i');
                 testEl.className = 'fas fa-home';
-                testEl.style.display = 'none';
+                testEl.style.cssText = 'position: absolute; left: -9999px; font-size: 16px;';
                 document.body.appendChild(testEl);
                 
-                var computedStyle = window.getComputedStyle(testEl, ':before');
-                var content = computedStyle.getPropertyValue('content');
-                var fontFamily = computedStyle.getPropertyValue('font-family');
-                
-                document.body.removeChild(testEl);
-                
-                // Check if Font Awesome loaded properly
-                if (content === 'none' || content === '' || !fontFamily.includes('Font Awesome')) {
-                    console.log('Primary Font Awesome failed, loading fallback...');
+                // Wait a bit for the font to load
+                setTimeout(() => {
+                    const computedStyle = window.getComputedStyle(testEl, ':before');
+                    const content = computedStyle.getPropertyValue('content');
+                    const fontFamily = computedStyle.getPropertyValue('font-family');
                     
-                    // Try alternative CDN
-                    var link1 = document.createElement('link');
-                    link1.rel = 'stylesheet';
-                    link1.href = 'https://pro.fontawesome.com/releases/v5.15.4/css/all.css';
-                    link1.crossOrigin = 'anonymous';
-                    document.head.appendChild(link1);
+                    document.body.removeChild(testEl);
                     
-                    // Try another fallback
-                    setTimeout(function() {
-                        var link2 = document.createElement('link');
-                        link2.rel = 'stylesheet';
-                        link2.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
-                        document.head.appendChild(link2);
-                    }, 500);
+                    // More robust check
+                    const isLoaded = content !== 'none' && 
+                                   content !== '' && 
+                                   (fontFamily.includes('Font Awesome') || content.charCodeAt(0) > 61440);
+                    
+                    resolve(isLoaded);
+                }, 200);
+            });
+        }
+        
+        async function loadFontAwesome() {
+            const isLoaded = await checkFontAwesome();
+            
+            if (!isLoaded && fontAwesomeAttempt < maxAttempts) {
+                fontAwesomeAttempt++;
+                console.log(`Font Awesome attempt ${fontAwesomeAttempt}/${maxAttempts}`);
+                
+                // Try different CDN sources
+                const fallbackSources = [
+                    'https://pro.fontawesome.com/releases/v5.15.4/css/all.css',
+                    'https://use.fontawesome.com/releases/v6.0.0/css/all.css',
+                    'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'
+                ];
+                
+                if (fontAwesomeAttempt <= fallbackSources.length) {
+                    const link = document.createElement('link');
+                    link.rel = 'stylesheet';
+                    link.href = fallbackSources[fontAwesomeAttempt - 1];
+                    link.crossOrigin = 'anonymous';
+                    link.onload = () => setTimeout(loadFontAwesome, 300);
+                    link.onerror = () => setTimeout(loadFontAwesome, 300);
+                    document.head.appendChild(link);
+                } else {
+                    // Final fallback - activate text alternatives
+                    activateTextFallbacks();
                 }
-            }, 100);
+            } else if (!isLoaded) {
+                // All attempts failed, use text fallbacks
+                activateTextFallbacks();
+            }
+        }
+        
+        function activateTextFallbacks() {
+            console.log('Font Awesome failed to load, activating text fallbacks');
+            document.body.classList.add('fa-fallback');
+        }
+        
+        // Start loading process
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(loadFontAwesome, 100);
         });
     </script>
     
-    <!-- Fallback fonts and icon styles -->
+    <!-- Enhanced fallback styles -->
     <style>
         @import url('https://fonts.bunny.net/css?family=poppins:300,400,500,600,700');
         
@@ -67,7 +102,7 @@
             font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
         
-        /* Enhanced fallback icon styles */
+        /* Enhanced Font Awesome fallback styles */
         .fas, .fab, .far, .fa {
             font-family: 'Font Awesome 6 Free', 'Font Awesome 5 Free', 'FontAwesome', sans-serif !important;
             font-weight: 900;
@@ -75,6 +110,8 @@
             font-variant: normal;
             text-rendering: auto;
             line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
         
         .fab {
@@ -82,41 +119,76 @@
             font-weight: 400;
         }
         
-        /* Specific fallback for common social media icons */
+        /* Enhanced Unicode fallbacks for common icons */
         .fa-facebook-f:before { content: "\f39e"; }
         .fa-whatsapp:before { content: "\f232"; }
-        .fa-map-marked-alt:before { content: "\f5a0"; }
+        .fa-tripadvisor:before { content: "\f262"; }
+        .fa-map-marked-alt:before, .fa-map-marker-alt:before { content: "\f3c5"; }
         .fa-phone:before { content: "\f095"; }
         .fa-envelope:before { content: "\f0e0"; }
         .fa-clock:before { content: "\f017"; }
         .fa-language:before { content: "\f1ab"; }
         .fa-credit-card:before { content: "\f09d"; }
         .fa-share-alt:before { content: "\f1e0"; }
+        .fa-certificate:before { content: "\f0a3"; }
+        .fa-users:before { content: "\f0c0"; }
+        .fa-shield-alt:before { content: "\f3ed"; }
+        .fa-leaf:before { content: "\f06c"; }
+        .fa-user-tie:before { content: "\f508"; }
+        .fa-first-aid:before { content: "\f479"; }
+        .fa-handshake:before { content: "\f2b5"; }
+        .fa-info-circle:before { content: "\f05a"; }
+        .fa-star:before { content: "\f005"; }
         
-        /* CSS-only social media icons as ultimate fallback */
-        .social-icon-fallback {
+        /* Text fallbacks when Font Awesome completely fails */
+        .fa-fallback .fa-facebook-f:before,
+        .fa-fallback .fab.fa-facebook-f:before { content: "f" !important; }
+        
+        .fa-fallback .fa-whatsapp:before,
+        .fa-fallback .fab.fa-whatsapp:before { content: "W" !important; }
+        
+        .fa-fallback .fa-tripadvisor:before,
+        .fa-fallback .fab.fa-tripadvisor:before { content: "T" !important; }
+        
+        .fa-fallback .fa-phone:before { content: "📞" !important; }
+        .fa-fallback .fa-envelope:before { content: "✉" !important; }
+        .fa-fallback .fa-clock:before { content: "🕐" !important; }
+        .fa-fallback .fa-language:before { content: "🌐" !important; }
+        .fa-fallback .fa-credit-card:before { content: "💳" !important; }
+        .fa-fallback .fa-map-marked-alt:before,
+        .fa-fallback .fa-map-marker-alt:before { content: "📍" !important; }
+        .fa-fallback .fa-certificate:before { content: "🏆" !important; }
+        .fa-fallback .fa-users:before { content: "👥" !important; }
+        .fa-fallback .fa-shield-alt:before { content: "🛡" !important; }
+        .fa-fallback .fa-leaf:before { content: "🌿" !important; }
+        .fa-fallback .fa-user-tie:before { content: "👨‍💼" !important; }
+        .fa-fallback .fa-first-aid:before { content: "🏥" !important; }
+        .fa-fallback .fa-handshake:before { content: "🤝" !important; }
+        .fa-fallback .fa-info-circle:before { content: "ℹ" !important; }
+        .fa-fallback .fa-star:before { content: "⭐" !important; }
+        .fa-fallback .fa-share-alt:before { content: "↗" !important; }
+        
+        /* Ensure fallback icons have proper styling */
+        .fa-fallback .fas, .fa-fallback .fab, .fa-fallback .far, .fa-fallback .fa {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+            font-weight: normal !important;
             display: inline-block;
-            width: 20px;
-            height: 20px;
+            width: auto;
             text-align: center;
-            line-height: 20px;
+        }
+        
+        /* Enhanced social media fallback styles */
+        .fa-fallback .social-link .fab {
+            background: rgba(255,255,255,0.2);
             border-radius: 3px;
-            color: white;
+            padding: 2px 6px;
             font-weight: bold;
-            font-size: 12px;
+            min-width: 20px;
         }
         
-        .facebook-fallback {
-            background: #1877f2;
-        }
-        
-        .whatsapp-fallback {
-            background: #25d366;
-        }
-        
-        .tripadvisor-fallback {
-            background: #00cc66;
-        }
+        .fa-fallback .social-link.facebook .fab { background: #1877f2; color: white; }
+        .fa-fallback .social-link.whatsapp .fab { background: #25d366; color: white; }
+        .fa-fallback .social-link.tripadvisor .fab { background: #00cc66; color: white; }
         
         /* WhatsApp floating button enhanced styling */
         .whatsapp-float {
@@ -143,6 +215,13 @@
         .whatsapp-float:hover {
             transform: scale(1.1) !important;
             box-shadow: 2px 2px 15px rgba(0,0,0,0.3) !important;
+        }
+        
+        /* Pulse animation for WhatsApp button */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
         }
     </style>
 </head>
@@ -562,210 +641,595 @@
         </div>
     </section>
 
-    <!-- Pricing & Inclusions Section -->
-    <section class="pricing">
+    <!-- Detailed Itineraries Section -->
+    <section id="itineraries" class="itineraries">
         <div class="container">
             <div class="section-header">
-                <h2 class="section-title" data-translate="pricing-title">Tour Pricing & Inclusions</h2>
-                <p class="section-subtitle" data-translate="pricing-subtitle">Transparent pricing with everything you need to know</p>
+                <h2 class="section-title" data-translate="itineraries-title">Detailed Itineraries</h2>
+                <p class="section-subtitle" data-translate="itineraries-subtitle">Day-by-day breakdown of each tour experience</p>
             </div>
             
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3 data-translate="pricing-madidi-title">Madidi Jungle Tours</h3>
-                        <div class="pricing-options">
-                            <div class="price-option">
-                                <span class="duration">1 Day</span>
-                                <span class="price">$120</span>
-                            </div>
-                            <div class="price-option">
-                                <span class="duration">2 Days</span>
-                                <span class="price">$200</span>
-                            </div>
-                            <div class="price-option">
-                                <span class="duration">3 Days</span>
-                                <span class="price">$280</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inclusions">
-                        <h4><i class="fas fa-check-circle"></i> <span data-translate="pricing-whats-included">What's Included</span></h4>
-                        <ul class="included-list">
-                            <li data-translate="pricing-madidi-transport">Transportation by boat to/from Tacuaral Ecolodge</li>
-                            <li data-translate="pricing-guide">Professional local guide (English/Spanish)</li>
-                            <li data-translate="pricing-meals">All meals during the tour</li>
-                            <li data-translate="pricing-madidi-accommodation">Accommodation at Tacuaral Ecolodge</li>
-                            <li data-translate="pricing-madidi-walks">Guided jungle walks and wildlife observation</li>
-                            <li data-translate="pricing-madidi-macaw">Visit to Caquiahuara macaw clay-lick</li>
-                            <li data-translate="pricing-madidi-night">Night jungle experiences</li>
-                            <li data-translate="pricing-madidi-plants">Medicinal plant demonstrations</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/59171245281?text=Hi%20Bala%20Tours!%20I'm%20interested%20in%20booking%20a%20Madidi%20National%20Park%20jungle%20tour.%20Could%20you%20please%20send%20me%20detailed%20pricing%20and%20availability%20for%20the%20dates%20I'm%20considering?" class="btn btn-whatsapp pricing-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> <span data-translate="pricing-book-madidi">Book Madidi Tour</span>
-                    </a>
-                </div>
-                
-                <div class="pricing-card">
-                    <div class="pricing-header">
-                        <h3 data-translate="pricing-pampas-title">Pampas Wildlife Tours</h3>
-                        <div class="pricing-options">
-                            <div class="price-option">
-                                <span class="duration">2 Days</span>
-                                <span class="price">$180</span>
-                            </div>
-                            <div class="price-option">
-                                <span class="duration">3 Days</span>
-                                <span class="price">$260</span>
-                            </div>
-                            <div class="price-option">
-                                <span class="duration">4 Days</span>
-                                <span class="price">$340</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inclusions">
-                        <h4><i class="fas fa-check-circle"></i> <span data-translate="pricing-whats-included">What's Included</span></h4>
-                        <ul class="included-list">
-                            <li data-translate="pricing-pampas-transport">4WD transportation to/from Caracoles Ecolodge</li>
-                            <li data-translate="pricing-guide">Professional local guide (English/Spanish)</li>
-                            <li data-translate="pricing-meals">All meals during the tour</li>
-                            <li data-translate="pricing-pampas-accommodation">Accommodation at Caracoles Ecolodge</li>
-                            <li data-translate="pricing-pampas-boat">Boat excursions on Yacuma River</li>
-                            <li data-translate="pricing-pampas-dolphins">Swimming with pink dolphins</li>
-                            <li data-translate="pricing-pampas-fishing">Piranha fishing experience</li>
-                            <li data-translate="pricing-pampas-anaconda">Anaconda and caiman searching</li>
-                            <li data-translate="pricing-pampas-birds">Birdwatching (Blue-throated Macaw)</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/59171245281?text=Hello%20Bala%20Tours!%20I%20would%20like%20to%20book%20a%20Pampas%20Wildlife%20Tour%20with%20pink%20dolphins%20and%20wildlife%20viewing.%20Please%20share%20available%20dates%20and%20complete%20pricing%20details." class="btn btn-whatsapp pricing-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> <span data-translate="pricing-book-pampas">Book Pampas Tour</span>
-                    </a>
-                </div>
-                
-                <div class="pricing-card featured">
-                    <div class="featured-badge" data-translate="pricing-most-popular">Most Popular</div>
-                    <div class="pricing-header">
-                        <h3 data-translate="pricing-combined-title">Combined Tours</h3>
-                        <div class="pricing-options">
-                            <div class="price-option">
-                                <span class="duration">5 Days</span>
-                                <span class="price">$440</span>
-                            </div>
-                            <div class="price-option">
-                                <span class="duration">6 Days</span>
-                                <span class="price">$520</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="inclusions">
-                        <h4><i class="fas fa-check-circle"></i> <span data-translate="pricing-whats-included">What's Included</span></h4>
-                        <ul class="included-list">
-                            <li data-translate="pricing-combined-transport">All transportation (boat & 4WD)</li>
-                            <li data-translate="pricing-combined-guides">Professional guides for both ecosystems</li>
-                            <li data-translate="pricing-combined-meals">All meals throughout the tour</li>
-                            <li data-translate="pricing-combined-accommodation">Accommodation at both ecolodges</li>
-                            <li data-translate="pricing-combined-experiences">Complete jungle and pampas experiences</li>
-                            <li data-translate="pricing-pampas-dolphins">Swimming with pink dolphins</li>
-                            <li data-translate="pricing-combined-macaw">Macaw clay-lick observation</li>
-                            <li data-translate="pricing-combined-community">Cultural community visits</li>
-                            <li data-translate="pricing-combined-night">Night wildlife experiences</li>
-                        </ul>
-                    </div>
-                    <a href="https://wa.me/59171245281?text=Hi%20there!%20I'm%20interested%20in%20your%20Combined%20Amazon%20Tours%20package%20that%20includes%20both%20Madidi%20and%20Pampas%20experiences.%20Could%20you%20provide%20detailed%20itinerary%20and%20pricing%20information?" class="btn btn-whatsapp pricing-whatsapp" target="_blank">
-                        <i class="fab fa-whatsapp"></i> <span data-translate="pricing-book-combined">Book Combined Tour</span>
-                    </a>
-                </div>
+            <!-- Tab Navigation -->
+            <div class="itinerary-tabs">
+                <button class="tab-btn active" data-tab="madidi-3day" data-translate="tab-madidi-3day">Madidi 3 Days</button>
+                <button class="tab-btn" data-tab="madidi-4day" data-translate="tab-madidi-4day">Madidi 4 Days</button>
+                <button class="tab-btn" data-tab="madidi-ayahuasca" data-translate="tab-madidi-ayahuasca">Madidi Ayahuasca</button>
+                <button class="tab-btn" data-tab="pampas-2day" data-translate="tab-pampas-2day">Pampas 2 Days</button>
+                <button class="tab-btn" data-tab="pampas-3day" data-translate="tab-pampas-3day">Pampas 3 Days</button>
+                <button class="tab-btn" data-tab="combined-3day" data-translate="tab-combined-3day">Combined 3 Days</button>
+                <button class="tab-btn" data-tab="combined-4day" data-translate="tab-combined-4day">Combined 4 Days</button>
+                <button class="tab-btn" data-tab="combined-5day" data-translate="tab-combined-5day">Combined 5 Days</button>
+                <button class="tab-btn" data-tab="combined-6day" data-translate="tab-combined-6day">Combined 6 Days</button>
             </div>
-            
-            <div class="pricing-notes">
-                <div class="not-included">
-                    <h4><i class="fas fa-times-circle"></i> <span data-translate="pricing-not-included">Not Included</span></h4>
-                    <ul>
-                        <li data-translate="pricing-not-transport">Transportation to/from Rurrenabaque</li>
-                        <li data-translate="pricing-not-fees">Park entrance fees (approx. $15 USD)</li>
-                        <li data-translate="pricing-not-equipment">Personal equipment (binoculars, camera)</li>
-                        <li data-translate="pricing-not-insurance">Travel insurance</li>
-                        <li data-translate="pricing-not-alcohol">Alcoholic beverages</li>
-                        <li data-translate="pricing-not-tips">Tips for guides (appreciated but not required)</li>
-                        <li data-translate="pricing-not-personal">Personal expenses and souvenirs</li>
-                    </ul>
-                </div>
-                
-                <div class="booking-terms">
-                    <h4><i class="fas fa-info-circle"></i> <span data-translate="pricing-booking-terms">Booking Terms</span></h4>
-                    <ul>
-                        <li data-translate="pricing-deposit"><strong>Deposit:</strong> 30% required to confirm reservation</li>
-                        <li data-translate="pricing-payment"><strong>Payment:</strong> Cash (USD or Bolivianos) preferred</li>
-                        <li data-translate="pricing-cancellation"><strong>Cancellation:</strong> 48 hours notice for refund</li>
-                        <li data-translate="pricing-group-size"><strong>Group Size:</strong> Minimum 2, Maximum 6 people</li>
-                        <li data-translate="pricing-age-limit"><strong>Age Limit:</strong> Suitable for ages 8-70</li>
-                        <li data-translate="pricing-season"><strong>Season:</strong> Tours available year-round</li>
-                        <li data-translate="pricing-weather"><strong>Weather:</strong> Tours operate rain or shine</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- What to Bring Section -->
-    <section class="what-to-bring">
-        <div class="container">
-            <div class="section-header">
-                <h2 class="section-title" data-translate="bring-title">What to Bring</h2>
-                <p class="section-subtitle" data-translate="bring-subtitle">Essential items for your Amazon adventure</p>
+            <!-- Tab Content -->
+            <div class="itinerary-content">
+                
+                <!-- Madidi 3 Days -->
+                <div class="tab-content active" id="madidi-3day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-madidi-3day-title">Madidi National Park - 3 Days / 2 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-madidi-3day-code">Tour Code: SPM 1</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-wildlife-obs"><i class="fas fa-binoculars"></i> Wildlife observation</span>
+                            <span data-translate="feature-night-walks"><i class="fas fa-moon"></i> Night walks</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 1</h4>
+                                <span class="meals"><span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="madidi-3day-day1-departure"><strong>9:00 AM:</strong> Departure by boat through the Beni River to enter Madidi National Park, one of the world's most biodiverse parks.</p>
+                                <p data-translate="madidi-3day-day1-arrival"><strong>12:00 PM:</strong> After 3 hours, arrive at Tacuaral Lodge beside the Tuichi River. Lunch and rest in hammocks.</p>
+                                <p data-translate="madidi-3day-day1-afternoon"><strong>Afternoon:</strong> Guided forest walk with possibilities to see monkeys, deer, wild pigs (peccaries), capybaras, and various bird species.</p>
+                                <p data-translate="madidi-3day-day1-evening"><strong>Evening:</strong> Dinner followed by night walk to appreciate forest sounds and observe nocturnal animals.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 2</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="madidi-3day-day2-morning"><strong>Morning:</strong> After breakfast, visit Caquiawara - a natural salt lick where parrots and macaws gather. Spectacular photography opportunities from the observation deck.</p>
+                                <p data-translate="madidi-3day-day2-midday"><strong>Midday:</strong> Return to lodge for lunch.</p>
+                                <p data-translate="madidi-3day-day2-afternoon"><strong>Afternoon:</strong> Fishing in the Tuichi River or forest lagoon. Target species include surubí, black-spotted catfish, white pacú, mamuri, and sábalo. Option for river swimming or additional forest walk.</p>
+                                <p data-translate="madidi-3day-day2-evening"><strong>Evening:</strong> Dinner at the lodge.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="madidi-3day-day3-morning"><strong>Morning:</strong> Medicinal plant walk where guides explain the traditional uses of thousands of forest plant species.</p>
+                                <p data-translate="madidi-3day-day3-late-morning"><strong>Late Morning:</strong> Return to lodge to create crafts with seeds collected during the walk.</p>
+                                <p data-translate="madidi-3day-day3-midday"><strong>Midday:</strong> Lunch and relaxation time.</p>
+                                <p data-translate="madidi-3day-day3-afternoon"><strong>Afternoon:</strong> Return by boat to Rurrenabaque, arriving approximately at 5:00 PM. Enjoy spectacular sunset views during the journey.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Madidi 4 Days -->
+                <div class="tab-content" id="madidi-4day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-madidi-4day-title">Madidi National Park - 4 Days / 3 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-madidi-4day-code">Tour Code: SPM 2</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-community-visits"><i class="fas fa-users"></i> Community visits</span>
+                            <span data-translate="feature-deep-forest"><i class="fas fa-leaf"></i> Deep forest exploration</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="days-label">Days</span> 1-2</h4>
+                                <span class="meals" data-translate="meals-similar">Similar to 3-day program</span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="madidi-4day-days12-content">The first two days follow the same itinerary as the 3-day/2-night program with wildlife observation, Caquiawara visit, and fishing activities.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="madidi-4day-day3-early-morning"><strong>Early Morning:</strong> Extended jungle hike to explore different ecological zones, penetrating deeper into the rainforest to discover various timber plant species.</p>
+                                <p data-translate="madidi-4day-day3-morning"><strong>Morning:</strong> Collection of palm seeds for crafting rings and other handicrafts back at the lodge.</p>
+                                <p data-translate="madidi-4day-day3-afternoon"><strong>Afternoon:</strong> Recreation time with refreshing swimming in the Tuichi River, or optional hike on different interpretive trail to visit a small pond and enjoy bird songs and wildlife sounds.</p>
+                                <p data-translate="madidi-4day-day3-evening"><strong>Evening:</strong> Dinner and rest at the lodge.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 4</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="madidi-4day-day4-early-morning"><strong>Early Morning:</strong> After breakfast, boat trip up the Beni River to visit indigenous communities within Madidi National Park.</p>
+                                <p data-translate="madidi-4day-day4-morning"><strong>Morning:</strong> Observe daily life and traditional activities with the Moseten indigenous communities, learning survival techniques used in the rainforest.</p>
+                                <p data-translate="madidi-4day-day4-midday"><strong>Midday:</strong> Return to lodge for lunch.</p>
+                                <p data-translate="madidi-4day-day4-afternoon"><strong>Afternoon:</strong> Return journey to Rurrenabaque, enjoying spectacular sunset views. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Madidi Ayahuasca -->
+                <div class="tab-content" id="madidi-ayahuasca">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-madidi-ayahuasca-title">Madidi Ayahuasca Experience - 4 Days / 3 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-madidi-ayahuasca-code">Tour Code: SPM 3</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-spiritual-ceremony"><i class="fas fa-om"></i> Spiritual ceremony</span>
+                            <span data-translate="feature-jungle-shaman"><i class="fas fa-user-tie"></i> Jungle shaman guide</span>
+                        </div>
+                        <div class="special-notice">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span data-translate="special-notice-ayahuasca">This tour includes traditional plant medicine ceremony. Participants must be 18+ and in good physical/mental health.</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="days-label">Days</span> 1-2</h4>
+                                <span class="meals" data-translate="meals-similar">Similar to 3-day program</span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="ayahuasca-days12-content">The first two days follow the same itinerary as the standard 3-day/2-night program with wildlife observation and forest activities.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="ayahuasca-day3-preparation"><strong>Day Preparation:</strong> Preparation for the ayahuasca ceremony within the jungle of Madidi National Park.</p>
+                                <p data-translate="ayahuasca-day3-ceremony"><strong>Ceremony Experience:</strong> A unique spiritual experience sharing knowledge and different perspectives, beginning the mystique of ayahuasca to explore your inner being.</p>
+                                <p data-translate="ayahuasca-day3-setting"><strong>Natural Setting:</strong> Ceremony conducted surrounded by animals, insects, and birds, guided by a natural jungle shaman.</p>
+                                <p data-translate="ayahuasca-day3-evening"><strong>Evening:</strong> Rest and integration time after the ceremony.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 4</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="ayahuasca-day4-morning"><strong>Early Morning:</strong> Gentle jungle hike to learn about different ecological zones, penetrating deeper into the rainforest to discover various timber plant species.</p>
+                                <p data-translate="ayahuasca-day4-collection"><strong>Morning:</strong> Collection of palm seeds for crafting rings and other handicrafts back at the lodge.</p>
+                                <p data-translate="ayahuasca-day4-lunch"><strong>Midday:</strong> Lunch at the lodge.</p>
+                                <p data-translate="ayahuasca-day4-return"><strong>Afternoon:</strong> Return journey to Rurrenabaque, enjoying spectacular sunset views. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pampas 2 Days -->
+                <div class="tab-content" id="pampas-2day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-pampas-2day-title">Pampas Wildlife Tour - 2 Days / 1 Night</h3>
+                        <p class="tour-code" data-translate="itinerary-pampas-2day-code">Tour Code: Based on Combined Tours</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-pink-dolphins"><i class="fas fa-dolphin"></i> Pink dolphins</span>
+                            <span data-translate="feature-piranha-fishing"><i class="fas fa-fish"></i> Piranha fishing</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 1</h4>
+                                <span class="meals"><span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="pampas-2day-day1-morning"><strong>Morning:</strong> Departure by 4WD vehicle from Rurrenabaque to Santa Rosa del Yacuma (3-hour journey).</p>
+                                <p data-translate="pampas-2day-day1-midday"><strong>Midday:</strong> Arrival at Caracoles Lodge along the Yacuma River. Lunch and free time to relax in hammocks.</p>
+                                <p data-translate="pampas-2day-day1-afternoon"><strong>Afternoon:</strong> Boat ride for wildlife observation including pink river dolphins, capybaras, turtles, black caimans, monkeys, and numerous bird species.</p>
+                                <p data-translate="pampas-2day-day1-evening"><strong>Evening:</strong> Dinner at the lodge followed by night boat ride to observe caiman eyes with flashlights.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 2</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="pampas-2day-day2-morning"><strong>Morning:</strong> Boat ride to see troops of squirrel monkeys (chichilos) and other wildlife species.</p>
+                                <p data-translate="pampas-2day-day2-late-morning"><strong>Late Morning:</strong> Optional piranha fishing experience.</p>
+                                <p data-translate="pampas-2day-day2-midday"><strong>Midday:</strong> Lunch at the lodge.</p>
+                                <p data-translate="pampas-2day-day2-afternoon"><strong>Afternoon:</strong> Return journey to Rurrenabaque by 4WD vehicle. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pampas 3 Days -->
+                <div class="tab-content" id="pampas-3day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-pampas-3day-title">Pampas Wildlife Tour - 3 Days / 2 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-pampas-3day-code">Enhanced Pampas Experience</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-anaconda-search"><i class="fas fa-search"></i> Anaconda search</span>
+                            <span data-translate="feature-dolphin-swimming"><i class="fas fa-swimmer"></i> Dolphin swimming</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 1</h4>
+                                <span class="meals"><span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="pampas-3day-day1-morning"><strong>Morning:</strong> Departure by 4WD vehicle from Rurrenabaque to Santa Rosa del Yacuma (3-hour journey).</p>
+                                <p data-translate="pampas-3day-day1-midday"><strong>Midday:</strong> Arrival at Caracoles Lodge. Lunch and relaxation time.</p>
+                                <p data-translate="pampas-3day-day1-afternoon"><strong>Afternoon:</strong> Extensive boat ride for wildlife observation including pink river dolphins, capybaras, turtles, black caimans, monkeys, and diverse bird species.</p>
+                                <p data-translate="pampas-3day-day1-evening"><strong>Evening:</strong> Dinner followed by night boat excursion to spot caiman eyes with flashlights.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 2</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="pampas-3day-day2-morning"><strong>Morning:</strong> Hiking through the Pampas in search of anacondas, black caimans, and alligators.</p>
+                                <p data-translate="pampas-3day-day2-midday"><strong>Midday:</strong> Lunch at the lodge and rest period.</p>
+                                <p data-translate="pampas-3day-day2-afternoon"><strong>Afternoon:</strong> Boat ride along the Yacuma River for piranha fishing and swimming with pink dolphins (weather permitting).</p>
+                                <p data-translate="pampas-3day-day2-evening"><strong>Evening:</strong> Dinner followed by another night boat ride for caiman observation.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="pampas-3day-day3-morning"><strong>Morning:</strong> Final boat ride to observe squirrel monkeys (chichilos) and other wildlife species.</p>
+                                <p data-translate="pampas-3day-day3-late-morning"><strong>Late Morning:</strong> Additional wildlife viewing opportunities and photography time.</p>
+                                <p data-translate="pampas-3day-day3-midday"><strong>Midday:</strong> Lunch at the lodge.</p>
+                                <p data-translate="pampas-3day-day3-afternoon"><strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined 3 Days -->
+                <div class="tab-content" id="combined-3day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-combined-3day-title">Combined Jungle & Pampas - 3 Days / 2 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-combined-3day-code">EP 3</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-best-ecosystems"><i class="fas fa-globe"></i> Best of both ecosystems</span>
+                            <span data-translate="feature-quick-adventure"><i class="fas fa-clock"></i> Quick adventure</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 1 - Madidi Jungle</h4>
+                                <span class="meals"><span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-3day-day1-departure"><strong>9:00 AM:</strong> Departure by boat up the Beni River to Madidi National Park.</p>
+                                <p data-translate="combined-3day-day1-arrival"><strong>12:00 PM:</strong> Arrival at Tacuaral Lodge on Tuichi River. Lunch and rest.</p>
+                                <p data-translate="combined-3day-day1-afternoon"><strong>Afternoon:</strong> Guided forest walk for wildlife observation and bird watching.</p>
+                                <p data-translate="combined-3day-day1-evening"><strong>Evening:</strong> Dinner followed by night walk to observe nocturnal animals.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 2 - Transition to Pampas</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-3day-day2-morning"><strong>Morning:</strong> Early breakfast and return boat trip to Rurrenabaque.</p>
+                                <p data-translate="combined-3day-day2-midday"><strong>Midday:</strong> 4WD journey to Santa Rosa del Yacuma. Lunch at Caracoles Lodge.</p>
+                                <p data-translate="combined-3day-day2-afternoon"><strong>Afternoon:</strong> Boat ride for wildlife observation: pink dolphins, capybaras, caimans, and birds.</p>
+                                <p data-translate="combined-3day-day2-evening"><strong>Evening:</strong> Dinner followed by night boat ride to spot caiman eyes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3 - Pampas Finale</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-3day-day3-morning"><strong>Morning:</strong> Boat ride to observe squirrel monkeys and final wildlife viewing.</p>
+                                <p data-translate="combined-3day-day3-midday"><strong>Midday:</strong> Lunch at the lodge.</p>
+                                <p data-translate="combined-3day-day3-afternoon"><strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined 4 Days -->
+                <div class="tab-content" id="combined-4day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-combined-4day-title">Combined Jungle & Pampas - 4 Days / 3 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-combined-4day-code">EP 4</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-sport-fishing"><i class="fas fa-fish"></i> Sport fishing</span>
+                            <span data-translate="feature-river-swimming"><i class="fas fa-swimmer"></i> River swimming</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 1 - Madidi Entry</h4>
+                                <span class="meals"><span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-4day-day1-departure"><strong>9:00 AM:</strong> Departure by boat up the Beni River to Madidi National Park.</p>
+                                <p data-translate="combined-4day-day1-arrival"><strong>12:00 PM:</strong> Arrival at Tacuaral Lodge on Tuichi River. Lunch.</p>
+                                <p data-translate="combined-4day-day1-afternoon"><strong>Afternoon:</strong> Rainforest trail hike for wildlife viewing: monkeys, deer, wild peccaries, capybaras, and bird species.</p>
+                                <p data-translate="combined-4day-day1-evening"><strong>Evening:</strong> Dinner followed by night jungle walk to discover nocturnal wildlife.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 2 - Madidi Exploration</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-4day-day2-morning"><strong>Morning:</strong> After breakfast, boat trip to Caquiahuara clay cliff for macaw and parrot observation. Photography opportunities from observation deck.</p>
+                                <p data-translate="combined-4day-day2-midday"><strong>Midday:</strong> Interpretative trail walk and lunch at lodge.</p>
+                                <p data-translate="combined-4day-day2-afternoon"><strong>Afternoon:</strong> Sport fishing and swimming in the river.</p>
+                                <p data-translate="combined-4day-day2-evening"><strong>Evening:</strong> Dinner at the lodge.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3 - Transition to Pampas</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-4day-day3-early-morning"><strong>Early Morning:</strong> Breakfast and boat ride back to Rurrenabaque.</p>
+                                <p data-translate="combined-4day-day3-late-morning"><strong>Late Morning:</strong> 4WD vehicle journey to Santa Rosa del Yacuma (3 hours).</p>
+                                <p data-translate="combined-4day-day3-midday"><strong>Midday:</strong> Lunch at Caracoles Lodge.</p>
+                                <p data-translate="combined-4day-day3-afternoon"><strong>Afternoon:</strong> Boat ride for wildlife observation: pink river dolphins, capybaras, turtles, black caimans, monkeys, and bird species.</p>
+                                <p data-translate="combined-4day-day3-evening"><strong>Evening:</strong> Dinner followed by night boat ride to observe caiman eyes with flashlights.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 4 - Pampas Finale</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-4day-day4-morning"><strong>Morning:</strong> Boat ride to see troops of squirrel monkeys (chichilos).</p>
+                                <p data-translate="combined-4day-day4-late-morning"><strong>Late Morning:</strong> Additional wildlife viewing and photography opportunities.</p>
+                                <p data-translate="combined-4day-day4-midday"><strong>Midday:</strong> Lunch at the lodge.</p>
+                                <p data-translate="combined-4day-day4-afternoon"><strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined 5 Days -->
+                <div class="tab-content" id="combined-5day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-combined-5day-title">Combined Jungle & Pampas - 5 Days / 4 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-combined-5day-code">EP 2</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-anaconda-search"><i class="fas fa-search"></i> Anaconda search</span>
+                            <span data-translate="feature-dolphin-swimming"><i class="fas fa-dolphin"></i> Dolphin swimming</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 1 - Madidi Entry</h4>
+                                <span class="meals"><span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-5day-day1-departure"><strong>9:00 AM:</strong> Departure by boat up the Beni River to Madidi National Park.</p>
+                                <p data-translate="combined-5day-day1-arrival"><strong>12:00 PM:</strong> Arrival at Tacuaral Lodge on Tuichi River after 3-hour journey. Lunch.</p>
+                                <p data-translate="combined-5day-day1-afternoon"><strong>Afternoon:</strong> Rainforest trail hike for wildlife viewing: monkeys, deer, wild peccaries, capybaras, and bird species.</p>
+                                <p data-translate="combined-5day-day1-evening"><strong>Evening:</strong> Dinner followed by night jungle walk to discover nocturnal wildlife.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 2 - Madidi Exploration</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-5day-day2-morning"><strong>Morning:</strong> After breakfast, boat trip to Caquiahuara clay cliff for macaw and parrot observation. Great photography opportunities.</p>
+                                <p data-translate="combined-5day-day2-midday"><strong>Midday:</strong> Interpretative trail walk and lunch at lodge.</p>
+                                <p data-translate="combined-5day-day2-afternoon"><strong>Afternoon:</strong> Sport fishing and swimming in the river.</p>
+                                <p data-translate="combined-5day-day2-evening"><strong>Evening:</strong> Dinner at the lodge.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3 - Transition to Pampas</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-5day-day3-early-morning"><strong>Early Morning:</strong> Breakfast and boat ride back to Rurrenabaque.</p>
+                                <p data-translate="combined-5day-day3-late-morning"><strong>Late Morning:</strong> Board 4x4 jeep for 3-hour trip to Santa Rosa del Yacuma.</p>
+                                <p data-translate="combined-5day-day3-midday"><strong>Midday:</strong> Lunch at Caracoles Lodge.</p>
+                                <p data-translate="combined-5day-day3-afternoon"><strong>Afternoon:</strong> Boat ride for wildlife observation: pink river dolphins, capybaras, turtles, black caimans, monkeys, and bird species.</p>
+                                <p data-translate="combined-5day-day3-evening"><strong>Evening:</strong> Dinner at the lodge.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 4 - Pampas Adventure</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-5day-day4-morning"><strong>Morning:</strong> Hiking through the Pampas in search of mighty anacondas, black caimans, and alligators.</p>
+                                <p data-translate="combined-5day-day4-midday"><strong>Midday:</strong> Lunch at lodge and rest period.</p>
+                                <p data-translate="combined-5day-day4-afternoon"><strong>Afternoon:</strong> Boat ride along Yacuma River for piranha fishing and swimming with pink dolphins.</p>
+                                <p data-translate="combined-5day-day4-evening"><strong>Evening:</strong> Dinner followed by night boat ride to observe caiman eyes with flashlights.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 5 - Departure</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-5day-day5-morning"><strong>Morning:</strong> Boat ride to see troops of squirrel monkeys (chichilos).</p>
+                                <p data-translate="combined-5day-day5-late-morning"><strong>Late Morning:</strong> Final wildlife viewing opportunities.</p>
+                                <p data-translate="combined-5day-day5-midday"><strong>Midday:</strong> Lunch at the lodge.</p>
+                                <p data-translate="combined-5day-day5-afternoon"><strong>Afternoon:</strong> Return journey to Rurrenabaque. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Combined 6 Days -->
+                <div class="tab-content" id="combined-6day">
+                    <div class="itinerary-header">
+                        <h3 data-translate="itinerary-combined-6day-title">Complete Amazon Experience - 6 Days / 5 Nights</h3>
+                        <p class="tour-code" data-translate="itinerary-combined-6day-code">EP 5 & EP 1</p>
+                        <div class="tour-features">
+                            <span data-translate="feature-community-visits"><i class="fas fa-users"></i> Community visits</span>
+                            <span data-translate="feature-deep-forest"><i class="fas fa-tree"></i> Deep forest exploration</span>
+                        </div>
+                    </div>
+                    
+                    <div class="day-by-day">
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 1 - Madidi Entry</h4>
+                                <span class="meals"><span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-6day-day1-departure"><strong>9:00 AM:</strong> Departure by boat up the Beni River to Madidi National Park.</p>
+                                <p data-translate="combined-6day-day1-arrival"><strong>12:00 PM:</strong> Arrival at Tacuaral Lodge on Tuichi River. Lunch.</p>
+                                <p data-translate="combined-6day-day1-afternoon"><strong>Afternoon:</strong> Extended rainforest trail hike for wildlife viewing: monkeys, deer, wild peccaries, capybaras, and bird species.</p>
+                                <p data-translate="combined-6day-day1-evening"><strong>Evening:</strong> Dinner followed by night jungle walk to discover nocturnal wildlife.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 2 - Clay Lick & Fishing</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-6day-day2-morning"><strong>Morning:</strong> Boat trip to Caquiahuara clay cliff for macaw and parrot observation. Outstanding photography opportunities.</p>
+                                <p data-translate="combined-6day-day2-midday"><strong>Midday:</strong> Interpretative trail walk and lunch at lodge.</p>
+                                <p data-translate="combined-6day-day2-afternoon"><strong>Afternoon:</strong> Sport fishing and swimming in the river.</p>
+                                <p data-translate="combined-6day-day2-evening"><strong>Evening:</strong> Dinner and night jungle walk to discover nocturnal wildlife.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 3 - Deep Forest & Communities</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-6day-day3-early-morning"><strong>Early Morning:</strong> Deep jungle hike to explore different ecological zones and timber plant species.</p>
+                                <p data-translate="combined-6day-day3-morning"><strong>Morning:</strong> Collection of palm seeds for crafting rings and handicrafts.</p>
+                                <p data-translate="combined-6day-day3-afternoon"><strong>Afternoon:</strong> Boat trip up Beni River to visit indigenous Moseten communities within Madidi National Park. Experience traditional daily life and survival techniques.</p>
+                                <p data-translate="combined-6day-day3-evening"><strong>Evening:</strong> Return to lodge for dinner.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 4 - Transition to Pampas</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-6day-day4-early-morning"><strong>Early Morning:</strong> Breakfast and boat ride back to Rurrenabaque, arriving around 8:30 AM.</p>
+                                <p data-translate="combined-6day-day4-late-morning"><strong>Late Morning:</strong> Short break before 4WD transfer to Santa Rosa Yacuma (3 hours).</p>
+                                <p data-translate="combined-6day-day4-midday"><strong>Midday:</strong> Lunch at Caracoles Lodge and free time to relax in hammocks.</p>
+                                <p data-translate="combined-6day-day4-afternoon"><strong>Afternoon:</strong> Boat ride to observe Pampas wildlife: alligators, anacondas, turtles, capybaras, pink dolphins, monkeys, and bird species.</p>
+                                <p data-translate="combined-6day-day4-evening"><strong>Evening:</strong> Dinner at the lodge.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 5 - Pampas Adventure</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span> • <span data-translate="dinner">Dinner</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-6day-day5-morning"><strong>Morning:</strong> Walking through the Pampas to find anacondas and alligators.</p>
+                                <p data-translate="combined-6day-day5-midday"><strong>Midday:</strong> Lunch and rest at the lodge.</p>
+                                <p data-translate="combined-6day-day5-afternoon"><strong>Afternoon:</strong> Piranha fishing in the river. If water levels permit, swimming with dolphins.</p>
+                                <p data-translate="combined-6day-day5-evening"><strong>Evening:</strong> Dinner followed by boat trip with flashlights to focus on caiman eyes.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="day-item">
+                            <div class="day-header">
+                                <h4><i class="fas fa-calendar-day"></i> <span data-translate="day-label">Day</span> 6 - Final Wildlife & Departure</h4>
+                                <span class="meals"><span data-translate="breakfast">Breakfast</span> • <span data-translate="lunch">Lunch</span></span>
+                            </div>
+                            <div class="day-content">
+                                <p data-translate="combined-6day-day6-morning"><strong>Morning:</strong> Sailing along Yacuma River to watch squirrel monkeys (chichilos) and final wildlife observation.</p>
+                                <p data-translate="combined-6day-day6-late-morning"><strong>Late Morning:</strong> Last photography opportunities and wildlife viewing.</p>
+                                <p data-translate="combined-6day-day6-midday"><strong>Midday:</strong> Lunch at the lodge.</p>
+                                <p data-translate="combined-6day-day6-afternoon"><strong>Afternoon:</strong> Return drive to Rurrenabaque. Arrival around 5:00 PM.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="bring-categories">
-                <div class="bring-category">
-                    <div class="category-icon">
-                        <i class="fas fa-tshirt"></i>
+            <!-- Important Notes -->
+            <div class="itinerary-notes">
+                <div class="notes-grid">
+                    <div class="note-item">
+                        <h4><i class="fas fa-info-circle"></i> <span data-translate="notes-important-title">Important Notes</span></h4>
+                        <ul>
+                            <li data-translate="notes-important-1">All departure times are approximate and may vary due to weather conditions</li>
+                            <li data-translate="notes-important-2">Wildlife sightings cannot be guaranteed as animals are in their natural habitat</li>
+                            <li data-translate="notes-important-3">Itineraries may be adjusted based on weather, river conditions, and group preferences</li>
+                            <li data-translate="notes-important-4">Meals are indicated as: B = Breakfast, L = Lunch, D = Dinner</li>
+                        </ul>
                     </div>
-                    <h3 data-translate="bring-clothing-title">Clothing & Protection</h3>
-                    <p data-translate="bring-clothing-desc">Essential gear for comfort and safety in the Amazon environment.</p>
-                    <ul>
-                        <li data-translate="bring-clothing-1">Long-sleeved shirts and pants (quick-dry)</li>
-                        <li data-translate="bring-clothing-2">Light rain jacket or poncho</li>
-                        <li data-translate="bring-clothing-3">Hat with brim and walking shoes</li>
-                        <li data-translate="bring-clothing-4">Waterproof sandals and swimwear</li>
-                        <li data-translate="bring-clothing-5">Insect repellent and sunscreen</li>
-                    </ul>
-                </div>
-                
-                <div class="bring-category">
-                    <div class="category-icon">
-                        <i class="fas fa-shield-alt"></i>
+                    <div class="note-item">
+                        <h4><i class="fas fa-leaf"></i> <span data-translate="notes-eco-title">Eco-Friendly Practices</span></h4>
+                        <ul>
+                            <li data-translate="notes-eco-1">Leave no trace principles apply to all activities</li>
+                            <li data-translate="notes-eco-2">Use biodegradable toiletries only</li>
+                            <li data-translate="notes-eco-3">Respect wildlife - maintain safe distances</li>
+                            <li data-translate="notes-eco-4">Support local communities through our responsible tourism practices</li>
+                        </ul>
                     </div>
-                    <h3 data-translate="bring-health-title">Health & Safety</h3>
-                    <p data-translate="bring-health-desc">Important health items to ensure your comfort during the tour.</p>
-                    <ul>
-                        <li data-translate="bring-health-1">Personal first aid kit and medications</li>
-                        <li data-translate="bring-health-2">Sunglasses and biodegradable toiletries</li>
-                        <li data-translate="bring-health-3">Hand sanitizer for hygiene</li>
-                        <li data-translate="bring-health-4">Prescription medications you need</li>
-                        <li data-translate="bring-health-5">Motion sickness medication if needed</li>
-                    </ul>
                 </div>
-                
-                <div class="bring-category">
-                    <div class="category-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <h3 data-translate="bring-equipment-title">Equipment & Accessories</h3>
-                    <p data-translate="bring-equipment-desc">Recommended equipment to enhance your Amazon experience.</p>
-                    <ul>
-                        <li data-translate="bring-equipment-1">Camera with extra batteries and memory</li>
-                        <li data-translate="bring-equipment-2">Binoculars for wildlife observation</li>
-                        <li data-translate="bring-equipment-3">Flashlight or headlamp with batteries</li>
-                        <li data-translate="bring-equipment-4">Power bank and waterproof bags</li>
-                        <li data-translate="bring-equipment-5">Small backpack and quick-dry towel</li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="bring-note">
-                <p><i class="fas fa-lightbulb"></i> <strong data-translate="bring-pro-tip">Pro Tip:</strong> <span data-translate="bring-tip-text">Pack light! Laundry service is available at both ecolodges.</span></p>
             </div>
         </div>
     </section>
@@ -778,27 +1242,6 @@
                 <p class="section-subtitle" data-translate="testimonials-subtitle">Real experiences from our satisfied travelers</p>
             </div>
             <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <div class="stars">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <p>"An absolutely incredible experience! The guides from Bala Tours were so knowledgeable about the wildlife and plants. Swimming with pink dolphins was a dream come true. The ecolodges were comfortable and the food was excellent."</p>
-                        <div class="testimonial-author">
-                            <div class="author-info">
-                                <span class="country-flag">🇺🇸</span>
-                                <div class="author-details">
-                                    <strong>Sarah Johnson</strong>
-                                    <span>United States</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="testimonial-card">
                     <div class="testimonial-content">
                         <div class="stars">
@@ -836,6 +1279,48 @@
                                 <div class="author-details">
                                     <strong>Emily Chen</strong>
                                     <span>Canada</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"Swimming with pink dolphins was a dream come true! The Pampas tour exceeded every expectation. Our guide was knowledgeable and passionate about conservation. This is sustainable tourism at its finest."</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <span class="country-flag">🇺🇸</span>
+                                <div class="author-details">
+                                    <strong>Sarah Johnson</strong>
+                                    <span>United States</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="stars">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p>"The 6-day combined tour was absolutely incredible. From macaws in Madidi to anacondas in the Pampas - we saw it all! The ecolodges were comfortable and the food was surprisingly delicious. Highly recommend!"</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <span class="country-flag">🇳🇱</span>
+                                <div class="author-details">
+                                    <strong>Jan van der Berg</strong>
+                                    <span>Netherlands</span>
                                 </div>
                             </div>
                         </div>
@@ -930,7 +1415,7 @@
                         <i class="fas fa-phone"></i>
                         <div>
                             <h3 data-translate="contact-phone">Phone / WhatsApp</h3>
-                            <p>+591 3 892 2527<br>+591 712 45281</p>
+                            <p>+591 712 45281</p>
                         </div>
                     </div>
                     
@@ -938,7 +1423,7 @@
                         <i class="fas fa-envelope"></i>
                         <div>
                             <h3 data-translate="contact-email">Email</h3>
-                            <p>info@balatours.com<br>reservas@balatours.com</p>
+                            <p>info@balatours.bo</p>
                         </div>
                     </div>
                     
@@ -978,7 +1463,7 @@
                                 <i class="fas fa-map-marked-alt"></i>
                                 <span>Read our TripAdvisor reviews</span>
                             </a>
-                            <a href="https://wa.me/59174089818?text=Hello! I'm interested in booking a tour with Bala Tours. Could you please provide more information?" target="_blank" class="social-link whatsapp">
+                            <a href="https://wa.me/59171245281?text=Hello! I'm interested in booking a tour with Bala Tours. Could you please provide more information?" target="_blank" class="social-link whatsapp">
                                 <i class="fab fa-whatsapp"></i>
                                 <span>Chat on WhatsApp</span>
                             </a>
@@ -1009,7 +1494,7 @@
                     <div class="whatsapp-booking">
                         <h3><i class="fab fa-whatsapp"></i><span data-translate="contact-booking">Quick Booking</span></h3>
                         <p data-translate="contact-booking-text">Send us a message on WhatsApp for instant booking and tour information.</p>
-                        <a href="https://wa.me/59138922527?text=Hello! I'm interested in booking a tour with Bala Tours. Could you please provide more information?" 
+                        <a href="https://wa.me/59171245281?text=Hello! I'm interested in booking a tour with Bala Tours. Could you please provide more information?" 
                            class="btn btn-whatsapp btn-large" target="_blank">
                             <i class="fab fa-whatsapp"></i> <span data-translate="contact-whatsapp-btn">Message us on WhatsApp</span>
                         </a>
@@ -1046,7 +1531,7 @@
                         <a href="https://www.tripadvisor.com/Attraction_Review-g303188-d4404677-Reviews-Bala_Tours_Ecolodges-Rurrenabaque_Beni_Department.html" target="_blank" class="footer-social-link">
                             <i class="fas fa-map-marked-alt"></i>
                         </a>
-                        <a href="https://wa.me/59174089818?text=Hello! I'm interested in booking a tour with Bala Tours. Could you please provide more information?" target="_blank" class="footer-social-link">
+                        <a href="https://wa.me/59171245281?text=Hello! I'm interested in booking a tour with Bala Tours. Could you please provide more information?" target="_blank" class="footer-social-link">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -1062,8 +1547,8 @@
                 </div>
                 <div class="footer-contact">
                     <h4 data-translate="footer-contact-info">Contact Information</h4>
-                    <p><i class="fas fa-phone"></i> +591 3 892 2527</p>
-                    <p><i class="fas fa-envelope"></i> info@balatours.com</p>
+                    <p><i class="fas fa-phone"></i> +591 712 45281</p>
+                    <p><i class="fas fa-envelope"></i> info@balatours.bo</p>
                     <p><i class="fas fa-map-marker-alt"></i> Rurrenabaque, Bolivia</p>
                 </div>
             </div>
