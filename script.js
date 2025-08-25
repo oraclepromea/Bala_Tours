@@ -820,7 +820,7 @@ class LanguageManager {
                 // Ecolodges Section
                 'ecolodges-title': 'Our Ecolodges',
                 'ecolodges-subtitle': 'Comfortable accommodation in harmony with nature',
-                'ecolodge-pampas-title': 'Pampas Eco Lodge',
+                'ecolodge-pampas-title': 'Caracoles Ecolodge',
                 'ecolodge-pampas-location': 'Santa Rosa, Pampas',
                 'ecolodge-pampas-description': 'Rustic wooden lodge on stilts overlooking the Yacuma River, designed to blend harmoniously with the wetland environment.',
                 'ecolodge-madidi-title': 'Tacuaral Ecolodge',
