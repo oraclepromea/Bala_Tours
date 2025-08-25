@@ -1294,10 +1294,10 @@ class LanguageManager {
                 // Ecolodges Section - Spanish
                 'ecolodges-title': 'Nuestros Ecolodges',
                 'ecolodges-subtitle': 'Alojamiento cómodo en armonía con la naturaleza',
-                'ecolodge-pampas-title': 'Ecolodge de los Pampas',
+                'ecolodge-pampas-title': 'Ecolodge Caracoles',
                 'ecolodge-pampas-location': 'Santa Rosa, Pampas',
                 'ecolodge-pampas-description': 'Alojamiento rústico de madera sobre pilotes con vista al río Yacuma, diseñado para mezclarse armoniosamente con el ambiente de humedales.',
-                'ecolodge-madidi-title': 'Ecolodge del Bosque Madidi',
+                'ecolodge-madidi-title': 'Ecolodge Tacuaral',
                 'ecolodge-madidi-location': 'Parque Nacional Madidi',
                 'ecolodge-madidi-description': 'Alojamiento ecológico en lo profundo del bosque, construido con materiales sostenibles y alimentado por energía solar.',
                 'feature-beds': 'Camas cómodas con mosquiteros',
