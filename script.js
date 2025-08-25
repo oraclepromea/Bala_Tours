@@ -127,7 +127,7 @@ Best regards,
 ${bookingData.name}
                 `);
                 
-                window.location.href = `mailto:info@balatours.com.bo?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:balatours@yahoo.com?subject=${subject}&body=${body}`;
                 
                 // Reset form
                 this.reset();
@@ -823,7 +823,7 @@ class LanguageManager {
                 'ecolodge-pampas-title': 'Pampas Eco Lodge',
                 'ecolodge-pampas-location': 'Santa Rosa, Pampas',
                 'ecolodge-pampas-description': 'Rustic wooden lodge on stilts overlooking the Yacuma River, designed to blend harmoniously with the wetland environment.',
-                'ecolodge-madidi-title': 'Madidi Rainforest Lodge',
+                'ecolodge-madidi-title': 'Tacuaral Ecolodge',
                 'ecolodge-madidi-location': 'Madidi National Park',
                 'ecolodge-madidi-description': 'Eco-friendly lodge deep in the rainforest, built with sustainable materials and powered by solar energy.',
                 'feature-beds': 'Comfortable beds with mosquito nets',
@@ -1939,7 +1939,7 @@ class AnimationObserver {
 // WhatsApp Integration
 class WhatsAppIntegration {
     constructor() {
-    this.phoneNumber = '+59171245281'; // Replace with actual WhatsApp number
+        this.phoneNumber = '+59171234567'; // Replace with actual WhatsApp number
         this.init();
     }
 
