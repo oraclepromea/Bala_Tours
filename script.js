@@ -127,7 +127,7 @@ Best regards,
 ${bookingData.name}
                 `);
                 
-                window.location.href = `mailto:balatours@yahoo.com?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:info@balatours.com.bo?subject=${subject}&body=${body}`;
                 
                 // Reset form
                 this.reset();

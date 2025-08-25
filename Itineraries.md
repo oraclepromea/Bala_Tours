@@ -1,7 +1,7 @@
 
  
 Móvil. phone. (+591) 74089818-71122053-71245281 
-E-mail: balatours@yahoo.com. Web site: www.balatours.com o www.amazon-tour.org  
+E-mail: info@balatours.com.bo. Web site: www.balatours.com o www.amazon-tour.org  
 Santa Cruz Street  s/n. 
 Rurrenabaque - Beni – Bolivia – Sud América 
  
