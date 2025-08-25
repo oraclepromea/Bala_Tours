@@ -1939,7 +1939,7 @@ class AnimationObserver {
 // WhatsApp Integration
 class WhatsAppIntegration {
     constructor() {
-        this.phoneNumber = '+59171234567'; // Replace with actual WhatsApp number
+    this.phoneNumber = '+59171245281'; // Replace with actual WhatsApp number
         this.init();
     }
 
