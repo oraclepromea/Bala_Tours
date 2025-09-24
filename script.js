@@ -639,7 +639,7 @@ function calculateTourPrice(tour, groupSize, duration) {
         'madidi-2day': 200,
         'madidi-3day': 280,
         'pampas-2day': 180,
-        'pampas-3day': 260,
+        'pampas-3day': 300,
         'pampas-4day': 340,
         'combined-5day': 440,
         'combined-6day': 520,
@@ -864,7 +864,7 @@ class LanguageManager {
                 'pampas-difficulty': 'Easy to Moderate',
                 'pampas-group': 'Up to 8 people',
                 'pampas-includes': 'Transportation, accommodation, all meals, guide, activities',
-                'pampas-price': 'From $180 USD per person',
+                'pampas-price': 'From $240 USD per person',
 
                 'combined-badge': 'Best Value',
                 'combined-title': 'Complete Amazon Experience',
